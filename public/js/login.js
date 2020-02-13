@@ -3,7 +3,8 @@ let hasErrorMsg = false;
 
 let userInput = document.getElementById('userInput');
 let userLogin = document.getElementById('userLogin');
-let preGenUserCodes = [129,123,234,765];
+
+let preGenUserCodes = [129,123,234,765]; // Test array
 
 
 function loginUser() {
@@ -14,7 +15,8 @@ function loginUser() {
 	    return;
 	}
     }
-
+    
+    // För att error-paragrafen endast ska printas en gång.
     if (!hasErrorMsg) {
 	
 	let errorMsg = document.createElement('p');
