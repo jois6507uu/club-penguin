@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans&display=swap');
+
+body {
+	margin: auto;
+	background-color: #F2D7EE;
+	font-family: 'Open Sans', sans-serif;
+}
+
+h2 {
+	color: black;
+}
+
+header {
+    width: 100%;
+    height: 300px;
+    position: relative;
+    background-color: purple;
+}
+
+.errorMessage {
+    font-weight: bold;
+    color: red;
+}
