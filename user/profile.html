@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <title>ProfilePage</title>
   <link rel="stylesheet" href="style/PPstyle.css">
+  <script src="https://vuejs.org/js/vue.js" defer></script>
   <script src="script/PPscript.js" defer></script>
 </head>
 <body>
@@ -12,17 +13,19 @@
       <img src="style/picture1.png" width="260">
     </div>
   </header>
-  <main>
+  <main id="myID">
     <div id="profileQuestion">
-      <label for="Namn">Ditt namn:</label><br>
-        <input type="text" id="Namn" name="Namn" required="required" placeholder="Namn"><br>
-      <label for="Ålder">Din ålder:</label><br>
-        <input type="text" id="Ålder" name="Ålder" required="required" placeholder="Ålder"><br>
-      <label for="gender" id="genderButtons">Your gende</label><br>
-        <input type="radio" name="gender" value="male" checked="checked"> Man<br>
-        <input type="radio" name="gender" value="female"> Kvinna<br>
-        <input type="radio" name="gender" value="other"> Annat<br>
+      <label class="textklass" for="Namn">Ditt namn:</label><br>
+        <input type="text" v-model="name" id="Namn" name="Namn" required="required" placeholder="Namn"><br>
+      <label class="textklass" for="Ålder">Din ålder:</label><br>
+        <input type="text" v-model="age" id="Ålder" name="Ålder" required="required" placeholder="Ålder"><br>
+      <label class="textklass" for="gender" id="genderButtons">Ditt kön:</label><br>
+        <input type="radio" v-model="gender" id="radio" name="gender" value="Man" checked="checked">Man<br>
+        <input type="radio" v-model="gender" id="radio" name="gender" value="Kvinna"> Kvinna<br>
     </div>
+    <footer>
+      <input type="button" v-on:click="profileDone()" id="doneButton" value="Nästa">
+    </footer>
   </main>
 </body>
 </html>
