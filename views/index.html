@@ -2,9 +2,32 @@
 <html>
   <head>
     <title>Club Penguin</title>
+    <link rel="stylesheet" type="text/css" href="css/globalstyle.css">
+    <link rel="stylesheet" type="text/css" href="css/login.css">
+    <script src="js/login.js" defer></script>
   </head>
-  
   <body>
-    
+    <header>
+      <div class="topbar">
+	<img src="img/aubergine_logo.png" width="260">
+	<input type="button" value="Admin" id="adminBtn">
+      </div>
+    </header>
+    <main>
+      <div id="overlay"></div>
+
+      <section id="userLogin">
+	
+	<h2>Skriv in din tilldelade kod:</h2>
+	  <input id="userInput" type="text" name="userCode" placeholder="Din kod ..." required="required"><br>
+	  <input type="submit" value="Fortsätt" id="userBtn" onclick="loginUser()">
+
+
+      </section>
+
+   
+    </main>
+    <footer>
+    </footer>
   </body>
 </html>

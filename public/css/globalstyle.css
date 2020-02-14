@@ -6,6 +6,7 @@ body {
 .topbar {
     background-color: purple;
     padding: 0;
+    position: relative;
 }
 
 footer {
@@ -15,4 +16,9 @@ footer {
     bottom: 10px;
     width: 100%;
     overflow: hidden;
+}
+
+.errorMessage {
+    font-weight: bold;
+    color: red;
 }
