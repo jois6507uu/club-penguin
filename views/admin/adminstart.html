@@ -3,7 +3,7 @@
   <head>
     <title>Club Penguin</title>
     <link rel="stylesheet" type="text/css" href="/css/globalstyle.css">
-    <link rel="stylesheet" type="text/css" href="/css/login.css">
+    <link rel="stylesheet" type="text/css" href="/css/index.css">
     <link rel="stylesheet" type="text/css" href="/css/adminstart.css">
     <script src="/js/global.js" defer></script>
     <script src="/js/adminstart.js" defer></script>
@@ -27,7 +27,9 @@
 	<label for="eventPopulation">Antal deltagare</label><br>
 	<input type="number" id="eventPopulation">
 	<p class="errorMessage" id="createEventError"></p>
-	<button class="button" id="createEventButton" onclick="createNewEvent()">Skapa event</button>
+	<button class="button" id="createEventButton" onclick="createNewEvent()">Skapa event</button><br>
+	<button class="button" id="clodeEventButton" onclick="hideCreateEvent()">Stäng</button>
+	
       </div>
       <div id="currentEvents">
 	<h2>Pågående events</h2>

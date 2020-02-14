@@ -22,14 +22,6 @@ app.use('/vue',
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, 'views/index.html'));
 });
-// Serve map.html as /map
-app.get('/map', function(req, res) {
-  res.sendFile(path.join(__dirname, 'views/map.html'));
-});
-// Serve dispatcher.html as /dispatcher
-app.get('/dispatcher', function(req, res) {
-  res.sendFile(path.join(__dirname, 'views/dispatcher.html'));
-});
 
 
 app.get('/user', function(req, res) {
@@ -38,6 +30,10 @@ app.get('/user', function(req, res) {
 
 app.get('/admin/start', function(req, res) {
   res.sendFile(path.join(__dirname, 'views/admin/adminstart.html'));
+});
+
+app.get('/admin/eventview', function(req, res) {
+  res.sendFile(path.join(__dirname, 'views/admin/eventview.html'));
 });
 
 
