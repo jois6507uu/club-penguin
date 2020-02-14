@@ -1,0 +1,17 @@
+#eventCreation {
+    text-align: center;
+}
+
+#createNewBtn {
+    padding: 50px 150px;
+    font-size: 50px;
+    font-family: sans-serif;
+    color: yellow;
+    background-color: purple;
+    border: none;
+}
+
+#createNewBtn:hover {
+    background-color: indigo;
+    cursor: pointer;
+}

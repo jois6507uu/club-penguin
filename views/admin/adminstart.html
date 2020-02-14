@@ -3,15 +3,34 @@
   <head>
     <title>Club Penguin</title>
     <link rel="stylesheet" type="text/css" href="/css/globalstyle.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+    <link rel="stylesheet" type="text/css" href="/css/adminstart.css">
+    <script src="/js/adminstart.js" defer></script>
   </head>
   <body>
     <header>
       <div class="topbar">
 	<img src="/img/aubergine_logo.png" width="260">
+	<input type="button" value="Logga ut" id="adminBtn" onclick="showAdminLogin()">
       </div>
     </header>
     <main>
-      Temporary page after admin login!
+      <div id="eventCreation">
+	<h1>Events</h1>
+	<input type="button" value="Skapa nytt" id="createNewBtn" onclick="">
+      </div>
+      <div class="popup" id="createEventPopup">
+	<h2>Skapa event</h2>
+	<label for="eventName">Eventets namn</label><br>
+	<input type="text" id="eventName"required><br>
+	<label for="eventPopulation">Antal deltagare</label><br>
+	<input type="number" id="eventPopulation">
+	<p class="errorMessage" id="createEventError"></p>
+	<button class="button" id="createEvenButton" type="button" onclick="">Skapa event</button>
+      </div>
+      <div id="currentEvents">
+	
+      </div>
     </main>
     <footer>
     </footer>
