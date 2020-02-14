@@ -1,16 +1,8 @@
 
-let hasErrorMsg = false;
 let preGenUserCodes = [129,123,234,765]; // Test array
 let preGenAdminLogin = ["admin", "password"];
 
-// node måste vara en node och erroMsg en sträng, printar bara om noden inte redan har en node
-function printErrorMsg(node, errorMsg) {
-    if (!node.hasChildNodes()) {
-	console.log("node has child")
-	let errorTxt = document.createTextNode(errorMsg);
-	node.appendChild(errorTxt);
-    }
-}
+
 
 function loginUser() {
     let userInput = document.getElementById('userInput');
