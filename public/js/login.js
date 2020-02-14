@@ -1,13 +1,12 @@
 
 let hasErrorMsg = false;
-
-let userInput = document.getElementById('userInput');
-let userLogin = document.getElementById('userLogin');
-
 let preGenUserCodes = [129,123,234,765]; // Test array
 
 
 function loginUser() {
+    let userInput = document.getElementById('userInput');
+    let userLogin = document.getElementById('userLogin');
+    
     for (let code of preGenUserCodes) {
 	if (userInput.value == code) {
 	    // goto next page'
@@ -34,3 +33,12 @@ function loginUser() {
 
 }
 
+function showAdminLogin() {
+    let popup = document.getElementById('adminLoginPopup');
+    popup.style.display = "block";
+}
+
+function closeAdminLogin() {
+    let popup = document.getElementById('adminLoginPopup');
+    popup.style.display = "none";
+}

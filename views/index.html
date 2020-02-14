@@ -10,7 +10,7 @@
     <header>
       <div class="topbar">
 	<img src="img/aubergine_logo.png" width="260">
-	<input type="button" value="Admin" id="adminBtn">
+	<input type="button" value="Admin" id="adminBtn" onclick="showAdminLogin()">
       </div>
     </header>
     <main>
@@ -25,6 +25,15 @@
 
       </section>
 
+      <form id="adminLoginPopup">
+	<h2>Logga in som administratör</h2>
+	<label for="adminUsername">Användarnamn</label><br>
+	<input type="text" id="adminUsername" required><br>
+	<label for="adminPassword">Lösenord</label><br>
+	<input type="password" id="adminPassword" required><br>
+	<button class="button" id="loginBtn" type="submit" onclick="loginAdmin()">Logga in</button><br>
+	<button class="button" id="closeBtn" type="button" onclick="closeAdminLogin()">Stäng</button>
+      </form>
    
     </main>
     <footer>
