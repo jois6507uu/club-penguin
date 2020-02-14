@@ -1,11 +1,21 @@
 
 let hasErrorMsg = false;
 let preGenUserCodes = [129,123,234,765]; // Test array
+let preGenAdminLogin = ["admin", "password"];
 
+// node måste vara en node och erroMsg en sträng, printar bara om noden inte redan har en node
+function printErrorMsg(node, errorMsg) {
+    if (!node.hasChildNodes()) {
+	console.log("node has child")
+	let errorTxt = document.createTextNode(errorMsg);
+	node.appendChild(errorTxt);
+    }
+}
 
 function loginUser() {
     let userInput = document.getElementById('userInput');
     let userLogin = document.getElementById('userLogin');
+    let errorMsgNode = document.getElementById('userError');
     
     for (let code of preGenUserCodes) {
 	if (userInput.value == code) {
@@ -14,21 +24,7 @@ function loginUser() {
 	    return;
 	}
     }
-    
-    // För att error-paragrafen endast ska printas en gång.
-    if (!hasErrorMsg) {
-	
-	let errorMsg = document.createElement('p');
-	let errorTxt = document.createTextNode("Ogiltig kod!")
-
-	errorMsg.className = "errorMessage";
-	
-	errorMsg.appendChild(errorTxt);
-	userLogin.appendChild(errorMsg);
-
-	hasErrorMsg = true;
-    }
-
+    printErrorMsg(errorMsgNode,"Ogitltig kod!");
     userInput.value = "";
 
 }
@@ -40,5 +36,24 @@ function showAdminLogin() {
 
 function closeAdminLogin() {
     let popup = document.getElementById('adminLoginPopup');
+    let errorMsg = document.getElementById('adminError');
     popup.style.display = "none";
+    if (errorMsg.childNodes[0]) {
+	errorMsg.removeChild(errorMsg.childNodes[0]);
+    }
+}
+
+function loginAdmin() {
+    let adminUsername = document.getElementById('adminUsername');
+    let adminPassword = document.getElementById('adminPassword');
+    let errorMsgNode = document.getElementById('adminError');
+    
+    if (preGenAdminLogin[0] == adminUsername.value && preGenAdminLogin[1] == adminPassword.value) {
+	window.location.href = "http://localhost:3000/admin/start"
+    } else {
+	printErrorMsg(errorMsgNode, "Felaktigt lösenord");
+	adminUsername.value = "";
+	adminPassword.value = "";
+    }
+    
 }

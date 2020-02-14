@@ -2,14 +2,14 @@
 <html>
   <head>
     <title>Club Penguin</title>
-    <link rel="stylesheet" type="text/css" href="css/globalstyle.css">
-    <link rel="stylesheet" type="text/css" href="css/login.css">
-    <script src="js/login.js" defer></script>
+    <link rel="stylesheet" type="text/css" href="/css/globalstyle.css">
+    <link rel="stylesheet" type="text/css" href="/css/login.css">
+    <script src="/js/login.js" defer></script>
   </head>
   <body>
     <header>
       <div class="topbar">
-	<img src="img/aubergine_logo.png" width="260">
+	<img src="/img/aubergine_logo.png" width="260">
 	<input type="button" value="Admin" id="adminBtn" onclick="showAdminLogin()">
       </div>
     </header>
@@ -19,21 +19,22 @@
       <section id="userLogin">
 	
 	<h2>Skriv in din tilldelade kod:</h2>
-	  <input id="userInput" type="text" name="userCode" placeholder="Din kod ..." required="required"><br>
-	  <input type="submit" value="Fortsätt" id="userBtn" onclick="loginUser()">
-
+	<input id="userInput" type="text" name="userCode" placeholder="Din kod ..." required="required"><br>
+	<input type="submit" value="Fortsätt" id="userBtn" onclick="loginUser()">
+	<p class="errorMessage" id="userError"></p>
 
       </section>
 
-      <form id="adminLoginPopup">
+      <div id="adminLoginPopup">
 	<h2>Logga in som administratör</h2>
 	<label for="adminUsername">Användarnamn</label><br>
 	<input type="text" id="adminUsername" required><br>
 	<label for="adminPassword">Lösenord</label><br>
 	<input type="password" id="adminPassword" required><br>
 	<button class="button" id="loginBtn" type="submit" onclick="loginAdmin()">Logga in</button><br>
+	<p class="errorMessage" id="adminError"></p>
 	<button class="button" id="closeBtn" type="button" onclick="closeAdminLogin()">Stäng</button>
-      </form>
+      </div>
    
     </main>
     <footer>
