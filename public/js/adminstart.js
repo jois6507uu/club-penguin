@@ -1,3 +1,31 @@
+'use strict';
+const socket = io();
+
+
+
+
+function Event(eventName, eventPopulation) {
+    this.eventName = eventName;
+    this.eventPopulation = eventPopulation;
+}
+
+
+// Tried to pass username from earlier page to get information about the admin events, needs a onload property in body of adminstart.html that calls on getUserName().
+
+/*
+function getUsername() {
+    console.log(sessionStorage.getItem("username"));
+    onLoad(sessionStorage.getItem("username"));
+}
+
+function onLoad(adminUsername) {
+    socket.emit('loadAdminProfile', adminUsername.value);
+    
+    socket.on('getAdminProfile', function(profile) {
+	console.log(profile);
+    });
+}
+*/
 
 function logout() {
     window.location.href = "http://localhost:3000/";
@@ -52,5 +80,12 @@ function initEvent(eventName, eventPopulation) {
 
 function goToEvent(eventName, eventPopulation) {
     // CREATE EVENT AND PUT THINGS INTO DATABASE
+
+    let event = new Event(eventName, eventPopulation);
+    
+
+    socket.emit('addEvent', event);
+    
+    
     window.location.href = "http://localhost:3000/admin/eventview";
 }

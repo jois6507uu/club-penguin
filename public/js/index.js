@@ -1,8 +1,7 @@
+'use strict';
+const socket = io();
 
 let preGenUserCodes = [129,123,234,765]; // Test array
-let preGenAdminLogin = ["admin", "password"];
-
-
 
 function loginUser() {
     let userInput = document.getElementById('userInput');
@@ -40,12 +39,20 @@ function loginAdmin() {
     let adminPassword = document.getElementById('adminPassword');
     let errorMsgNode = document.getElementById('adminError');
     
-    if (preGenAdminLogin[0] == adminUsername.value && preGenAdminLogin[1] == adminPassword.value) {
-	window.location.href = "http://localhost:3000/admin/start"
-    } else {
-	printErrorMsg(errorMsgNode, "Felaktigt lösenord");
-	adminUsername.value = "";
-	adminPassword.value = "";
-    }
-    
+    socket.emit('checkLogin', adminUsername.value, adminPassword.value);
+
+    socket.on('adminLoginRes', function(loginOk) {
+	let login = loginOk;
+	
+	if (login) {
+	    //sessionStorage.setItem("username", adminUsername.value);   Tried to store username in global storage to have access to it in another page
+	    window.location.href = "http://localhost:3000/admin/start";
+	    
+	} else {
+	    printErrorMsg(errorMsgNode, "Felaktigt lösenord");
+	    adminUsername.value = "";
+	    adminPassword.value = "";
+	}
+    });
+        
 }
