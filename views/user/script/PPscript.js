@@ -1,5 +1,5 @@
 const vm = new Vue({
-  el: '#myID',
+  el: '#profileID',
   data: {
     name: "",
     age: "",
@@ -15,7 +15,7 @@ const vm = new Vue({
       for(let i = 0; i<3; i++){
         console.log(profile[i]);
       }
-      window.location='http://www.google.com';
+      window.location='questions.html';
     } else {
       alert("Vänligen fyll i alla rutor");
     }
