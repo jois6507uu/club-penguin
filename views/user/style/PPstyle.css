@@ -1,0 +1,42 @@
+
+
+#profileQuestion{
+  text-align: center;
+  font-size: 76px;
+}
+
+.textklass{
+  display: inline-block;
+  margin-top: 40px;
+}
+
+
+input[type="radio"]{
+width: 40px;
+height:   40px;
+}
+
+#profilePic{
+  margin-top: 20px;
+}
+
+#Namn{
+  text-align: center;
+  font-size: 76px;
+}
+
+#Ålder{
+  text-align: center;
+  font-size: 76px;
+}
+
+#doneButton{
+  background-color: blue;
+  border: none;
+  color: white;
+  padding: 54px 150px;
+  text-decoration: none;
+  font-size: 56px;
+  margin: 4px 2px;
+  cursor: pointer;
+}

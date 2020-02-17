@@ -1,0 +1,62 @@
+
+
+#profileQuestion{
+    text-align: center;
+    font-size: 50px;
+  }
+  
+  .fragor{
+    display: inline-block;
+    margin-top: 120px;
+    font-weight: bold;
+  }
+
+  
+  .staminte{
+      margin-left: 100px;
+      float: left;
+  }
+
+  .stammer{
+      margin-right: 100px;
+      float: right;
+  }
+  
+  input[type="radio"]{
+  /* width: 60px; */
+  width: 60px;
+  height:   60px;
+  /* height: ; */
+  }
+
+  .dropdown{
+      /* width: 150px; */
+      font-size: 50px;
+  }
+
+  .dropdownChoice{
+      /* font-size: 50px; */
+      max-width: 70px;
+  }
+  
+  #Namn{
+    text-align: center;
+    font-size: 76px;
+  }
+  
+  #Ålder{
+    text-align: center;
+    font-size: 76px;
+  }
+  
+  #doneButton{
+    background-color: blue;
+    border: none;
+    color: white;
+    padding: 54px 150px;
+    text-decoration: none;
+    font-size: 56px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+  
