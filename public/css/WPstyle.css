@@ -1,0 +1,14 @@
+
+
+#waitForHost{
+    font-weight: bolder;
+    text-align: center;
+    padding-top: 100px;
+    font-size: 75px;
+}
+
+#smallTips{
+    text-align: center;
+    font-size: 50px;
+    font-style: italic;
+}
