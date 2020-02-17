@@ -7,13 +7,17 @@
 
 .textklass{
   display: inline-block;
-  margin-top: 120px;
+  margin-top: 40px;
 }
 
 
 input[type="radio"]{
 width: 40px;
 height:   40px;
+}
+
+#profilePic{
+  margin-top: 20px;
 }
 
 #Namn{

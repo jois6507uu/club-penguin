@@ -9,7 +9,7 @@ const vm = new Vue({
     profileDone: function(){
       let namn = this.name;
       let ålder = this.age;
-      if(namn.length > 0 && ålder.length > 0){
+      if(namn.length > 0 && ålder > 0){
       let kön = this.gender;
       let profile = [namn,ålder,kön];
       for(let i = 0; i<3; i++){
