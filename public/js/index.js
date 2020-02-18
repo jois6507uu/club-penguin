@@ -11,7 +11,7 @@ function loginUser() {
     for (let code of preGenUserCodes) {
 	if (userInput.value == code) {
 	    // goto next page'
-	    window.location.href = "http://localhost:3000/user";
+	    window.location.href = "http://localhost:3000/user/profile";
 	    return;
 	}
     }

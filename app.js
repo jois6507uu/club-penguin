@@ -27,8 +27,13 @@ app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'views/index.html'));
 });
 
-app.get('/user', function(req, res) {
-  res.sendFile(path.join(__dirname, 'views/user/user.html'));
+
+app.get('/user/profile', function(req, res) {
+  res.sendFile(path.join(__dirname, 'views/user/profile.html'));
+});
+
+app.get('/user/questions', function(req, res) {
+  res.sendFile(path.join(__dirname, 'views/user/questions.html'));
 });
 
 app.get('/admin/start', function(req, res) {
