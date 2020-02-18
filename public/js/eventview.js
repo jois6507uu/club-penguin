@@ -40,5 +40,18 @@ function createUserContainer(view) {
     let container = document.createElement('div');
     container.setAttribute('class', 'user');
     
+    let imageContainer = document.createElement('img');
+    imageContainer.src = '/img/profile2.jpeg';
+    
+    let textContainer = document.createElement('p');
+    
+    /// Måste hämta info om alla användare här! ///
+    let text = document.createTextNode('Namn, ålder');
+
+    textContainer.setAttribute("class", "userText");
+    textContainer.appendChild(text);
+
+    container.appendChild(imageContainer);
+    container.appendChild(textContainer);
     view.appendChild(container);
 }
