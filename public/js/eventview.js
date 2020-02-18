@@ -13,8 +13,6 @@ function initEventView() {
 	initTables(eventData);
 	initUsers(eventData);
     });
- 
-    
 }
 
 function initTables(eventPopulation) {
@@ -41,5 +39,6 @@ function createTableContainer(view) {
 function createUserContainer(view) {
     let container = document.createElement('div');
     container.setAttribute('class', 'user');
+    
     view.appendChild(container);
 }
