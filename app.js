@@ -83,7 +83,7 @@ function Event() {
 Event.prototype.addEvent = function(event) {
     console.log("writing to file");
     let eventJSON = JSON.stringify(event);
-    fs.writeFileSync(event.eventName + '.json', eventJSON, 'utf8', function(error) {
+    fs.writeFileSync('database/admin/admin/' + event.eventName + '.json', eventJSON, 'utf8', function(error) {
 	if(error) {
 	    console.log('Could not write to file: ' + event.eventName + '.json');
 	}

@@ -45,8 +45,7 @@ function loginAdmin() {
 	let login = loginOk;
 	
 	if (login) {
-	    //sessionStorage.setItem("username", adminUsername.value);   Tried to store username in global storage to have access to it in another page
-	    window.location.href = "http://localhost:3000/admin/start";
+	    window.location.href = "http://localhost:3000/admin/start" + '#' + adminUsername.value;
 	    
 	} else {
 	    printErrorMsg(errorMsgNode, "Felaktigt lösenord");
