@@ -10,22 +10,20 @@ function Event(eventName, eventPopulation) {
 }
 
 
-// Tried to pass username from earlier page to get information about the admin events, needs a onload property in body of adminstart.html that calls on getUserName().
 
-/*
-function getUsername() {
-    console.log(sessionStorage.getItem("username"));
-    onLoad(sessionStorage.getItem("username"));
-}
 
-function onLoad(adminUsername) {
-    socket.emit('loadAdminProfile', adminUsername.value);
+
+function getEvents() {
+
+    let username = window.location.hash.substring(1);
     
-    socket.on('getAdminProfile', function(profile) {
-	console.log(profile);
+    socket.emit('loadEvents', username);
+    
+    socket.on('getEvents', function(events) {
+	console.log(events);
     });
 }
-*/
+
 
 function logout() {
     window.location.href = "http://localhost:3000/";

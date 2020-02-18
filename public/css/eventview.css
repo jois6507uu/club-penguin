@@ -1,0 +1,34 @@
+#mainView {
+    padding: 20px;
+    width: 75%;
+    display: grid;
+    float: left;
+    grid-gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+#sidebar {
+    padding: 10px;
+    width: 20%;
+    height: 70%;
+    display: grid;
+    float: right;
+    grid-gap: 10px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(10, 120px);
+    border-left: solid thick purple;
+    position: fixed;
+    overflow-y: scroll;
+    top: 5;
+    right: 0;
+}
+
+.table {
+    height: 200px;
+    background-color: white;
+}
+
+.user {
+    height: 120px;
+    background-color: white;
+}
