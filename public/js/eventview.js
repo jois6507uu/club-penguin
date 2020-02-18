@@ -1,6 +1,11 @@
 'use strict';
 const socket = io();
 
+function goBack() {
+    // ändra så att den går tillbaka till rätt adminsida
+    window.location.href = 'http://localhost:3000/admin/start#admin';
+}
+
 function initEventView() {
 
     let eventname  = window.location.hash.substring(1);
@@ -16,7 +21,7 @@ function initEventView() {
 }
 
 function initTables(eventPopulation) {
-    let view = document.getElementById('mainView');
+    let view = document.getElementById('tableGrid');
     for (let i = 0; i < eventPopulation / 2; ++i) {
 	createTableContainer(view);
     }
@@ -41,7 +46,7 @@ function createUserContainer(view) {
     container.setAttribute('class', 'user');
     
     let imageContainer = document.createElement('img');
-    imageContainer.src = '/img/profile2.jpeg';
+    imageContainer.src = '/img/aubergine_logo.png';
     
     let textContainer = document.createElement('p');
     

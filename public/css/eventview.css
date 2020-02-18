@@ -1,10 +1,17 @@
 #mainView {
     padding: 20px;
     width: 75%;
-    display: grid;
     float: left;
+}
+
+#tableGrid {
+    display: grid;
     grid-gap: 10px;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+#buttons {
+    float: down-left;
 }
 
 #sidebar {
@@ -29,17 +36,41 @@
 }
 
 .user {
-    
-    
-    
     position: relative;
     background-color: white;
     text-align: center;
 }
 
 .user img {
-    
     width: 100%;
     height: 80%;
     display: block;
+}
+
+#buttons {
+    margin-top: 20px;
+    display: grid;
+    grid-gap: 25px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+#buttons input {
+    background-color: indigo;
+    color: yellow;
+    font-size: 20px;
+    border: none;
+    height: 150px;
+}
+
+#goBackBtn {
+	margin-right: 20px;
+	padding: 12px 24px;
+	position: absolute;
+	right: 0;
+	top: 50%;
+	-ms-transform: translateY(-50%);
+	transform: translateY(-50%);
+	background-color: #A5668B;
+	border: none;
+	color: white;
 }
