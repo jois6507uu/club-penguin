@@ -85,5 +85,5 @@ function goToEvent(eventName, eventPopulation) {
     socket.emit('addEvent', event);
     
     
-    window.location.href = "http://localhost:3000/admin/eventview";
+    window.location.href = "http://localhost:3000/admin/eventview" + '#' + eventName;
 }

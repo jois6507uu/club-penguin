@@ -1,23 +1,32 @@
+'use strict';
+const socket = io();
 
 function initEventView() {
 
+    let eventname  = window.location.hash.substring(1);
+    let eventPopulation;
    
-    
-    initTables();
-    initUsers();
+    socket.emit('getEventData', eventname);
+
+    socket.on('eventDataResponse', function(eventData) {
+
+	initTables(eventData);
+	initUsers(eventData);
+    });
+ 
     
 }
 
-function initTables() {
+function initTables(eventPopulation) {
     let view = document.getElementById('mainView');
-    for (let i = 0; i < 10; ++i) {
+    for (let i = 0; i < eventPopulation / 2; ++i) {
 	createTableContainer(view);
     }
 }
 
-function initUsers() {
+function initUsers(eventPopulation) {
     let view = document.getElementById('sidebar');
-    for (let i = 0; i < 20; ++i) {
+    for (let i = 0; i < eventPopulation; ++i) {
 	createUserContainer(view);
     }
     
