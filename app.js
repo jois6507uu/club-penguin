@@ -67,6 +67,7 @@ function AdminUser() {
 
 AdminUser.prototype.checkLogin = function(username, password) {
     console.log("checking login");
+    // readFileSync verkar blockera signaler för andra server requests, om vi stöter på problem så kan vi ändra till vanlig readFile
     let data = fs.readFileSync('database/admin/users.json', 'utf8', function(err) {
 	if (err) {
             throw err;
@@ -82,18 +83,7 @@ AdminUser.prototype.checkLogin = function(username, password) {
     }
     return false;
 }
-/*
-AdminUser.prototype.loadAdminProfile = function(username) {
-    let data = fs.readFileSync('database/admin/' + username + '/info.json', 'utf8', function(err) {
-	if (err) {
-            throw err;
-	}
-    });
 
-    data = JSON.parse(data);
-    return data;
-}
-*/
 const adminuser = new AdminUser();
 
 
@@ -111,10 +101,25 @@ Event.prototype.addEvent = function(event) {
     });
 }
 
+Event.prototype.getEventData = function(eventname) {
+    console.log("reading data from " + eventname + ".json");
+
+    let data = fs.readFileSync('database/admin/admin/' + eventname + ".json", 'utf8', function(error) {
+	if (err) {
+            throw err;
+	}
+    });
+
+    data = JSON.parse(data);
+
+    return data.eventPopulation;
+}
+
 const event = new Event();
 
+
+////////////////////////////////////////// SOCKET.ON HÄR ////////////////////////////////
 io.on('connection', function(socket) {
-    // Send list of orders when a client connects
     socket.emit('initialize', {  });
     
     socket.on('checkLogin', function(username, password) {
@@ -128,18 +133,16 @@ io.on('connection', function(socket) {
 	}
 	
     });
-    /*
-    socket.on('loadAdminProfile', function (username) {
-	socket.emit('getAdminProfile', adminuser.loadAdminProfile(username));
-    });
-    */
+
     
-    // When a connected client emits an "addOrder" message
+    socket.on('getEventData', function(eventname) {
+	let eventData = event.getEventData(eventname);
+	socket.emit('eventDataResponse', eventData);
+    })
+    
     socket.on('addEvent', function(newEvent) {
 	event.addEvent(newEvent);
-	// send updated info to all connected clients,
-	// note the use of io instead of socket
-	io.emit('currentQueue', {  });
+
     });
     
 });
