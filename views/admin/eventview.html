@@ -2,16 +2,31 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="/css/globalstyle.css">
+    <link rel="stylesheet" type="text/css" href="/css/eventview.css">
+    <script src="/socket.io/socket.io.js" defer></script>
+    <script src="/js/eventview.js" defer></script>
     <script src="/js/global.js" defer></script>
   </head>
-  <body>
+  <body onload="initEventView()">
     <header>
       <div class="topbar">
 	<img src="/img/aubergine_logo.png" width="260">
+	<input type="button" value="Tillbaka" id="goBackBtn" onclick="goBack()">
       </div>
     </header>
     <main>
-      MAIN EVENT VIEW GOES HERE
+      <div id="mainView">
+	<div id="tableGrid">
+	</div>
+	<div id="buttons">
+	  <input type="button" value="Starta" id="startButton" onclick="start()">
+	  <input type="button" value="Matcha" id="macthButton" onclick="match()">
+	  <input type="button" value="Avsluta runda" id="finishButton" onclick="finish()">
+	</div>
+      </div>
+      <div id="sidebar">
+
+      </div>
     </main>
     <footer>
     </footer>
