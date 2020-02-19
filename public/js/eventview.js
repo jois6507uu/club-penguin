@@ -23,7 +23,7 @@ function initEventView() {
 function initTables(eventPopulation) {
     let view = document.getElementById('tableGrid');
     for (let i = 0; i < eventPopulation / 2; ++i) {
-	createTableContainer(view);
+	createTableContainer(view, i);
     }
 }
 
@@ -35,9 +35,26 @@ function initUsers(eventPopulation) {
     
 }
 
-function createTableContainer(view) {
+function createTableContainer(view, index) {
     let container = document.createElement('div');
+    
+    let header = document.createElement('div');
+    let headerP = document.createElement('p');
+    let headerText = document.createTextNode("Table " + (index+1));
+    header.setAttribute('class', 'tableHeaders');
+    header.appendChild(headerP);
+    headerP.appendChild(headerText);
+    
+    let picture1 = document.createElement('div');
+    let picture2 = document.createElement('div');
+    picture1.setAttribute('class', 'emptyUserLeft');
+    picture2.setAttribute('class', 'emptyUserRight');
+    
+    
     container.setAttribute('class', 'table');
+    container.appendChild(header);
+    container.appendChild(picture1);
+    container.appendChild(picture2);
     view.appendChild(container);
 }
 
