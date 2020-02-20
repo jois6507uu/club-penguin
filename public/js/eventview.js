@@ -45,21 +45,26 @@ function createTableContainer(view, index) {
     header.appendChild(headerP);
     headerP.appendChild(headerText);
     
-    let picture1 = document.createElement('div');
-    let picture2 = document.createElement('div');
-    picture1.setAttribute('class', 'emptyUserLeft');
-    picture2.setAttribute('class', 'emptyUserRight');
+    let profile1 = document.createElement('div');
+    let profile2 = document.createElement('div');
+    profile1.setAttribute('class', 'emptyUserLeft');
+    profile2.setAttribute('class', 'emptyUserRight');
     
+    profile1.onclick = function() {moveUser(this)};
+    profile2.onclick = function() {moveUser(this)};
     
     container.setAttribute('class', 'table');
     container.appendChild(header);
-    container.appendChild(picture1);
-    container.appendChild(picture2);
+    container.appendChild(profile1);
+    container.appendChild(profile2);
     view.appendChild(container);
 }
 
 function createUserContainer(view) {
+    let backgroundContainer = document.createElement('div');
     let container = document.createElement('div');
+    
+    backgroundContainer.onclick = function() {selectedUser(this)};
     container.setAttribute('class', 'user');
     
     let imageContainer = document.createElement('img');
@@ -75,7 +80,26 @@ function createUserContainer(view) {
 
     container.appendChild(imageContainer);
     container.appendChild(textContainer);
-    view.appendChild(container);
+    backgroundContainer.appendChild(container);
+    view.appendChild(backgroundContainer);
+}
+
+/* gör så att tabledivvarna har en check om det finns en bild i dom eller inte så att man inte kan appenda ett barn i moveUser om dom har det
+*/
+let selectedUserDiv;
+
+function selectedUser(user) {
+    selectedUserDiv = user.childNodes[0];
+}
+
+function moveUser(tableDiv) {
+    
+    if (!selectedUserDiv) {
+	return;
+    }
+
+    tableDiv.appendChild(selectedUserDiv);
+    
 }
 
 //////////SKRIV FUNKTIONERN UNDER HÄR ///////////////////
