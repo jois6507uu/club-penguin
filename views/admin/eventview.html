@@ -23,7 +23,7 @@
 	<div id="buttons">
 	  <input type="button" value="Starta" id="startButton" onclick="startRound()">
 	  <input type="button" value="Matcha" id="macthButton" onclick="match()">
-	  <input type="button" value="Avsluta runda" id="finishButton" onclick="finishEvent()">
+	  <input type="button" value="Avsluta runda" id="finishButton" onclick="showExitEvent()">
 	</div>
       </div>
       <div id="sidebar">
@@ -41,6 +41,12 @@
 	<div class="popupBody">
 	  <input class="smallButton" id="yesBtn" type="button" value="Ja" onclick="exitEvent()">
 	  <input class="smallButton" id="noBtn" type="button" value="Nej" onclick="hideExitEventPopup()">
+	</div>
+      </div>
+
+      <div class="popup" id="finishedEventPopup">
+	<div class="popupBody">
+	  <h2>Eventet är nu klart, du omdirigeras till arrangörsstartsidan</h2>
 	</div>
       </div>
       

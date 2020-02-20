@@ -1,16 +1,29 @@
 'use strict';
 const socket = io();
 
+/// Gets the round number that is stored in localstorage, if it does not exist  inititalize it as 0.
+let roundNumber = parseInt(localStorage.getItem("roundNumber"));
+if (!roundNumber) {
+    roundNumber = 0;
+}
+
 function goBack() {
     // ändra så att den går tillbaka till rätt adminsida
     window.location.href = 'http://localhost:3000/admin/start#admin';
 }
 
-function initEventView() {
+async function initEventView() {
 
     let eventname  = window.location.hash.substring(1);
     let eventPopulation;
 
+    let mainView = document.getElementById('mainView');
+    let roundTitle = document.createElement('h1');
+    roundTitle.setAttribute("id", "eventViewTitle");
+    roundTitle.innerHTML = "Runda #" + (roundNumber);
+
+    mainView.prepend(roundTitle);
+    
     socket.emit('getEventData', eventname);
 
     socket.on('eventDataResponse', function(eventData) {
@@ -18,6 +31,13 @@ function initEventView() {
 	initTables(eventData);
 	initUsers(eventData);
     });
+
+    if (roundNumber > 3) {
+	resetRoundNumber();
+	showFinishedEventPopup();
+	await new Promise(r => setTimeout(r, 3000));  // Works as sleep(3000 ms)
+	exitEvent();
+    }
 }
 
 function initTables(eventPopulation) {
@@ -142,17 +162,9 @@ function sortUserList() {
 
 //////////SKRIV FUNKTIONERN UNDER HÄR ///////////////////
 
-/// Stores the roundnumber in localstorage (it exists until we close the browser)
-let roundNumber = parseInt(localStorage.getItem("roundNumber"));
-if (!roundNumber) {
-    roundNumber = 0;
-}
 
-
+/// Denna funktion simulerar en rundomgång
 async function startRound() {
-
-    roundNumber += 1;
-    localStorage.setItem("roundNumber", roundNumber);
     
     let startRoundPopup = document.getElementById('ongoingRoundPopup');
     let startRoundInfo = document.getElementById('ongoingRoundInfo');
@@ -161,43 +173,43 @@ async function startRound() {
     startRoundPopup.style.display = 'block';
 
     let header = document.createElement('h2');
-    let headerText = document.createTextNode('Runda #' + roundNumber + ' pågår...');
+    let headerText= document.createTextNode('Runda #' + roundNumber + ' pågår...');
+    
 
     header.appendChild(headerText);
 
     startRoundInfo.appendChild(header);
 
-    await new Promise(r => setTimeout(r, 5000));
+    await new Promise(r => setTimeout(r, 5000));  // Works as sleep(5000 ms)
 
     startRoundInfo.removeChild(header);
     overlay.style.display = 'none';
     startRoundPopup.style.display = 'none';
 
-    /// Can't get the title work, it needs to update the round number before the page reload
-    /*
-    let eventViewTitle = document.getElementById('eventViewTitle');
-    eventViewTitle.innerHTML = "Runda #2";
-    */
+    roundNumber += 1;
+    localStorage.setItem("roundNumber", roundNumber);
 
-    location.reload();
+    location.reload(); // Laddar om sidan för att placera deltagarna i sidebaren, behövs nog ändras efter workshopen.
     
     
 }
 
 
-/// Run in console to reset the round number
+/// Resets the global round number in localstorage and in this file to 1
 function resetRoundNumber() {
-    roundNumber = 0;
+    roundNumber = 1;
+    localStorage.setItem("roundNumber", 1);
 }
 
-
-function finishEvent() {
+// Shows the popup where the admin can choose to exit the event or to cancel the popup
+function showExitEvent() {
     let exitEventPopup = document.getElementById('exitEventPopup');
     let overlay = document.getElementsByClassName('overlay')[0];
     overlay.style.display = 'block';
     exitEventPopup.style.display = 'block';
 }
 
+// Hides the exit event popup
 function hideExitEventPopup() {
     let exitEventPopup = document.getElementById('exitEventPopup');
     let overlay = document.getElementsByClassName('overlay')[0];
@@ -205,6 +217,15 @@ function hideExitEventPopup() {
     exitEventPopup.style.display = 'none';
 }
 
+// Directs the browser to admin start page
 function exitEvent() {
     window.location.href = "http://localhost:3000/admin/start#admin";
+}
+
+// Shows a popup that tells the admin that the event is over, and he/she wil be redirected to admin start page
+function showFinishedEventPopup() {
+    let finishedEventPopup = document.getElementById('finishedEventPopup');
+    let overlay = document.getElementsByClassName('overlay')[0];
+    overlay.style.display = 'block';
+    finishedEventPopup.style.display = 'block';
 }
