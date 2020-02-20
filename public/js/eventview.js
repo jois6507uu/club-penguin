@@ -77,3 +77,5 @@ function createUserContainer(view) {
     container.appendChild(textContainer);
     view.appendChild(container);
 }
+
+//////////SKRIV FUNKTIONERN UNDER HÄR ///////////////////
