@@ -10,7 +10,7 @@ function initEventView() {
 
     let eventname  = window.location.hash.substring(1);
     let eventPopulation;
-   
+
     socket.emit('getEventData', eventname);
 
     socket.on('eventDataResponse', function(eventData) {
@@ -104,13 +104,20 @@ function moveUser(tableDiv) {
 
 //////////SKRIV FUNKTIONERN UNDER HÄR ///////////////////
 
-let roundNumber = 0;
+/// Stores the roundnumber in localstorage (it exists until we close the browser)
+let roundNumber = parseInt(localStorage.getItem("roundNumber"));
+if (!roundNumber) {
+    roundNumber = 0;
+}
+
 
 async function startRound() {
 
     roundNumber += 1;
+    localStorage.setItem("roundNumber", roundNumber);
     
-    let startRoundPopup = document.getElementById('ongoingRound');
+    let startRoundPopup = document.getElementById('ongoingRoundPopup');
+    let startRoundInfo = document.getElementById('ongoingRoundInfo');
     let overlay = document.getElementsByClassName('overlay')[0];
     overlay.style.display = 'block';
     startRoundPopup.style.display = 'block';
@@ -120,11 +127,46 @@ async function startRound() {
 
     header.appendChild(headerText);
 
-    startRoundPopup.appendChild(header);
+    startRoundInfo.appendChild(header);
 
     await new Promise(r => setTimeout(r, 5000));
 
-    startRoundPopup.removeChild(header);
+    startRoundInfo.removeChild(header);
     overlay.style.display = 'none';
     startRoundPopup.style.display = 'none';
+
+    /// Can't get the title work, it needs to update the round number before the page reload
+    /*
+    let eventViewTitle = document.getElementById('eventViewTitle');
+    eventViewTitle.innerHTML = "Runda #2";
+    */
+
+    location.reload();
+    
+    
+}
+
+
+/// Run in console to reset the round number
+function resetRoundNumber() {
+    roundNumber = 0;
+}
+
+
+function finishEvent() {
+    let exitEventPopup = document.getElementById('exitEventPopup');
+    let overlay = document.getElementsByClassName('overlay')[0];
+    overlay.style.display = 'block';
+    exitEventPopup.style.display = 'block';
+}
+
+function hideExitEventPopup() {
+    let exitEventPopup = document.getElementById('exitEventPopup');
+    let overlay = document.getElementsByClassName('overlay')[0];
+    overlay.style.display = 'none';
+    exitEventPopup.style.display = 'none';
+}
+
+function exitEvent() {
+    window.location.href = "http://localhost:3000/admin/start#admin";
 }

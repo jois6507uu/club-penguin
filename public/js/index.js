@@ -22,6 +22,8 @@ function loginUser() {
 
 function showAdminLogin() {
     let popup = document.getElementById('adminLoginPopup');
+    let overlay = document.getElementsByClassName('overlay')[0];
+    overlay.style.display = 'block';
     popup.style.display = "block";
 }
 
@@ -32,6 +34,8 @@ function closeAdminLogin() {
     if (errorMsg.childNodes[0]) {
 	errorMsg.removeChild(errorMsg.childNodes[0]);
     }
+    let overlay = document.getElementsByClassName('overlay')[0];
+    overlay.style.display = 'none';
 }
 
 function loginAdmin() {
