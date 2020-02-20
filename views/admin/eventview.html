@@ -7,7 +7,9 @@
     <script src="/js/eventview.js" defer></script>
     <script src="/js/global.js" defer></script>
   </head>
+  <div class="overlay"></div>
   <body onload="initEventView()">
+    <div class="overlay"></div>
     <header>
       <div class="topbar">
 	<img src="/img/aubergine_logo.png" width="260">
@@ -19,14 +21,19 @@
 	<div id="tableGrid">
 	</div>
 	<div id="buttons">
-	  <input type="button" value="Starta" id="startButton" onclick="start()">
+	  <input type="button" value="Starta" id="startButton" onclick="startRound()">
 	  <input type="button" value="Matcha" id="macthButton" onclick="match()">
-	  <input type="button" value="Avsluta runda" id="finishButton" onclick="finish()">
+	  <input type="button" value="Avsluta runda" id="finishButton" onclick="finishRound()">
 	</div>
       </div>
       <div id="sidebar">
-
+	
       </div>
+
+      <div class="popup" id="ongoingRound">
+	
+      </div>
+      
     </main>
     <footer>
     </footer>

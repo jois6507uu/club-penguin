@@ -103,3 +103,28 @@ function moveUser(tableDiv) {
 }
 
 //////////SKRIV FUNKTIONERN UNDER HÄR ///////////////////
+
+let roundNumber = 0;
+
+async function startRound() {
+
+    roundNumber += 1;
+    
+    let startRoundPopup = document.getElementById('ongoingRound');
+    let overlay = document.getElementsByClassName('overlay')[0];
+    overlay.style.display = 'block';
+    startRoundPopup.style.display = 'block';
+
+    let header = document.createElement('h2');
+    let headerText = document.createTextNode('Runda #' + roundNumber + ' pågår...');
+
+    header.appendChild(headerText);
+
+    startRoundPopup.appendChild(header);
+
+    await new Promise(r => setTimeout(r, 5000));
+
+    startRoundPopup.removeChild(header);
+    overlay.style.display = 'none';
+    startRoundPopup.style.display = 'none';
+}
