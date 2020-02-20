@@ -111,6 +111,7 @@ function moveUser(div) {
     selectedDiv.setAttribute('hasProfile', 'false');
     selectedDiv = null;
     div.setAttribute('hasProfile', 'true');
+    sortUserList();
 }
 
 // innehöll båda divvarna en profile kommer vi in hit.
@@ -119,6 +120,25 @@ function swapUsers(div) {
     div.appendChild(selectedDiv.childNodes[0]);
     selectedDiv.appendChild(tempUser);
     selectedDiv = null;
+}
+
+//flyttar man en div kommer man in hit så att listan med divvar sorteras uppåt
+function sortUserList() {
+    let sidebar = document.getElementById('sidebar');
+    let total = sidebar.childElementCount;
+    for (let i = 1; i < total+1; ++i) { /*tydligen är det första elementet nån form utav text som man inte ens ser när man inspectar, därför börjar jag räkna från element 1 istället för 0 */
+	let current = sidebar.childNodes[i];
+	if (current.getAttribute('hasProfile') == "false") {
+	    if (sidebar.childNodes[i+1]) {
+		let next = sidebar.childNodes[i+1]
+		if (next.getAttribute('hasProfile') == "true") {
+		    current.appendChild(next.childNodes[0]);
+		    current.setAttribute('hasProfile', 'true');
+		    next.setAttribute('hasProfile', 'false');
+		}
+	    }
+	}
+    }
 }
 
 //////////SKRIV FUNKTIONERN UNDER HÄR ///////////////////
