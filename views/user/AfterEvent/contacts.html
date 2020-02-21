@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>ProfilePage</title>
+  <link rel="stylesheet" href="/css/ContactsStyle.css">
+  <link rel="stylesheet" href="/css/globalstyle.css">
+  <script src="https://vuejs.org/js/vue.js" defer></script>
+  <script src="/js/contacts.js" defer></script>
+</head>
+
+<body>
+  <header>
+    <div class="topbar">
+      <img src="/img/aubergine_logo.png" width="260">
+    </div>
+  </header>
+  <main id="contacts">
+      <div id="contacts">
+        <p id="dropDownContacts1">
+            <label for="contact1">Vill du dela din kontaktinformation med date nummer 1</label><br>
+            <select v-model="contact1" name="contacts1" class="dropdown">
+                <option class="dropdownChoice" value="Ja">Ja</option>
+                <option class="dropdownChoice" value="Nej" selected="selected">Nej</option>
+            </select>
+        </p>
+        <p id="dropDownContacs2">
+            <label for="contacs2">Vill du dela din kontaktinformation med date nummer 2</label><br>
+            <select v-model="contact2" name="contacts2" class="dropdown">
+                <option class="dropdownChoice" value="Ja">Ja</option>
+                <option class="dropdownChoice" value="Nej" selected="selected">Nej</option>
+            </select>
+        </p>
+      </div>
+      <footer>
+        <input type="button" v-on:click="contactsAnswered()" id="infoButton" value="Dela">
+      </footer>
+  </main>
+</body>
+
+</html>

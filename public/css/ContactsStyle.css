@@ -1,0 +1,31 @@
+#contacts{
+    text-align: center;
+    font-size: 76px;
+  }
+  
+  .textklass{
+    display: inline-block;
+    margin-top: 40px;
+  }
+  
+  .dropdown{
+    /* width: 150px; */
+    font-size: 50px;
+}
+
+.dropdownChoice{
+    /* font-size: 50px; */
+    max-width: 70px;
+}
+
+  #infoButton{
+    background-color: blue;
+    border: none;
+    color: white;
+    padding: 54px 150px;
+    text-decoration: none;
+    font-size: 56px;
+    margin: 4px 2px;
+    cursor: pointer;
+  }
+  
