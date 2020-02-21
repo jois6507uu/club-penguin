@@ -8,8 +8,9 @@ function sleep(ms)
 }
 
 async function demo(){
-    await sleep(5000);
-    console.log("väntat 5 sek");    
+    await sleep(10000);
+    console.log("väntat 10 sek");    
+    window.location.href = 'http://localhost:3000/user/contacts';
 }
 
 demo();
