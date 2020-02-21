@@ -37,7 +37,7 @@ async function initEventView() {
 
 function initTables(eventPopulation) {
     let view = document.getElementById('tableGrid');
-    for (let i = 0; i < eventPopulation / 2; ++i) {
+    for (let i = 0; i <= (eventPopulation / 2)-1; ++i) {
 	createTableContainer(view, i);
     }
 }
@@ -208,12 +208,12 @@ function hidePopup() {
     }
 }
 
-//////////SKRIV FUNKTIONERN UNDER HÄR ///////////////////
-
-
 /// Denna funktion simulerar en rundomgång
 async function startRound() {
-    
+    let tables = document.getElementsByClassName('table');
+    if (getFirstNonFullTable(tables) != null) {
+	return popupDenied();
+    }
     let startRoundPopup = document.getElementById('ongoingRoundPopup');
     let startRoundInfo = document.getElementById('ongoingRoundInfo');
     let overlay = document.getElementsByClassName('overlay')[0];
@@ -237,6 +237,13 @@ async function startRound() {
     location.reload(); // Laddar om sidan för att placera deltagarna i sidebaren, behövs nog ändras efter workshopen.
 }
 
+function popupDenied() {
+    let startRoundPopup = document.getElementById('ongoingRoundDenied');
+    let startRoundInfo = document.getElementById('ongoingDeniedInfo');
+    let overlay = document.getElementsByClassName('overlay')[0];
+    overlay.style.display = 'block';
+    startRoundPopup.style.display = 'block';
+}
 
 /// Resets the global round number in localstorage and in this file to 1
 function resetRoundNumber() {
