@@ -7,12 +7,12 @@
     <script src="/js/eventview.js" defer></script>
     <script src="/js/global.js" defer></script>
   </head>
-  <div class="overlay"></div>
+  <div class="overlay" onclick="hidePopup()"></div>
   <body onload="initEventView()">
     <div class="overlay"></div>
     <header>
       <div class="topbar">
-	<img src="/img/aubergine_logo.png" width="260">
+	<img src="/img/aubergine_logo.png">
 	<input type="button" value="Tillbaka" id="goBackBtn" onclick="goBack()">
       </div>
     </header>
@@ -30,7 +30,7 @@
 	
       </div>
 
-      <div class="popup" id="ongoingRoundPopup">
+      <div class="popup" id="ongoingRoundPopup" overlaySafe="true">
 	<div class="popupBody" id="ongoingRoundInfo"></div>
       </div>
 
@@ -44,9 +44,15 @@
 	</div>
       </div>
 
-      <div class="popup" id="finishedEventPopup">
+      <div class="popup" id="finishedEventPopup" overlaySafe="true">
 	<div class="popupBody">
 	  <h2>Eventet är nu klart, du omdirigeras till arrangörsstartsidan</h2>
+	</div>
+      </div>
+      <!-- Popup div när man dubbelklickar på profilerna -->
+      <div class="popup" id="profilePopup">
+	<div class="popupBody">
+	  
 	</div>
       </div>
       
