@@ -1,4 +1,4 @@
-#profileQuestion {
+#profileEvaluation {
     text-align: center;
     font-size: 50px;
 }
@@ -9,13 +9,13 @@
     font-weight: bold;
 }
 
-.staminte {
-    margin-left: 100px;
+.min {
+    margin-left: 240px;
     float: left;
 }
 
-.stammer {
-    margin-right: 100px;
+.max {
+    margin-right: 240px;
     float: right;
 }
 
@@ -29,21 +29,6 @@ input[type="radio"] {
 .dropdown {
     /* width: 150px; */
     font-size: 50px;
-}
-
-.dropdownChoice {
-    /* font-size: 50px; */
-    max-width: 70px;
-}
-
-#Namn {
-    text-align: center;
-    font-size: 76px;
-}
-
-#Ålder {
-    text-align: center;
-    font-size: 76px;
 }
 
 #doneButton {
