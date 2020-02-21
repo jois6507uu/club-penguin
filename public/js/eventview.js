@@ -230,7 +230,7 @@ function startRound() {
     startRoundInfo.prepend(header);
 
     let timer = document.getElementById('timer');
-    displayTimer(60 * 5, timer, function() {skipRound()});
+    displayTimer(60 * 5, timer, function() {skipRound()}); // first argument is the duration of the timer (60 * 5 = 60 seconds * 5 = 5 minutes)
 }
 
 // displays a timer which will execute yourFunction when the timer reaches 0.
@@ -282,6 +282,7 @@ function hideExitEventPopup() {
     exitEventPopup.style.display = 'none';
 }
 
+//Go to the next round
 function skipRound() {
     let startRoundPopup = document.getElementById('ongoingRoundPopup');
     let startRoundInfo = document.getElementById('ongoingRoundInfo');
