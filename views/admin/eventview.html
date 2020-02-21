@@ -21,8 +21,9 @@
 	<div id="tableGrid">
 	</div>
 	<div id="buttons">
-	  <input type="button" value="Starta runda" id="startButton" onclick="startRound()">
-	  <input type="button" value="Matcha" id="macthButton" onclick="match()">
+
+	  <input type="button" value="Starta" id="startButton" onclick="startRound()">
+	  <input type="button" value="Matcha" id="macthButton" onclick="algorithm()">
 	  <input type="button" value="Avsluta event" id="finishButton" onclick="showExitEvent()">
 	</div>
       </div>
@@ -33,6 +34,12 @@
 	<div class="popupBody" id="ongoingRoundInfo">
 	  <span id="timer"></span><br>
 	  <input class="smallButton" id="skipBtn" type="button" value="Nästa runda" onclick="skipRound()">
+	</div>
+      </div>
+
+      <div class="popup" id="ongoingRoundDenied">
+	<div class="popupBody" id="ongoingDeniedInfo">
+	  <h1>Var vänlig fyll i alla bord. Om du inte kan du inte bestämma dig, tryck på "matcha" så matchar vi åt dig.</h1>
 	</div>
       </div>
 

@@ -7,13 +7,12 @@ if (!roundNumber) {
     roundNumber = 1;
 }
 
+// ändra så att den går tillbaka till rätt adminsida
 function goBack() {
-    // ändra så att den går tillbaka till rätt adminsida
     window.location.href = 'http://localhost:3000/admin/start#admin';
 }
 
 async function initEventView() {
-
     let eventname  = window.location.hash.substring(1);
     let eventPopulation;
 
@@ -21,13 +20,10 @@ async function initEventView() {
     let roundTitle = document.createElement('h1');
     roundTitle.setAttribute("id", "eventViewTitle");
     roundTitle.innerHTML = "Runda #" + (roundNumber);
-
     mainView.prepend(roundTitle);
     
     socket.emit('getEventData', eventname);
-
     socket.on('eventDataResponse', function(eventData) {
-
 	initTables(eventData);
 	initUsers(eventData);
     });
@@ -41,7 +37,7 @@ async function initEventView() {
 
 function initTables(eventPopulation) {
     let view = document.getElementById('tableGrid');
-    for (let i = 0; i < eventPopulation / 2; ++i) {
+    for (let i = 0; i <= (eventPopulation / 2)-1; ++i) {
 	createTableContainer(view, i);
     }
 }
@@ -96,7 +92,7 @@ function createUserContainer(view, index) {
     imageContainer.src = '/img/aubergine_logo.png';
     
     let textContainer = document.createElement('p');
-    let text = document.createTextNode('Namn, ' + index);
+    let text = document.createTextNode('Namn, ' + Math.floor((Math.random() * 80) + 18));
     textContainer.setAttribute("class", "userText");
     textContainer.appendChild(text);
 
@@ -181,7 +177,8 @@ function showProfile(div) {
     let profileImgClone = div.children[0].children[0].cloneNode(true);
     let profileNameAgeClone = div.children[0].children[1].cloneNode(true);
     let tempInfo1 = document.createTextNode('Info om rökning');
-    let tempInfo2 = document.createTextNode('Info om barn');    
+    let tempInfo2 = document.createTextNode('Info om barn');
+    
     popupBody.appendChild(profileImgClone);
     popupBody.appendChild(profileNameAgeClone);
     paragraph1.appendChild(tempInfo1);
@@ -211,17 +208,14 @@ function hidePopup() {
     }
 }
 
-//////////SKRIV FUNKTIONERN UNDER HÄR ///////////////////
-
-
 /// Denna funktion simulerar en rundomgång
+// async
 function startRound() {
 
-    // Kan ej starta en rundomgång om inte alla bord är fyllda.
-    if (!tablesIsFull()) {
-	return;
+    let tables = document.getElementsByClassName('table');
+    if (getFirstNonFullTable(tables) != null) {
+	return popupDenied();
     }
-    
     let startRoundPopup = document.getElementById('ongoingRoundPopup');
     let startRoundInfo = document.getElementById('ongoingRoundInfo');
     let overlay = document.getElementsByClassName('overlay')[0];
@@ -230,10 +224,9 @@ function startRound() {
 
     let header = document.createElement('h2');
     let headerText= document.createTextNode('Runda #' + roundNumber + ' pågår...');
-    
-
     header.appendChild(headerText);
 
+    //startRoundInfo.prepend(header);
     startRoundInfo.prepend(header);
 
     let timer = document.getElementById('timer');
@@ -257,6 +250,14 @@ function displayTimer(duration, display, yourFunction) {
 	    yourFunction();
         }
     }, 1000);
+}
+
+function popupDenied() {
+    let startRoundPopup = document.getElementById('ongoingRoundDenied');
+    let startRoundInfo = document.getElementById('ongoingDeniedInfo');
+    let overlay = document.getElementsByClassName('overlay')[0];
+    overlay.style.display = 'block';
+    startRoundPopup.style.display = 'block';
 }
 
 /// Resets the global round number in localstorage and in this file to 1
@@ -311,26 +312,101 @@ function showFinishedEventPopup() {
     finishedEventPopup.style.display = 'block';
 }
 
-function tablesIsFull() {
-    let emptyUsrR = document.getElementsByClassName('emptyUserRight');
-    let emptyUsrL = document.getElementsByClassName('emptyUserLeft');
+let bestMatch = null;
 
-    for (let div of emptyUsrR) {
-	if (div.getAttribute("hasProfile") == "false") {
-	    console.log('table not full');
-	    return false;
+function algorithm() {
+    let tables = document.getElementsByClassName('table');
+    while (getFirstNonFullTable(tables) != null) {
+	let table = getFirstNonFullTable(tables);
+	let left = table.children[1];
+	let right = table.children[2];
+	if (left.getAttribute('hasProfile') == 'true') {
+	    matchOnTable(table, left);
+	} else if (right.getAttribute('hasProfile') == 'true') {
+	    matchOnTable(table, right);
+	}
+	else {
+	    matchInSidebar(table);
 	}
     }
+}
 
-
-    for (let div of emptyUsrL) {
-	if (div.getAttribute("hasProfile") == "false") {
-	    console.log('table not full');
-	    return false;
+//kollar alla tables och returnar det första som inte är fullt, är alla fulla returnar det null
+function getFirstNonFullTable(tables) {
+    for (let table of tables) {
+	let right = table.children[1];
+	let left = table.children[2];
+	if (right.getAttribute('hasProfile') == 'false' || left.getAttribute('hasProfile') == 'false') {
+	    return table;
 	}
     }
-    
-    console.log('table is full');
-    return true;
-    
+    return null;
+}
+
+function matchOnTable(table, tableDiv) {
+    let sidebarDivs = document.getElementById('sidebar').children;
+    let tableAge = getAgeFromProfile(tableDiv);
+    for (let sidebarDiv of sidebarDivs) {
+	if (sidebarDiv.getAttribute('hasProfile') == 'true') {
+	    let sidebarAge = getAgeFromProfile(sidebarDiv);
+	    if (bestMatch == null) {
+		bestMatch = sidebarDiv;
+	    }
+	    else if (Math.abs(getAgeFromProfile(bestMatch) - tableAge) > Math.abs(sidebarAge - tableAge)) {
+		bestMatch = sidebarDiv;
+	    }
+	}
+    }
+    if (table.children[1].getAttribute('hasProfile') == 'false') {
+	table.children[1].appendChild(bestMatch.children[0]);
+	table.children[1].setAttribute('hasProfile', 'true');
+	bestMatch.setAttribute('hasProfile', 'false');
+    } else {
+	table.children[2].appendChild(bestMatch.children[0]);
+	table.children[2].setAttribute('hasProfile', 'true');
+	bestMatch.setAttribute('hasProfile', 'false');
+    }
+    bestMatch = null;
+}
+
+//Assumes table is empty
+function matchInSidebar(table) {
+    let sidebarDivs = document.getElementById('sidebar').children;
+    let index = getFirstSidebarProfile();
+    let indexAge = getAgeFromProfile(sidebarDivs[index]);
+    for (let i = parseInt(index, 10)+1; i < sidebarDivs.length; ++i) {
+	if (sidebarDivs[i].getAttribute('hasProfile') == 'true') {
+	    console.log("yes");
+	    let sidebarAge = getAgeFromProfile(sidebarDivs[i]);
+	    if (bestMatch == null) {
+		bestMatch = sidebarDivs[i];
+	    }
+	    else if (Math.abs(getAgeFromProfile(bestMatch) - indexAge) > Math.abs(sidebarAge - indexAge)) {
+		bestMatch = sidebarDivs[i];
+	    }
+	}
+    }
+    table.children[1].appendChild(bestMatch.children[0]);
+    table.children[2].appendChild(sidebarDivs[index].children[0]);
+    table.children[1].setAttribute('hasProfile', 'true');
+    table.children[2].setAttribute('hasProfile', 'true');
+    bestMatch.setAttribute('hasProfile', 'false');
+    sidebarDivs[index].setAttribute('hasProfile', 'false');
+    bestMatch = null;
+}
+
+function getFirstSidebarProfile() {
+    let sidebarDivs = document.getElementById('sidebar').children;
+    for (let index in sidebarDivs) {
+	if (sidebarDivs[index].getAttribute('hasProfile') == 'true') {
+	    return index;
+	}
+    }
+}
+
+//divven måste vara den utanför profilen och måste innehålla en profil
+function getAgeFromProfile(div) {
+    let info = div.children[0].children[1].textContent;
+    let strAge = info.split(",").pop();
+    return parseInt(strAge, 10);
 }

@@ -117,6 +117,10 @@
     width: 400px;
 }
 
+#ongoingDeniedInfo {
+    color: red;
+}
+
 #timer {
     font-size: 64px;
     padding: 5px;
