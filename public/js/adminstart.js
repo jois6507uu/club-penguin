@@ -31,11 +31,15 @@ function logout() {
 
 function showCreateEvent() {
     let eventPopup = document.getElementById('createEventPopup');
+    let overlay = document.getElementsByClassName('overlay')[0];
+    overlay.style.display = 'block';
     eventPopup.style.display = "block";
 }
 
 function hideCreateEvent() {
     let eventPopup = document.getElementById('createEventPopup');
+    let overlay = document.getElementsByClassName('overlay')[0];
+    overlay.style.display = 'none';
     eventPopup.style.display = 'none';
 }
 

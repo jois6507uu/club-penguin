@@ -91,14 +91,18 @@
 }
 
 #goBackBtn {
-	margin-right: 20px;
-	padding: 12px 24px;
-	position: absolute;
-	right: 0;
-	top: 50%;
-	-ms-transform: translateY(-50%);
-	transform: translateY(-50%);
-	background-color: #A5668B;
-	border: none;
-	color: white;
+    margin-right: 20px;
+    padding: 12px 24px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    background-color: #A5668B;
+    border: none;
+    color: white;
+}
+
+#eventViewTitle {
+    text-align: center;
 }

@@ -7,7 +7,9 @@
     <script src="/js/eventview.js" defer></script>
     <script src="/js/global.js" defer></script>
   </head>
+  <div class="overlay"></div>
   <body onload="initEventView()">
+    <div class="overlay"></div>
     <header>
       <div class="topbar">
 	<img src="/img/aubergine_logo.png" width="260">
@@ -19,14 +21,35 @@
 	<div id="tableGrid">
 	</div>
 	<div id="buttons">
-	  <input type="button" value="Starta" id="startButton" onclick="start()">
+	  <input type="button" value="Starta" id="startButton" onclick="startRound()">
 	  <input type="button" value="Matcha" id="macthButton" onclick="match()">
-	  <input type="button" value="Avsluta runda" id="finishButton" onclick="finish()">
+	  <input type="button" value="Avsluta runda" id="finishButton" onclick="showExitEvent()">
 	</div>
       </div>
       <div id="sidebar">
-
+	
       </div>
+
+      <div class="popup" id="ongoingRoundPopup">
+	<div class="popupBody" id="ongoingRoundInfo"></div>
+      </div>
+
+      <div class="popup" id="exitEventPopup">
+	<div class="popupHeader">
+	  <h2>Vill du avsluta eventet?</h2>
+	</div>
+	<div class="popupBody">
+	  <input class="smallButton" id="yesBtn" type="button" value="Ja" onclick="exitEvent()">
+	  <input class="smallButton" id="noBtn" type="button" value="Nej" onclick="hideExitEventPopup()">
+	</div>
+      </div>
+
+      <div class="popup" id="finishedEventPopup">
+	<div class="popupBody">
+	  <h2>Eventet är nu klart, du omdirigeras till arrangörsstartsidan</h2>
+	</div>
+      </div>
+      
     </main>
     <footer>
     </footer>
