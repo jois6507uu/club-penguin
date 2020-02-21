@@ -163,7 +163,7 @@ function sortUserList() {
 
 
 /// Denna funktion simulerar en rundomgång
-async function startRound() {
+function startRound() {
     
     let startRoundPopup = document.getElementById('ongoingRoundPopup');
     let startRoundInfo = document.getElementById('ongoingRoundInfo');
@@ -177,22 +177,29 @@ async function startRound() {
 
     header.appendChild(headerText);
 
-    startRoundInfo.appendChild(header);
+    startRoundInfo.prepend(header);
 
-    await new Promise(r => setTimeout(r, 5000));  // Works as sleep(5000 ms)
-
-    startRoundInfo.removeChild(header);
-    overlay.style.display = 'none';
-    startRoundPopup.style.display = 'none';
-
-    roundNumber += 1;
-    localStorage.setItem("roundNumber", roundNumber);
-
-    location.reload(); // Laddar om sidan för att placera deltagarna i sidebaren, behövs nog ändras efter workshopen.
-    
-    
+    let timer = document.getElementById('timer');
+    displayTimer(60 * 5, timer, function() {skipRound()});
 }
 
+function displayTimer(duration, display, yourFunction) {
+    let timer = duration, minutes, seconds;
+
+    setInterval(function() {
+	minutes = parseInt(timer / 60, 10);
+	seconds = parseInt(timer % 60, 10);
+
+	minutes = minutes < 10 ? "0" + minutes : minutes;
+	seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+	
+        if (--timer < 0) {
+	    yourFunction();
+        }
+    }, 1000);
+}
 
 /// Resets the global round number in localstorage and in this file to 1
 function resetRoundNumber() {
@@ -214,6 +221,22 @@ function hideExitEventPopup() {
     let overlay = document.getElementsByClassName('overlay')[0];
     overlay.style.display = 'none';
     exitEventPopup.style.display = 'none';
+}
+
+function skipRound() {
+    let startRoundPopup = document.getElementById('ongoingRoundPopup');
+    let startRoundInfo = document.getElementById('ongoingRoundInfo');
+    let overlay = document.getElementsByClassName('overlay')[0];
+    overlay.style.display = 'none';
+    startRoundPopup.style.display = 'none';
+
+    roundNumber += 1;
+    localStorage.setItem("roundNumber", roundNumber);
+
+    let timer = document.getElementById('timer');
+    timer.innerHTML = '00:00';
+    
+    location.reload();
 }
 
 // Directs the browser to admin start page

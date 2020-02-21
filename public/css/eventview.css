@@ -106,3 +106,12 @@
 #eventViewTitle {
     text-align: center;
 }
+
+#timer {
+    font-size: 64px;
+    padding: 5px;
+}
+
+#skipBtn {
+    margin-top: 10px;
+}
