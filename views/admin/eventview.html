@@ -22,7 +22,7 @@
 	</div>
 	<div id="buttons">
 	  <input type="button" value="Starta" id="startButton" onclick="startRound()">
-	  <input type="button" value="Matcha" id="macthButton" onclick="match()">
+	  <input type="button" value="Matcha" id="macthButton" onclick="algorithm()">
 	  <input type="button" value="Avsluta runda" id="finishButton" onclick="showExitEvent()">
 	</div>
       </div>
@@ -32,6 +32,12 @@
 
       <div class="popup" id="ongoingRoundPopup" overlaySafe="true">
 	<div class="popupBody" id="ongoingRoundInfo"></div>
+      </div>
+
+      <div class="popup" id="ongoingRoundDenied">
+	<div class="popupBody" id="ongoingDeniedInfo">
+	  <h1>Var vänlig fyll i alla bord. Om du inte kan du inte bestämma dig, tryck på "matcha" så matchar vi åt dig.</h1>
+	</div>
       </div>
 
       <div class="popup" id="exitEventPopup">
