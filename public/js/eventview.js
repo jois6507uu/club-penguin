@@ -33,7 +33,6 @@ async function initEventView() {
     });
 
     if (roundNumber > 3) {
-	resetRoundNumber();
 	showFinishedEventPopup();
 	await new Promise(r => setTimeout(r, 3000));  // Works as sleep(3000 ms)
 	exitEvent();
