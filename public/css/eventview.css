@@ -106,3 +106,13 @@
 #eventViewTitle {
     text-align: center;
 }
+
+#profilePopup {
+    width: 600px;
+    height: 800px;
+    font-size: 50px;
+}
+
+#profilePopup img {
+    width: 400px;
+}

@@ -72,6 +72,8 @@ function createTableContainer(view, index) {
     profile2.setAttribute('hasProfile', 'false');
     profile1.onclick = function() {onSingleClick(this)};
     profile2.onclick = function() {onSingleClick(this)};
+    profile1.ondblclick = function() {onDoubleClick(this)};
+    profile2.ondblclick = function() {onDoubleClick(this)};
     
     container.setAttribute('class', 'table');
     container.appendChild(header);
@@ -124,7 +126,7 @@ function onSingleClick(div) {
 
 //fanns det ingen user i div och selected inte är null så flyttar vi till den divven istället
 function moveUser(div) {
-    div.appendChild(selectedDiv.childNodes[0]);
+    div.appendChild(selectedDiv.children[0]);
     selectedDiv.setAttribute('hasProfile', 'false');
     selectedDiv = null;
     div.setAttribute('hasProfile', 'true');
@@ -133,8 +135,8 @@ function moveUser(div) {
 
 // innehöll båda divvarna en profile kommer vi in hit.
 function swapUsers(div) {
-    let tempUser = div.childNodes[0];
-    div.appendChild(selectedDiv.childNodes[0]);
+    let tempUser = div.children[0];
+    div.appendChild(selectedDiv.children[0]);
     selectedDiv.appendChild(tempUser);
     selectedDiv = null;
 }
@@ -143,13 +145,13 @@ function swapUsers(div) {
 function sortUserList() {
     let sidebar = document.getElementById('sidebar');
     let total = sidebar.childElementCount;
-    for (let i = 1; i < total+1; ++i) { /*tydligen är det första elementet nån form utav text som man inte ens ser när man inspectar, därför börjar jag räkna från element 1 istället för 0 */
-	let current = sidebar.childNodes[i];
+    for (let i = 0; i < total; ++i) { /*tydligen är det första elementet nån form utav text som man inte ens ser när man inspectar, därför börjar jag räkna från element 1 istället för 0 */
+	let current = sidebar.children[i];
 	if (current.getAttribute('hasProfile') == "false") {
-	    if (sidebar.childNodes[i+1]) { //check så att det inte krachar vid slutet av listan
-		let next = sidebar.childNodes[i+1]
+	    if (sidebar.children[i+1]) { //check så att det inte krachar vid slutet av listan
+		let next = sidebar.children[i+1]
 		if (next.getAttribute('hasProfile') == "true") {
-		    current.appendChild(next.childNodes[0]);
+		    current.appendChild(next.children[0]);
 		    current.setAttribute('hasProfile', 'true');
 		    next.setAttribute('hasProfile', 'false');
 		}
@@ -166,11 +168,32 @@ function onDoubleClick(div) {
 }
 
 function showProfile(div) {
+    cleanPopupProfile();
     let profilePopup = document.getElementById('profilePopup');
-    let popupBody = profilePopup.childNodes[0];
+    let popupBody = profilePopup.children[0];
     let overlay = document.getElementsByClassName('overlay')[0];
     overlay.style.display = 'block';
     profilePopup.style.display = 'block';
+
+    //Här måste vi hämta profilinfon från servern och displaya den
+    let paragraph1 = document.createElement('p');
+    let paragraph2 = document.createElement('p');
+    let profileImgClone = div.children[0].children[0].cloneNode(true);
+    let profileNameAgeClone = div.children[0].children[1].cloneNode(true);
+    let tempInfo1 = document.createTextNode('Info om rökning');
+    let tempInfo2 = document.createTextNode('Info om barn');    
+    popupBody.appendChild(profileImgClone);
+    popupBody.appendChild(profileNameAgeClone);
+    paragraph1.appendChild(tempInfo1);
+    popupBody.appendChild(paragraph1);
+    paragraph2.appendChild(tempInfo2)
+    popupBody.appendChild(paragraph2);
+}
+
+function cleanPopupProfile() {
+    let profilePopup = document.getElementById('profilePopup');
+    let popupBody = profilePopup.children[0];
+    popupBody.innerHTML = '';
 }
 
 //gömmer vissa popups om man klickar utanför dom
