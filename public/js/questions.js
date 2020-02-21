@@ -16,7 +16,7 @@ btn.onclick = async function () {
     modal.style.display = "block";
     await sleep(10000);
     console.log("väntat 10 sek");
-    window.location.href = 'http://localhost:3000/user/contacts';
+    window.location.href = 'http://localhost:3000/user/round';
 }
 
 // When the user clicks on <span> (x), close the modal

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>WaitingPage</title>
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/globalstyle.css">
+    <script src="https://vuejs.org/js/vue.js" defer></script>
+    <script src="/js/DuringRound.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <div class="topbar">
+            <img src="/img/aubergine_logo.png" width="260">
+        </div>
+    </header>
+    <div id="profileQuestion">Time left = <span id="timer"></span></div>
+
+    <p id="smallTips">konversationstips</p><br>
+
+    <footer>
+        <input type="button" onclick="roundDone()" id="doneButton" value="Nästa">
+    </footer>
+
+</body>
