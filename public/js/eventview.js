@@ -209,7 +209,9 @@ function hidePopup() {
 }
 
 /// Denna funktion simulerar en rundomgång
-async function startRound() {
+// async
+function startRound() {
+
     let tables = document.getElementsByClassName('table');
     if (getFirstNonFullTable(tables) != null) {
 	return popupDenied();
@@ -223,18 +225,31 @@ async function startRound() {
     let header = document.createElement('h2');
     let headerText= document.createTextNode('Runda #' + roundNumber + ' pågår...');
     header.appendChild(headerText);
-    startRoundInfo.appendChild(header);
 
-    await new Promise(r => setTimeout(r, 5000));  // Works as sleep(5000 ms)
+    //startRoundInfo.prepend(header);
+    startRoundInfo.prepend(header);
 
-    startRoundInfo.removeChild(header);
-    overlay.style.display = 'none';
-    startRoundPopup.style.display = 'none';
+    let timer = document.getElementById('timer');
+    displayTimer(60 * 5, timer, function() {skipRound()}); // first argument is the duration of the timer (60 * 5 = 60 seconds * 5 = 5 minutes)
+}
 
-    roundNumber += 1;
-    localStorage.setItem("roundNumber", roundNumber);
+// displays a timer which will execute yourFunction when the timer reaches 0.
+function displayTimer(duration, display, yourFunction) {
+    let timer = duration, minutes, seconds;
 
-    location.reload(); // Laddar om sidan för att placera deltagarna i sidebaren, behövs nog ändras efter workshopen.
+    setInterval(function() {
+	minutes = parseInt(timer / 60, 10);
+	seconds = parseInt(timer % 60, 10);
+
+	minutes = minutes < 10 ? "0" + minutes : minutes;
+	seconds = seconds < 10 ? "0" + seconds : seconds;
+
+        display.textContent = minutes + ":" + seconds;
+	
+        if (--timer < 0) {
+	    yourFunction();
+        }
+    }, 1000);
 }
 
 function popupDenied() {
@@ -265,6 +280,23 @@ function hideExitEventPopup() {
     let overlay = document.getElementsByClassName('overlay')[0];
     overlay.style.display = 'none';
     exitEventPopup.style.display = 'none';
+}
+
+//Go to the next round
+function skipRound() {
+    let startRoundPopup = document.getElementById('ongoingRoundPopup');
+    let startRoundInfo = document.getElementById('ongoingRoundInfo');
+    let overlay = document.getElementsByClassName('overlay')[0];
+    overlay.style.display = 'none';
+    startRoundPopup.style.display = 'none';
+
+    roundNumber += 1;
+    localStorage.setItem("roundNumber", roundNumber);
+
+    let timer = document.getElementById('timer');
+    timer.innerHTML = '00:00';
+    
+    location.reload();
 }
 
 // Directs the browser to admin start page
