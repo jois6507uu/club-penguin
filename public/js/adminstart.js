@@ -1,3 +1,29 @@
+'use strict';
+const socket = io();
+
+
+
+
+function Event(eventName, eventPopulation) {
+    this.eventName = eventName;
+    this.eventPopulation = eventPopulation;
+}
+
+
+
+
+
+function getEvents() {
+
+    let username = window.location.hash.substring(1);
+    
+    socket.emit('loadEvents', username);
+    
+    socket.on('getEvents', function(events) {
+	console.log(events);
+    });
+}
+
 
 function logout() {
     window.location.href = "http://localhost:3000/";
@@ -5,11 +31,15 @@ function logout() {
 
 function showCreateEvent() {
     let eventPopup = document.getElementById('createEventPopup');
+    let overlay = document.getElementsByClassName('overlay')[0];
+    overlay.style.display = 'block';
     eventPopup.style.display = "block";
 }
 
 function hideCreateEvent() {
     let eventPopup = document.getElementById('createEventPopup');
+    let overlay = document.getElementsByClassName('overlay')[0];
+    overlay.style.display = 'none';
     eventPopup.style.display = 'none';
 }
 
@@ -52,5 +82,12 @@ function initEvent(eventName, eventPopulation) {
 
 function goToEvent(eventName, eventPopulation) {
     // CREATE EVENT AND PUT THINGS INTO DATABASE
-    window.location.href = "http://localhost:3000/admin/eventview";
+
+    let event = new Event(eventName, eventPopulation);
+    
+
+    socket.emit('addEvent', event);
+    
+    
+    window.location.href = "http://localhost:3000/admin/eventview" + '#' + eventName;
 }

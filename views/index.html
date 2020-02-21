@@ -4,9 +4,11 @@
     <title>Club Penguin</title>
     <link rel="stylesheet" type="text/css" href="/css/globalstyle.css">
     <link rel="stylesheet" type="text/css" href="/css/index.css">
+    <script src="/socket.io/socket.io.js" defer></script>
     <script src="/js/global.js" defer></script>
     <script src="/js/index.js" defer></script>
   </head>
+  <div class="overlay"></div>
   <body>
     <header>
       <div class="topbar">
@@ -15,7 +17,7 @@
       </div>
     </header>
     <main>
-      <div id="overlay"></div>
+      
 
       <section id="userLogin">
 	
@@ -27,14 +29,18 @@
       </section>
 
       <div class="popup" id="adminLoginPopup">
-	<h2>Logga in som administratör</h2>
-	<label for="adminUsername">Användarnamn</label><br>
-	<input type="text" id="adminUsername" required><br>
-	<label for="adminPassword">Lösenord</label><br>
-	<input type="password" id="adminPassword" required><br>
-	<p class="errorMessage" id="adminError"></p>
-	<button class="button" id="loginBtn" type="submit" onclick="loginAdmin()">Logga in</button><br>
-	<button class="button" id="closeBtn" type="button" onclick="closeAdminLogin()">Stäng</button>
+	<div class="popupHeader">
+	  <span class="closePopup" onclick="closeAdminLogin()">&times</span>
+	  <h2>Logga in som administratör</h2>
+	</div>
+	<div class="popupBody">
+	  <label for="adminUsername">Användarnamn</label><br>
+	  <input type="text" id="adminUsername" required><br>
+	  <label for="adminPassword">Lösenord</label><br>
+	  <input type="password" id="adminPassword" required><br>
+	  <p class="errorMessage" id="adminError"></p>
+	  <button class="smallButton" id="loginBtn" type="submit" onclick="loginAdmin()">Logga in</button><br>
+	</div>
       </div>
    
     </main>

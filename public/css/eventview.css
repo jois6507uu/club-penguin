@@ -1,0 +1,108 @@
+#mainView {
+    padding: 20px;
+    width: 75%;
+    float: left;
+}
+
+#tableGrid {
+    display: grid;
+    grid-gap: 10px;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+}
+
+#buttons {
+    float: down-left;
+}
+
+#sidebar {
+    padding: 10px;
+    width: 20%;
+    height: 70%;
+    display: grid;
+    float: right;
+    grid-gap: 10px;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: repeat(10, 200px);
+    border-left: solid thick purple;
+    position: fixed;
+    overflow-y: scroll;
+    top: 5;
+    right: 0;
+}
+
+.tableHeaders {
+    width: 100%;
+    height: 8%;
+    background-color: white;
+    border-bottom: solid 5px black;
+}
+
+.tableHeaders p {
+    margin: 0;
+    border: 0;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+.emptyUserLeft {
+    width: 49%;
+    height: 90%;
+    background-color:white;
+    float: left;
+}
+
+.emptyUserRight {
+    width: 49%;
+    height: 90%;
+    background-color: white;
+    float: right;
+}
+
+.table {
+    height: 200px;
+    background-color: black;
+}
+
+.user {
+    position: relative;
+    background-color: white;
+    text-align: center;
+}
+
+.user img {
+    width: 100%;
+    height: 80%;
+    display: block;
+}
+
+#buttons {
+    margin-top: 20px;
+    display: grid;
+    grid-gap: 25px;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+#buttons input {
+    background-color: indigo;
+    color: yellow;
+    font-size: 20px;
+    border: none;
+    height: 150px;
+}
+
+#goBackBtn {
+    margin-right: 20px;
+    padding: 12px 24px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    background-color: #A5668B;
+    border: none;
+    color: white;
+}
+
+#eventViewTitle {
+    text-align: center;
+}
