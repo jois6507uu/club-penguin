@@ -29,12 +29,25 @@ app.get('/', function(req, res) {
 
 
 app.get('/user/profile', function(req, res) {
-  res.sendFile(path.join(__dirname, 'views/user/profile.html'));
+  res.sendFile(path.join(__dirname, 'views/user/ProfileMaking/profile.html'));
 });
 
 app.get('/user/questions', function(req, res) {
-  res.sendFile(path.join(__dirname, 'views/user/questions.html'));
+  res.sendFile(path.join(__dirname, 'views/user/ProfileMaking/questions.html'));
 });
+
+app.get('/user/contacts', function (req, res) {
+    res.sendFile(path.join(__dirname, 'views/user/AfterEvent/contacts.html'));
+});
+
+app.get('/user/contactsRec', function (req, res) {
+    res.sendFile(path.join(__dirname, 'views/user/AfterEvent/contactsRecive.html'));
+});
+
+app.get('/user/Done', function (req, res) {
+    res.sendFile(path.join(__dirname, 'views/user/AfterEvent/done.html'));
+});
+
 
 app.get('/admin/start', function(req, res) {
   res.sendFile(path.join(__dirname, 'views/admin/adminstart.html'));
