@@ -1,10 +1,10 @@
 'use strict';
 const socket = io();
 
-/// Gets the round number that is stored in localstorage, if it does not exist  inititalize it as 0.
+/// Gets the round number that is stored in localstorage, if it does not exist  inititalize it as 1.
 let roundNumber = parseInt(localStorage.getItem("roundNumber"));
 if (!roundNumber) {
-    roundNumber = 0;
+    roundNumber = 1;
 }
 
 function goBack() {
@@ -33,7 +33,6 @@ async function initEventView() {
     });
 
     if (roundNumber > 3) {
-	resetRoundNumber();
 	showFinishedEventPopup();
 	await new Promise(r => setTimeout(r, 3000));  // Works as sleep(3000 ms)
 	exitEvent();
@@ -219,6 +218,7 @@ function hideExitEventPopup() {
 
 // Directs the browser to admin start page
 function exitEvent() {
+    resetRoundNumber();
     window.location.href = "http://localhost:3000/admin/start#admin";
 }
 
