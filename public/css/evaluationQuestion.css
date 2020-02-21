@@ -26,11 +26,6 @@ input[type="radio"] {
     /* height: ; */
 }
 
-.dropdown {
-    /* width: 150px; */
-    font-size: 50px;
-}
-
 #doneButton {
     background-color: blue;
     border: none;
