@@ -81,3 +81,8 @@ footer {
     border: none;
     color: white;
 }
+
+.smallButton:hover {
+    cursor: pointer;
+    background-color: #98597e;
+}
