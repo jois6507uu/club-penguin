@@ -70,8 +70,8 @@ function createTableContainer(view, index) {
     profile2.setAttribute('class', 'emptyUserRight');
     profile1.setAttribute('hasProfile', 'false');
     profile2.setAttribute('hasProfile', 'false');
-    profile1.onclick = function() {selectedUser(this)};
-    profile2.onclick = function() {selectedUser(this)};
+    profile1.onclick = function() {onSingleClick(this)};
+    profile2.onclick = function() {onSingleClick(this)};
     
     container.setAttribute('class', 'table');
     container.appendChild(header);
@@ -82,26 +82,25 @@ function createTableContainer(view, index) {
 
 function createUserContainer(view, index) {
     let backgroundContainer = document.createElement('div');
-    backgroundContainer.onclick = function() {selectedUser(this)};
+    backgroundContainer.onclick = function() {onSingleClick(this)};
+    backgroundContainer.ondblclick = function() {onDoubleClick(this)};
     backgroundContainer.setAttribute('hasProfile', 'true');
     
-    let container = document.createElement('div');
-    container.setAttribute('class', 'user');
-    
+    let userContainer = document.createElement('div');
+    userContainer.setAttribute('class', 'user');
+
+    /// Måste hämta info om alla användare här! ///
     let imageContainer = document.createElement('img');
     imageContainer.src = '/img/aubergine_logo.png';
     
     let textContainer = document.createElement('p');
-    
-    /// Måste hämta info om alla användare här! ///
     let text = document.createTextNode('Namn, ' + index);
-
     textContainer.setAttribute("class", "userText");
     textContainer.appendChild(text);
 
-    container.appendChild(imageContainer);
-    container.appendChild(textContainer);
-    backgroundContainer.appendChild(container);
+    userContainer.appendChild(imageContainer);
+    userContainer.appendChild(textContainer);
+    backgroundContainer.appendChild(userContainer);
     view.appendChild(backgroundContainer);
 }
 
@@ -109,7 +108,7 @@ function createUserContainer(view, index) {
 let selectedDiv = null;
 
 //kommer in hit om man klickar på en div
-function selectedUser(div) {
+function onSingleClick(div) {
     if (div.getAttribute('hasProfile') == "true") {
 	if (selectedDiv && selectedDiv.getAttribute('hasProfile') == "true") {
 	    swapUsers(div);
@@ -155,6 +154,36 @@ function sortUserList() {
 		    next.setAttribute('hasProfile', 'false');
 		}
 	    }
+	}
+    }
+}
+
+function onDoubleClick(div) {
+    if (div.getAttribute('hasProfile') == "true") {
+	showProfile(div);
+	selectedDiv = null;
+    }
+}
+
+function showProfile(div) {
+    let profilePopup = document.getElementById('profilePopup');
+    let popupBody = profilePopup.childNodes[0];
+    let overlay = document.getElementsByClassName('overlay')[0];
+    overlay.style.display = 'block';
+    profilePopup.style.display = 'block';
+}
+
+//gömmer vissa popups om man klickar utanför dom
+function hidePopup() {
+    let allPopups = document.getElementsByClassName('popup');
+    let overlay = document.getElementsByClassName('overlay')[0];
+    for (let popup of allPopups) {
+	if (popup.hasAttribute("overlaySafe")) {
+	    //Do nothing
+	}
+	else if (popup.style.display == 'block') {
+	    popup.style.display = 'none';
+	    overlay.style.display = 'none';
 	}
     }
 }
@@ -229,3 +258,4 @@ function showFinishedEventPopup() {
     overlay.style.display = 'block';
     finishedEventPopup.style.display = 'block';
 }
+

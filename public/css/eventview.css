@@ -17,7 +17,7 @@
 #sidebar {
     padding: 10px;
     width: 20%;
-    height: 70%;
+    height: 77.5%;
     display: grid;
     float: right;
     grid-gap: 10px;
@@ -26,7 +26,6 @@
     border-left: solid thick purple;
     position: fixed;
     overflow-y: scroll;
-    top: 5;
     right: 0;
 }
 
@@ -67,6 +66,7 @@
     position: relative;
     background-color: white;
     text-align: center;
+    height: 100%;
 }
 
 .user img {
