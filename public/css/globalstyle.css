@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto&display=swap');
+
 body {
     margin: 0;
     background-color: pink;
@@ -12,6 +14,10 @@ body {
 
 .topbar img {
     width: 200px;
+}
+
+h1 {
+    font-family: 'Open Sans';
 }
 
 footer {

@@ -84,10 +84,8 @@ function goToEvent(eventName, eventPopulation) {
     // CREATE EVENT AND PUT THINGS INTO DATABASE
 
     let event = new Event(eventName, eventPopulation);
-    
 
     socket.emit('addEvent', event);
-    
-    
+
     window.location.href = "http://localhost:3000/admin/eventview" + '#' + eventName;
 }
