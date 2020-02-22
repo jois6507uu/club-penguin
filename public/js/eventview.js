@@ -114,23 +114,23 @@ function onSingleClick(div) {
 	    swapUsers(div);
 	} else {
 	    selectedDiv = div;
-	    selectedDiv.children[0].style.backgroundColor = '#d6d6d6'; //added
-	    selectedDiv.children[0].style.border = 'solid thin black'; //added
+	    selectedDiv.children[0].style.backgroundColor = '#d6d6d6';
+	    selectedDiv.children[0].style.border = 'solid thin black';
 	    
 	}
     } else if (selectedDiv == null){
 	return;
     } else {
-	selectedDiv.children[0].style.backgroundColor = ''; //added
-	selectedDiv.children[0].style.border = ''; //added
+	selectedDiv.children[0].style.backgroundColor = '';
+	selectedDiv.children[0].style.border = '';
 	moveUser(div);
     }
 }
 
 //fanns det ingen user i div och selected inte är null så flyttar vi till den divven istället
 function moveUser(div) {
-    selectedDiv.children[0].style.backgroundColor = ''; //added
-    selectedDiv.children[0].style.border = ''; //added
+    selectedDiv.children[0].style.backgroundColor = '';
+    selectedDiv.children[0].style.border = '';
     div.appendChild(selectedDiv.children[0]);
     selectedDiv.setAttribute('hasProfile', 'false');
     selectedDiv = null;
@@ -140,8 +140,8 @@ function moveUser(div) {
 
 // innehöll båda divvarna en profile kommer vi in hit.
 function swapUsers(div) {
-    selectedDiv.children[0].style.backgroundColor = 'white'; //added
-    selectedDiv.children[0].style.border = ''; //added
+    selectedDiv.children[0].style.backgroundColor = 'white';
+    selectedDiv.children[0].style.border = '';
     let tempUser = div.children[0];
     div.appendChild(selectedDiv.children[0]);
     selectedDiv.appendChild(tempUser);
