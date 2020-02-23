@@ -11,11 +11,13 @@ const vm = new Vue({
     },
     methods: {
         profileDone: function () {
-
+            if(confirm("Är du nöjd med dina svar?"))
+            {
             localStorage.setItem("tobacco", this.tobacco);
             localStorage.setItem("question1", this.question1);
             localStorage.setItem("question2", this.question2);
             window.location = 'http://localhost:3000/user/waiting';
+            }
 
         }
     }
