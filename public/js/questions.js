@@ -15,7 +15,7 @@ const vm = new Vue({
             localStorage.setItem("tobacco", this.tobacco);
             localStorage.setItem("question1", this.question1);
             localStorage.setItem("question2", this.question2);
-            window.location = 'http://localhost:3000/user/DuringEvent/waiting';
+            window.location = 'http://localhost:3000/user/waiting';
 
         }
     }
