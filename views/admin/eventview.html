@@ -13,7 +13,7 @@
     <header>
       <div class="topbar">
 	<img src="/img/aubergine_logo.png">
-	<input type="button" value="Tillbaka" id="goBackBtn" onclick="goBack()">
+	<input type="button" class="smallButton" value="Tillbaka" id="goBackBtn" onclick="goBack()">
       </div>
     </header>
     <main>
@@ -45,11 +45,11 @@
 
       <div class="popup" id="exitEventPopup">
 	<div class="popupHeader">
+	  <span class="closePopup" onclick="hideExitEventPopup()">&times</span>
 	  <h2>Vill du avsluta eventet?</h2>
 	</div>
 	<div class="popupBody">
-	  <input class="smallButton" id="yesBtn" type="button" value="Ja" onclick="exitEvent()">
-	  <input class="smallButton" id="noBtn" type="button" value="Nej" onclick="hideExitEventPopup()">
+	  <input class="smallButton" id="yesBtn" type="button" value="Avsluta event" onclick="exitEvent()">
 	</div>
       </div>
 

@@ -5,19 +5,30 @@ body {
     background-color: pink;
 }
 
-.topbar {
-    background-color: purple;
-    padding: 0;
-    position: relative;
-    height: 190px;
+@media screen and (max-width: 600px) {
+    .topbar {
+	background-color: purple;
+	padding: 0;
+	position: relative;
+	height: 95px;
+    }
+
+    .topbar img {
+	width: 100px;
+    }
 }
 
-.topbar img {
-    width: 200px;
-}
+@media screen and (min-width: 601px) {
+    .topbar {
+	background-color: purple;
+	padding: 0;
+	position: relative;
+	height: 190px;
+    }
 
-h1 {
-    font-family: 'Open Sans';
+    .topbar img {
+	width: 200px;
+    }
 }
 
 footer {

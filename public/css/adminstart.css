@@ -1,35 +1,40 @@
+h1, h2 {
+    font-family: 'Open Sans';
+}
+
 #eventCreation {
     text-align: center;
 }
 
 #currentEvents {
+    margin-top: 50px;
     text-align: center;
 }
 
 #createNewBtn {
     padding: 50px 150px;
     font-size: 50px;
-    font-family: sans-serif;
-    color: yellow;
+    font-family: 'Open Sans';
+    color: white;
     background-color: purple;
     border: none;
 }
 
 #createNewBtn:hover {
-    background-color: indigo;
+    background-color: #5a009c;
     cursor: pointer;
 }
 
 .eventButtons {
     padding: 33px 100px;
-    font-size: 33px;
-    font-family: sans-serif;
-    color: yellow;
-    background-color: indigo;
-    border-color: yellow;
+    font-size: 32px;
+    font-family: 'Open Sans';
+    color: white;
+    background-color: purple;
+    border: none;
 }
 
 .eventButtons:hover {
-    background-color: purple;
+    background-color: #5a009c;
     cursor: pointer;
 }

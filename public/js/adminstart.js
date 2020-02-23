@@ -9,10 +9,6 @@ function Event(eventName, eventPopulation) {
     this.eventPopulation = eventPopulation;
 }
 
-
-
-
-
 function getEvents() {
 
     let username = window.location.hash.substring(1);

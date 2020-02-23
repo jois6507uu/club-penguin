@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto&display=swap');
 
+h1 {
+    font-family: 'Open Sans';
+}
+
 #mainView {
     padding: 20px;
     width: 75%;
@@ -129,6 +133,11 @@
     color: white;
 }
 
+#goBackBtn:hover {
+    background-color: #98597e;
+    cursor: pointer;    
+}
+
 #eventViewTitle {
     text-align: center;
 }
@@ -154,4 +163,16 @@
 
 #skipBtn {
     margin-top: 10px;
+}
+
+#yesBtn {
+    background-color: #cc0000;
+    color: white;
+    padding: 12px 20px;
+    font-size: 24px;
+}
+
+#yesBtn:hover {
+    background-color: #b70000;
+    cursor: pointer;
 }

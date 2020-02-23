@@ -1,35 +1,54 @@
+header {
+
+}
+
 #adminBtn {
-	margin-right: 20px;
-	padding: 12px 24px;
-	position: absolute;
-	right: 0;
-	top: 50%;
-	-ms-transform: translateY(-50%);
-	transform: translateY(-50%);
-	background-color: #A5668B;
-	border: none;
-	color: white;
+    margin-right: 20px;
+    padding: 12px 24px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+    background-color: #A5668B;
+    border: none;
+    color: white;
+}
+
+#adminBtn:hover {
+    background-color: #98597e;
+    cursor: pointer;
 }
 
 #userLogin {
-	margin: 10% 10%;
-	text-align: center;
+    margin-top: 10%;
+    text-align: center;
+}
+
+#userLogin h2 {
+    font-family: 'Open Sans';
+    font-size: 32px;
 }
 
 
 #userLogin input[id=userInput] {
-	width: 40%;
-	padding: 5%;
-	font-size: 32px;
+    width: 60%;
+    padding: 2%;
+    font-size: 42px;
 }
 
 #userLogin input[type=submit] {
-	background-color: #69306D;
-	border: none;
-	color: white;
-	margin-top: 20px;
-	font-size: 20px;
-	padding: 12px;
+    background-color: purple;
+    border: none;
+    color: white;
+    margin-top: 20px;
+    font-size: 20px;
+    padding: 16px 24px;
 	
 }
 
+#userLogin input[type=submit]:hover {
+    background-color: #5a009c;
+    cursor: pointer;
+	
+}
