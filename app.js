@@ -36,6 +36,14 @@ app.get('/user/questions', function(req, res) {
   res.sendFile(path.join(__dirname, 'views/user/ProfileMaking/questions.html'));
 });
 
+app.get('/user/waiting', function(req, res) {
+  res.sendFile(path.join(__dirname, 'views/user/DuringEvent/waiting.html'));
+});
+
+app.get('/user/meeting', function(req, res) {
+  res.sendFile(path.join(__dirname, 'views/user/DuringEvent/meeting.html'));
+});
+
 app.get('/user/contacts', function (req, res) {
     res.sendFile(path.join(__dirname, 'views/user/AfterEvent/contacts.html'));
 });

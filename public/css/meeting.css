@@ -1,0 +1,37 @@
+
+#meeting{
+    text-align: center;
+}
+
+#youreMeeting{
+    font-weight: bolder;
+    font-size: 75px;
+}
+
+/* #profilePic{
+    
+  } */
+
+#meetingName{
+    font-size: 50px;
+    font-style: italic;
+}
+
+#atTable{
+    font-size: 50px;
+}
+
+#tableNumber{
+    font-size: 50px;
+    font-weight: bolder;
+}
+
+#timer{
+    font-size: 150px;
+    font-weight: bolder;
+    /* background-color: purple; */
+}
+
+#timerButton{
+    font-size: 25px;
+}
