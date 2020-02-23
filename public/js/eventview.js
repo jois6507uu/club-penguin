@@ -24,8 +24,10 @@ async function initEventView() {
     
     socket.emit('getEventData', eventname);
     socket.on('eventDataResponse', function(eventData) {
+	
 	initTables(eventData);
 	initUsers(eventData);
+	
     });
 
     if (roundNumber > 3) {
@@ -55,7 +57,7 @@ function createTableContainer(view, index) {
     
     let header = document.createElement('div');
     let headerP = document.createElement('p');
-    let headerText = document.createTextNode("Table " + (index+1));
+    let headerText = document.createTextNode(index+1);
     header.setAttribute('class', 'tableHeaders');
     header.appendChild(headerP);
     headerP.appendChild(headerText);
@@ -112,16 +114,23 @@ function onSingleClick(div) {
 	    swapUsers(div);
 	} else {
 	    selectedDiv = div;
+	    selectedDiv.children[0].style.backgroundColor = '#d6d6d6';
+	    selectedDiv.children[0].style.border = 'solid thin black';
+	    
 	}
     } else if (selectedDiv == null){
 	return;
     } else {
+	selectedDiv.children[0].style.backgroundColor = '';
+	selectedDiv.children[0].style.border = '';
 	moveUser(div);
     }
 }
 
 //fanns det ingen user i div och selected inte är null så flyttar vi till den divven istället
 function moveUser(div) {
+    selectedDiv.children[0].style.backgroundColor = '';
+    selectedDiv.children[0].style.border = '';
     div.appendChild(selectedDiv.children[0]);
     selectedDiv.setAttribute('hasProfile', 'false');
     selectedDiv = null;
@@ -131,6 +140,8 @@ function moveUser(div) {
 
 // innehöll båda divvarna en profile kommer vi in hit.
 function swapUsers(div) {
+    selectedDiv.children[0].style.backgroundColor = 'white';
+    selectedDiv.children[0].style.border = '';
     let tempUser = div.children[0];
     div.appendChild(selectedDiv.children[0]);
     selectedDiv.appendChild(tempUser);
@@ -209,7 +220,6 @@ function hidePopup() {
 }
 
 /// Denna funktion simulerar en rundomgång
-// async
 function startRound() {
 
     let tables = document.getElementsByClassName('table');
@@ -226,7 +236,6 @@ function startRound() {
     let headerText= document.createTextNode('Runda #' + roundNumber + ' pågår...');
     header.appendChild(headerText);
 
-    //startRoundInfo.prepend(header);
     startRoundInfo.prepend(header);
 
     let timer = document.getElementById('timer');

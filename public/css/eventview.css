@@ -1,3 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans|Roboto&display=swap');
+
+h1 {
+    font-family: 'Open Sans';
+}
+
 #mainView {
     padding: 20px;
     width: 75%;
@@ -32,34 +38,47 @@
 .tableHeaders {
     width: 100%;
     height: 8%;
-    background-color: white;
-    border-bottom: solid 5px black;
 }
 
 .tableHeaders p {
-    margin: 0;
+    margin: 5px;
     border: 0;
     text-align: center;
     font-family: sans-serif;
+    font-weight: bold;
 }
 
 .emptyUserLeft {
-    width: 49%;
-    height: 90%;
-    background-color:white;
+    width: 45%;
+    height: 80%;
     float: left;
+    box-shadow: inset 0 0 5px gray;
+    margin: 2%;
+    border-top: pink;
+}
+
+.emptyUserLeft:hover {
+    background-color: #e0e0e0;
 }
 
 .emptyUserRight {
-    width: 49%;
-    height: 90%;
-    background-color: white;
+    width: 45%;
+    height: 80%;
     float: right;
+    box-shadow: inset 0 0 5px gray;
+    margin: 2%;
+    border-top: pink;
+}
+
+.emptyUserRight:hover {
+    background-color: #e0e0e0;
 }
 
 .table {
+    border-top: solid thick purple;
     height: 200px;
-    background-color: black;
+    background-color: white;
+    box-shadow: 0 1px #FFFFFF inset, 0 1px 3px rgba(34, 25, 25, 0.4);
 }
 
 .user {
@@ -67,6 +86,11 @@
     background-color: white;
     text-align: center;
     height: 100%;
+}
+
+.user:hover {
+    background-color: #eaeaea;
+    cursor: pointer;
 }
 
 .user img {
@@ -78,16 +102,22 @@
 #buttons {
     margin-top: 20px;
     display: grid;
-    grid-gap: 25px;
+    grid-gap: 50px;
     grid-template-columns: 1fr 1fr 1fr;
 }
 
 #buttons input {
-    background-color: indigo;
-    color: yellow;
-    font-size: 20px;
+    background-color: purple;
+    color: white;
+    font-size: 32px;
+    font-family: 'Open Sans';
     border: none;
-    height: 150px;
+    height: 120px;
+}
+
+#buttons input:hover {
+    cursor: pointer;
+    background-color: #5a009c;
 }
 
 #goBackBtn {
@@ -101,6 +131,11 @@
     background-color: #A5668B;
     border: none;
     color: white;
+}
+
+#goBackBtn:hover {
+    background-color: #98597e;
+    cursor: pointer;    
 }
 
 #eventViewTitle {
@@ -128,4 +163,16 @@
 
 #skipBtn {
     margin-top: 10px;
+}
+
+#yesBtn {
+    background-color: #cc0000;
+    color: white;
+    padding: 12px 20px;
+    font-size: 24px;
+}
+
+#yesBtn:hover {
+    background-color: #b70000;
+    cursor: pointer;
 }

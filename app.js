@@ -111,6 +111,8 @@ Event.prototype.getEventData = function(eventname) {
     return data.eventPopulation;
 }
 
+
+
 const event = new Event();
 
 
@@ -134,7 +136,7 @@ io.on('connection', function(socket) {
     socket.on('getEventData', function(eventname) {
 	let eventData = event.getEventData(eventname);
 	socket.emit('eventDataResponse', eventData);
-    })
+    });
     
     socket.on('addEvent', function(newEvent) {
 	event.addEvent(newEvent);
