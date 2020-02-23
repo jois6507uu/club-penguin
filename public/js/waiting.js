@@ -9,7 +9,7 @@ function sleep(ms)
 
 async function demo(){
     await sleep(5000);
-    console.log("väntat 5 sek");    
+    window.location = 'http://localhost:3000/user/meeting';
 }
 
 demo();
