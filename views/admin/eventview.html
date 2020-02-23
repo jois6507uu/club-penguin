@@ -7,13 +7,13 @@
     <script src="/js/eventview.js" defer></script>
     <script src="/js/global.js" defer></script>
   </head>
-  <div class="overlay"></div>
+  <div class="overlay" onclick="hidePopup()"></div>
   <body onload="initEventView()">
     <div class="overlay"></div>
     <header>
       <div class="topbar">
-	<img src="/img/aubergine_logo.png" width="260">
-	<input type="button" value="Tillbaka" id="goBackBtn" onclick="goBack()">
+	<img src="/img/aubergine_logo.png">
+	<input type="button" class="smallButton" value="Tillbaka" id="goBackBtn" onclick="goBack()">
       </div>
     </header>
     <main>
@@ -21,32 +21,47 @@
 	<div id="tableGrid">
 	</div>
 	<div id="buttons">
+
 	  <input type="button" value="Starta" id="startButton" onclick="startRound()">
-	  <input type="button" value="Matcha" id="macthButton" onclick="match()">
-	  <input type="button" value="Avsluta runda" id="finishButton" onclick="showExitEvent()">
+	  <input type="button" value="Matcha" id="macthButton" onclick="algorithm()">
+	  <input type="button" value="Avsluta event" id="finishButton" onclick="showExitEvent()">
 	</div>
       </div>
       <div id="sidebar">
 	
       </div>
+      <div class="popup" id="ongoingRoundPopup" overlaySafe="true">
+	<div class="popupBody" id="ongoingRoundInfo">
+	  <span id="timer"></span><br>
+	  <input class="smallButton" id="skipBtn" type="button" value="Nästa runda" onclick="skipRound()">
+	</div>
+      </div>
 
-      <div class="popup" id="ongoingRoundPopup">
-	<div class="popupBody" id="ongoingRoundInfo"></div>
+      <div class="popup" id="ongoingRoundDenied">
+	<div class="popupBody" id="ongoingDeniedInfo">
+	  <h1>Var vänlig fyll i alla bord. Om du inte kan du inte bestämma dig, tryck på "matcha" så matchar vi åt dig.</h1>
+	</div>
       </div>
 
       <div class="popup" id="exitEventPopup">
 	<div class="popupHeader">
+	  <span class="closePopup" onclick="hideExitEventPopup()">&times</span>
 	  <h2>Vill du avsluta eventet?</h2>
 	</div>
 	<div class="popupBody">
-	  <input class="smallButton" id="yesBtn" type="button" value="Ja" onclick="exitEvent()">
-	  <input class="smallButton" id="noBtn" type="button" value="Nej" onclick="hideExitEventPopup()">
+	  <input class="smallButton" id="yesBtn" type="button" value="Avsluta event" onclick="exitEvent()">
 	</div>
       </div>
 
-      <div class="popup" id="finishedEventPopup">
+      <div class="popup" id="finishedEventPopup" overlaySafe="true">
 	<div class="popupBody">
 	  <h2>Eventet är nu klart, du omdirigeras till arrangörsstartsidan</h2>
+	</div>
+      </div>
+      <!-- Popup div när man dubbelklickar på profilerna -->
+      <div class="popup" id="profilePopup">
+	<div class="popupBody">
+	  
 	</div>
       </div>
       

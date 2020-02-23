@@ -29,12 +29,33 @@ app.get('/', function(req, res) {
 
 
 app.get('/user/profile', function(req, res) {
-  res.sendFile(path.join(__dirname, 'views/user/profile.html'));
+  res.sendFile(path.join(__dirname, 'views/user/ProfileMaking/profile.html'));
 });
 
 app.get('/user/questions', function(req, res) {
-  res.sendFile(path.join(__dirname, 'views/user/questions.html'));
+  res.sendFile(path.join(__dirname, 'views/user/ProfileMaking/questions.html'));
 });
+
+app.get('/user/waiting', function(req, res) {
+  res.sendFile(path.join(__dirname, 'views/user/DuringEvent/waiting.html'));
+});
+
+app.get('/user/meeting', function(req, res) {
+  res.sendFile(path.join(__dirname, 'views/user/DuringEvent/meeting.html'));
+});
+
+app.get('/user/contacts', function (req, res) {
+    res.sendFile(path.join(__dirname, 'views/user/AfterEvent/contacts.html'));
+});
+
+app.get('/user/contactsRec', function (req, res) {
+    res.sendFile(path.join(__dirname, 'views/user/AfterEvent/contactsRecive.html'));
+});
+
+app.get('/user/Done', function (req, res) {
+    res.sendFile(path.join(__dirname, 'views/user/AfterEvent/done.html'));
+});
+
 
 app.get('/admin/start', function(req, res) {
   res.sendFile(path.join(__dirname, 'views/admin/adminstart.html'));
@@ -98,6 +119,8 @@ Event.prototype.getEventData = function(eventname) {
     return data.eventPopulation;
 }
 
+
+
 const event = new Event();
 
 
@@ -121,7 +144,7 @@ io.on('connection', function(socket) {
     socket.on('getEventData', function(eventname) {
 	let eventData = event.getEventData(eventname);
 	socket.emit('eventDataResponse', eventData);
-    })
+    });
     
     socket.on('addEvent', function(newEvent) {
 	event.addEvent(newEvent);

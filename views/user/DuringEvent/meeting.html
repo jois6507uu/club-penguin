@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>WaitingPage</title>
+    <link rel="stylesheet" href="/css/meeting.css">
+    <link rel="stylesheet" href="/css/globalstyle.css">
+    <script src="https://vuejs.org/js/vue.js" defer></script>
+    <script src="/js/meeting.js" defer></script>
+</head>
+
+<body>
+
+    <header>
+        <div class="topbar">
+            <img src="/img/picture1.png" width="260">
+        </div>
+    </header>
+
+    <div id="meeting">
+        <p id="youreMeeting">Du träffar:</p><br>
+        <img id="profilePic" src="/img/awaiting.jpg" width="400"><br>
+        <p id="meetingName">Förnamn Efternamn</p><br>
+        <div>
+            <div id="atTable">Vid bord:</div>
+            <div id="tableNumber">X</div>
+        </div>
+            <!-- Den ska ej vara en knapp när vi är klara. 
+                Tillfälligt där för att kunna skynda på testerna -->
+            <div id="timer" type="button" onclick="nextPage()"></div>
+        
+
+    </div>
+
+</body>

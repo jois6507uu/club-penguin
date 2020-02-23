@@ -3,29 +3,6 @@
     font-size: 50px;
 }
 
-.fragor {
-    display: inline-block;
-    margin-top: 120px;
-    font-weight: bold;
-}
-
-.staminte {
-    margin-left: 100px;
-    float: left;
-}
-
-.stammer {
-    margin-right: 100px;
-    float: right;
-}
-
-input[type="radio"] {
-    /* width: 60px; */
-    width: 60px;
-    height: 60px;
-    /* height: ; */
-}
-
 .dropdown {
     /* width: 150px; */
     font-size: 50px;
@@ -36,14 +13,27 @@ input[type="radio"] {
     max-width: 70px;
 }
 
-#Namn {
-    text-align: center;
-    font-size: 76px;
+.questions {
+    display: inline-block;
+    margin-top: 120px;
+    font-weight: bold;
 }
 
-#Ålder {
-    text-align: center;
-    font-size: 76px;
+.disagree {
+    margin-left: 100px;
+    float: left;
+}
+
+.agree {
+    margin-right: 100px;
+    float: right;
+}
+
+input[type="radio"] {
+    /* width: 60px; */
+    width: 60px;
+    height: 60px;
+    /* height: ; */
 }
 
 #doneButton {
