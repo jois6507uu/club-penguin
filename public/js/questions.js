@@ -17,7 +17,7 @@ const vm = new Vue({
     },
     methods: {
         profileDone: async function() {
-            if(confirm("Ã„r du nÃ¶jd med dina svar?"))
+            if(confirm("Ãr du nöjd med dina svar?"))
             {
             localStorage.setItem("tobacco", this.tobacco);
             localStorage.setItem("question1", this.question1);
