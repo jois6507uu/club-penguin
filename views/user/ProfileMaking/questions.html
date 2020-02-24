@@ -14,99 +14,57 @@
       <img src="/img/aubergine_logo.png" width="260">
     </div>
   </header>
-<<<<<<< HEAD
-  <main id="profileID">
-      <div id="profileQuestion">
+      <main id="profileID">
+          <div id="profileQuestion">
 
-          <p id="dropDownTobacco">
-              <label for="tobacco">Använder du tobak?</label><br>
-              <select name="tobak" class="dropdown">
-                  <option class="dropdownChoice" value="Ja">Ja</option>
-                  <option class="dropdownChoice" value="Nej" selected="selected">Nej</option>
-              </select>
-          </p>
-
+              <p id="dropDownTobacco">
+                  <label for="tobacco">Använder du tobak?</label><br>
+                  <select name="tobak" class="dropdown">
+                      <option class="dropdownChoice" value="Ja">Ja</option>
+                      <option class="dropdownChoice" value="Nej" selected="selected">Nej</option>
+                  </select>
+              </p>
 
 
 
-          <label class="fragor" for="fraga1" id="fraga1Buttons">Fråga 1</label><br>
 
-          <label class="staminte">Stämmer Inte</label>
-          <label class="stammer">Stämmer</label><br>
-          <input type="radio" id="f1-1" v-model="fraga1" class="radio" name="fraga1" value="1">
-          <input type="radio" v-model="fraga1" class="radio" name="fraga1" value="2">
-          <input type="radio" v-model="fraga1" class="radio" name="fraga1" value="3">
-          <input type="radio" v-model="fraga1" class="radio" name="fraga1" value="4" checked="checked">
-          <input type="radio" v-model="fraga1" class="radio" name="fraga1" value="5">
-          <input type="radio" v-model="fraga1" class="radio" name="fraga1" value="6">
-          <input type="radio" id="f1-7" v-model="fraga1" class="radio" name="fraga1" value="7"><br>
+              <label class="questions" for="question1" id="question1Buttons">Fråga 1</label><br>
 
-          <label class="fragor" for="fraga2" id="fraga2Buttons">Fråga 2</label><br>
-          <label class="staminte">Stämmer Inte</label>
-          <label class="stammer">Stämmer</label><br>
-          <input type="radio" v-model="fraga2" class="radio" name="fraga2" value="1">
-          <input type="radio" v-model="fraga2" class="radio" name="fraga2" value="2">
-          <input type="radio" v-model="fraga2" class="radio" name="fraga2" value="3">
-          <input type="radio" v-model="fraga2" class="radio" name="fraga2" value="4" checked="checked">
-          <input type="radio" v-model="fraga2" class="radio" name="fraga2" value="5">
-          <input type="radio" v-model="fraga2" class="radio" name="fraga2" value="6">
-          <input type="radio" v-model="fraga2" class="radio" name="fraga2" value="7">
-      </div>
-      <div id="myModal" class="modal">
+              <label class="disagree">Stämmer Inte</label>
+              <label class="agree">Stämmer</label><br>
+              <input type="radio" v-model="question1" class="radio" name="question1" value="1">
+              <input type="radio" v-model="question1" class="radio" name="question1" value="2">
+              <input type="radio" v-model="question1" class="radio" name="question1" value="3">
+              <input type="radio" v-model="question1" class="radio" name="question1" value="4" checked="checked">
+              <input type="radio" v-model="question1" class="radio" name="question1" value="5">
+              <input type="radio" v-model="question1" class="radio" name="question1" value="6">
+              <input type="radio" v-model="question1" class="radio" name="question1" value="7"><br>
 
-          <!-- Modal content -->
-          <div class="modal-content">
-              <span class="close">&times;</span>
-              <p>Vänligen vänta medans arrangör blir klar med indelningen av par!</p>
+              <label class="questions" for="question2" id="question2Buttons">Fråga 2</label><br>
+              <label class="disagree">Stämmer Inte</label>
+              <label class="agree">Stämmer</label><br>
+              <input type="radio" v-model="question2" class="radio" name="question2" value="1">
+              <input type="radio" v-model="question2" class="radio" name="question2" value="2">
+              <input type="radio" v-model="question2" class="radio" name="question2" value="3">
+              <input type="radio" v-model="question2" class="radio" name="question2" value="4" checked="checked">
+              <input type="radio" v-model="question2" class="radio" name="question2" value="5">
+              <input type="radio" v-model="question2" class="radio" name="question2" value="6">
+              <input type="radio" v-model="question2" class="radio" name="question2" value="7">
           </div>
 
-      </div>
+          <div id="myModal" class="modal">
 
-      <footer>
-          <input type="button" id="doneButton" value="Nästa">
-      </footer>
-=======
-  <main id="profileID">
-    <div id="profileQuestion">
-        
-        <p id="dropDownTobacco">
-            <label for="tobacco">Använder du tobak?</label><br>
-            <select name="tobak" class="dropdown">
-                <option class="dropdownChoice" value="Ja">Ja</option>
-                <option class="dropdownChoice" value="Nej" selected="selected">Nej</option>
-            </select>
-        </p>
+              <!-- Modal content -->
+              <div class="modal-content">
+                  <span class="close">&times;</span>
+                  <p>Vänligen vänta medans arrangör blir klar med indelningen av par!</p>
+              </div>
 
+          </div>
 
-
-
-      <label class="questions" for="question1" id="question1Buttons">Fråga 1</label><br>
-        
-        <label class="disagree">Stämmer Inte</label>
-        <label class="agree">Stämmer</label><br>
-        <input type="radio" v-model="question1" class="radio" name="question1" value="1">
-        <input type="radio" v-model="question1" class="radio" name="question1" value="2">
-        <input type="radio" v-model="question1" class="radio" name="question1" value="3">
-        <input type="radio" v-model="question1" class="radio" name="question1" value="4" checked="checked">
-        <input type="radio" v-model="question1" class="radio" name="question1" value="5">
-        <input type="radio" v-model="question1" class="radio" name="question1" value="6">
-        <input type="radio" v-model="question1" class="radio" name="question1" value="7"><br>
-
-        <label class="questions" for="question2" id="question2Buttons">Fråga 2</label><br>
-        <label class="disagree">Stämmer Inte</label>
-        <label class="agree">Stämmer</label><br>
-        <input type="radio" v-model="question2" class="radio" name="question2" value="1">
-        <input type="radio" v-model="question2" class="radio" name="question2" value="2">
-        <input type="radio" v-model="question2" class="radio" name="question2" value="3">
-        <input type="radio" v-model="question2" class="radio" name="question2" value="4" checked="checked">
-        <input type="radio" v-model="question2" class="radio" name="question2" value="5">
-        <input type="radio" v-model="question2" class="radio" name="question2" value="6">
-        <input type="radio" v-model="question2" class="radio" name="question2" value="7">
-    </div>
-    <footer>
-      <input type="button" v-on:click="profileDone()" id="doneButton" value="Klar">
-    </footer>
->>>>>>> c474957d2b65783c77c4a8e980248588a57179d3
-  </main>
+          <footer>
+              <input type="button" v-on:click="profileDone()" id="doneButton" value="Klar">
+          </footer>
+      </main>
 </body>
 </html>

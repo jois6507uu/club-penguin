@@ -36,33 +36,6 @@ input[type="radio"] {
   /* height: ; */
 }
 
-<<<<<<< HEAD
-  .dropdownChoice{
-      /* font-size: 50px; */
-      max-width: 70px;
-  }
-  
-  #Namn{
-    text-align: center;
-    font-size: 76px;
-  }
-  
-  #Ålder{
-    text-align: center;
-    font-size: 76px;
-  }
-  
-  #doneButton{
-    background-color: blue;
-    border: none;
-    color: white;
-    padding: 54px 150px;
-    text-decoration: none;
-    font-size: 56px;
-    margin: 4px 2px;
-    cursor: pointer;
-  }
-
 /* The Modal (background) */
 .modal {
     display: none; /* Hidden by default */
@@ -103,7 +76,7 @@ input[type="radio"] {
         text-decoration: none;
         cursor: pointer;
     }
-=======
+
 #doneButton {
   background-color: blue;
   border: none;
@@ -114,4 +87,4 @@ input[type="radio"] {
   margin: 4px 2px;
   cursor: pointer;
 }
->>>>>>> c474957d2b65783c77c4a8e980248588a57179d3
+
