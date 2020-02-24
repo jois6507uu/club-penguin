@@ -5,8 +5,8 @@ const vm = new Vue({
         contact2: "Nej"
     },
     methods: {
-        contactsAnswered: function () {
-            window.location.href = 'http://localhost:3000/user/contactsRec';
+        contactsAnswered: function() {
+            window.location.href = 'http://localhost:3000/user/Done';
         }
     }
 })
