@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>WaitingPage</title>
-    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/DuringRoundStyle.css">
     <link rel="stylesheet" href="/css/globalstyle.css">
     <script src="https://vuejs.org/js/vue.js" defer></script>
     <script src="/js/DuringRound.js" defer></script>
@@ -16,11 +16,13 @@
             <img src="/img/aubergine_logo.png" width="260">
         </div>
     </header>
-    <div id="profileQuestion">Time left = <span id="timer"></span></div>
+    <div id="table">Du ska vara vid bord 2</div>
+    <div id="partner">Du kommer att träffa: </div>
+    <div id="time">Time left = <span id="timer"></span></div>
 
-    <p id="smallTips">konversationstips</p><br>
 
     <footer>
+        <p id="ifFinished">Om du blir klar tidigt så tryck på denna knapp!</p><br>
         <input type="button" onclick="roundDone()" id="doneButton" value="Nästa">
     </footer>
 
