@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // Get the modal
 var modal = document.getElementById("myModal");
 
@@ -18,3 +19,29 @@ btn.onclick = async function () {
     console.log("v�ntat 10 sek");
     window.location.href = 'http://localhost:3000/user/round';
 }
+=======
+console.log(localStorage.getItem("name"));
+console.log(localStorage.getItem("age"));
+console.log(localStorage.getItem("gender"));
+
+const vm = new Vue({
+    el: '#profileID',
+    data: {
+        tobacco: "",
+        question1: "",
+        question2: "",
+    },
+    methods: {
+        profileDone: function () {
+            if(confirm("Är du nöjd med dina svar?"))
+            {
+            localStorage.setItem("tobacco", this.tobacco);
+            localStorage.setItem("question1", this.question1);
+            localStorage.setItem("question2", this.question2);
+            window.location = 'http://localhost:3000/user/waiting';
+            }
+
+        }
+    }
+})
+>>>>>>> c474957d2b65783c77c4a8e980248588a57179d3

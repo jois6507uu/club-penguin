@@ -40,6 +40,14 @@ app.get('/user/Round', function (req, res) {
     res.sendFile(path.join(__dirname, 'views/user/DuringEvent/DuringRound.html'));
 });
 
+app.get('/user/waiting', function(req, res) {
+  res.sendFile(path.join(__dirname, 'views/user/DuringEvent/waiting.html'));
+});
+
+app.get('/user/meeting', function(req, res) {
+  res.sendFile(path.join(__dirname, 'views/user/DuringEvent/meeting.html'));
+});
+
 app.get('/user/contacts', function (req, res) {
     res.sendFile(path.join(__dirname, 'views/user/AfterEvent/contacts.html'));
 });
@@ -115,6 +123,8 @@ Event.prototype.getEventData = function(eventname) {
     return data.eventPopulation;
 }
 
+
+
 const event = new Event();
 
 
@@ -138,7 +148,7 @@ io.on('connection', function(socket) {
     socket.on('getEventData', function(eventname) {
 	let eventData = event.getEventData(eventname);
 	socket.emit('eventDataResponse', eventData);
-    })
+    });
     
     socket.on('addEvent', function(newEvent) {
 	event.addEvent(newEvent);
