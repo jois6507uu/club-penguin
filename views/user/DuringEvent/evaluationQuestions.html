@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>EvaluationPage</title>
+    <link rel="stylesheet" href="../../../public/css/globalstyle.css">
+    <link rel="stylesheet" href="../../../public/css/evaluationQuestion.css">
+    <script src="https://vuejs.org/js/vue.js" defer></script>
+    <script src="../../../public/js/evaluationQuestions.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <div class="topbar">
+            <img src="../../public/img/aubergine_logo.png" width="260">
+        </div>
+    </header>
+    <main id="profileID">
+        <div id="profileEvaluation">
+            <h2>Vad tyckte du?</h2>
+
+            <label class="fragor" for="fraga1" id="fraga1Buttons">Fråga 1</label><br>
+
+            <label class="min">1</label>
+            <label class="max">5</label><br>
+            <input type="radio" id="f1-1" v-model="fraga1" class="radio" name="fraga1" value="1">
+            <input type="radio" v-model="fraga1" class="radio" name="fraga1" value="2">
+            <input type="radio" v-model="fraga1" class="radio" name="fraga1" value="3">
+            <input type="radio" v-model="fraga1" class="radio" name="fraga1" value="4" checked="checked">
+            <input type="radio" v-model="fraga1" class="radio" name="fraga1" value="5">
+            <input type="radio" v-model="fraga1" class="radio" name="fraga1" value="6">
+            <input type="radio" id="f1-7" v-model="fraga1" class="radio" name="fraga1" value="7"><br>
+
+
+            <label class="fragor" for="fraga2" id="fraga2Buttons">Fråga 2</label><br>
+            <label class="min">1</label>
+            <label class="max">5</label><br>
+            <input type="radio" v-model="fraga2" class="radio" name="fraga2" value="1">
+            <input type="radio" v-model="fraga2" class="radio" name="fraga2" value="2">
+            <input type="radio" v-model="fraga2" class="radio" name="fraga2" value="3">
+            <input type="radio" v-model="fraga2" class="radio" name="fraga2" value="4" checked="checked">
+            <input type="radio" v-model="fraga2" class="radio" name="fraga2" value="5">
+            <input type="radio" v-model="fraga2" class="radio" name="fraga2" value="6">
+            <input type="radio" v-model="fraga2" class="radio" name="fraga2" value="7">
+        </div>
+        <footer>
+            <input type="button" v-on:click="evaluationDone()" id="doneButton" value="Skicka">
+        </footer>
+
+    </main>
+</body>
+
+</html>

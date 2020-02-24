@@ -17,12 +17,12 @@ const vm = new Vue({
     },
     methods: {
         profileDone: async function() {
-            if(confirm("Är du nöjd med dina svar?"))
+            if(confirm("Ã„r du nÃ¶jd med dina svar?"))
             {
             localStorage.setItem("tobacco", this.tobacco);
             localStorage.setItem("question1", this.question1);
                 localStorage.setItem("question2", this.question2);
-                console.log("v�ntat 10 sek");
+                console.log("väntat 10 sek");
                 // Get the modal
                 var modal = document.getElementById("myModal");
 
@@ -34,10 +34,9 @@ const vm = new Vue({
 
             modal.style.display = "block";
             await sleep(10000);
-            console.log("v�ntat 10 sek");
+            console.log("väntat 10 sek");
             window.location.href = 'http://localhost:3000/user/meeting';
             }
-
         }
     }
 })

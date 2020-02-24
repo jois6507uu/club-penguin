@@ -1,39 +1,39 @@
 #profileQuestion {
-  text-align: center;
-  font-size: 50px;
+    text-align: center;
+    font-size: 50px;
 }
 
 .dropdown {
-  /* width: 150px; */
-  font-size: 50px;
+    /* width: 150px; */
+    font-size: 50px;
 }
 
 .dropdownChoice {
-  /* font-size: 50px; */
-  max-width: 70px;
+    /* font-size: 50px; */
+    max-width: 70px;
 }
 
 .questions {
-  display: inline-block;
-  margin-top: 120px;
-  font-weight: bold;
+    display: inline-block;
+    margin-top: 120px;
+    font-weight: bold;
 }
 
 .disagree {
-  margin-left: 100px;
-  float: left;
+    margin-left: 100px;
+    float: left;
 }
 
 .agree {
-  margin-right: 100px;
-  float: right;
+    margin-right: 100px;
+    float: right;
 }
 
 input[type="radio"] {
-  /* width: 60px; */
-  width: 60px;
-  height: 60px;
-  /* height: ; */
+    /* width: 60px; */
+    width: 60px;
+    height: 60px;
+    /* height: ; */
 }
 
 /* The Modal (background) */
@@ -87,4 +87,3 @@ input[type="radio"] {
   margin: 4px 2px;
   cursor: pointer;
 }
-
