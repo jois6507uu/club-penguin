@@ -7,18 +7,22 @@ const vm = new Vue({
   },
   methods: {
     profileDone: function(){
-      let namn = this.name;
-      let ålder = this.age;
-      if(namn.length > 0 && ålder > 0){
-      let kön = this.gender;
-      let profile = [namn,ålder,kön];
-      for(let i = 0; i<3; i++){
-        console.log(profile[i]);
+      if(confirm("Är du nöjd med dina svar?"))
+      {
+        let namn = this.name;
+        let ålder = this.age;
+        if(namn.length > 0 && ålder > 0){
+        let kön = this.gender;
+        let profile = [namn,ålder,kön];
+        for(let i = 0; i<3; i++){
+          console.log(profile[i]);
+        }
+        window.location.href = 'http://localhost:3000/user/questions';
+      } else {
+        alert("Vänligen fyll i alla rutor");
       }
-      window.location.href = 'http://localhost:3000/user/questions';
-    } else {
-      alert("Vänligen fyll i alla rutor");
-    }
+      }
+
     }
   }
 })
