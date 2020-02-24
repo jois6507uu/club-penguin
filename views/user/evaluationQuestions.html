@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="../../public/css/evaluationQuestion.css">
     <link rel="stylesheet" href="../../public/css/globalstyle.css">
     <script src="https://vuejs.org/js/vue.js" defer></script>
-    <script src="/js/questions.js" defer></script>
+    <script src="../../public/js/evaluationQuestions.js" defer></script>
 </head>
 
 <body>
@@ -16,7 +16,7 @@
             <img src="../../public/img/aubergine_logo.png" width="260">
         </div>
     </header>
-    <main id="profileId">
+    <main id="profileID">
         <div id="profileEvaluation">
             <h2>Vad tyckte du?</h2>
 
@@ -45,7 +45,7 @@
             <input type="radio" v-model="fraga2" class="radio" name="fraga2" value="7">
         </div>
         <footer>
-            <input type="button" v-on:click="EvaluationDone()" id="doneButton" value="Skicka">
+            <input type="button" v-on:click="evaluationDone()" id="doneButton" value="Skicka">
         </footer>
 
     </main>
