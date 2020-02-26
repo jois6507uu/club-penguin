@@ -1,8 +1,8 @@
 const vm = new Vue({
     el: '#profileID',
     data: {
-        fraga1: '',
-        fraga2: ''
+        fraga1: "4",
+        fraga2: "4"
     },
     methods: {
         evaluationDone: function() {
