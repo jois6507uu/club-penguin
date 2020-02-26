@@ -35,7 +35,7 @@ const vm = new Vue({
             modal.style.display = "block";
             await sleep(10000);
             console.log("väntat 10 sek");
-            window.location.href = 'http://localhost:3000/user/meeting';
+            window.location.href = 'http://192.168.43.40:3000/user/meeting';
             }
         }
     }

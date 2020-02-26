@@ -11,7 +11,7 @@ function loginUser() {
     for (let code of preGenUserCodes) {
 	if (userInput.value == code) {
 	    // goto next page'
-	    window.location.href = "http://localhost:3000/user/profile";
+	    window.location.href = "http://192.168.43.40:3000/user/profile";
 	    return;
 	}
     }
@@ -49,7 +49,7 @@ function loginAdmin() {
 	let login = loginOk;
 	
 	if (login) {
-	    window.location.href = "http://localhost:3000/admin/start" + '#' + adminUsername.value;
+	    window.location.href = "http://192.168.43.40:3000/admin/start" + '#' + adminUsername.value;
 	    
 	} else {
 	    printErrorMsg(errorMsgNode, "Felaktigt lösenord");

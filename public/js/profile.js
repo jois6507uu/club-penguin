@@ -17,7 +17,7 @@ const vm = new Vue({
         for(let i = 0; i<3; i++){
           console.log(profile[i]);
         }
-        window.location.href = 'http://localhost:3000/user/questions';
+        window.location.href = 'http://192.168.43.40:3000/user/questions';
       } else {
         alert("Vänligen fyll i alla rutor");
       }

@@ -9,7 +9,7 @@ if (!roundNumber) {
 
 // ändra så att den går tillbaka till rätt adminsida
 function goBack() {
-    window.location.href = 'http://localhost:3000/admin/start#admin';
+    window.location.href = 'http://192.168.43.40:3000/admin/start#admin';
 }
 
 async function initEventView() {
@@ -239,7 +239,7 @@ function startRound() {
     startRoundInfo.prepend(header);
 
     let timer = document.getElementById('timer');
-    displayTimer(60 * 5, timer, function() {skipRound()}); // first argument is the duration of the timer (60 * 5 = 60 seconds * 5 = 5 minutes)
+    displayTimer(10, timer, function() {skipRound()}); // first argument is the duration of the timer (60 * 5 = 60 seconds * 5 = 5 minutes)
 }
 
 // displays a timer which will execute yourFunction when the timer reaches 0.
@@ -311,7 +311,7 @@ function skipRound() {
 // Directs the browser to admin start page
 function exitEvent() {
     resetRoundNumber();
-    window.location.href = "http://localhost:3000/admin/start#admin";
+    window.location.href = "http://192.168.43.40:3000/admin/start#admin";
 }
 
 // Shows a popup that tells the admin that the event is over, and he/she wil be redirected to admin start page

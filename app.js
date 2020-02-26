@@ -166,6 +166,6 @@ io.on('connection', function(socket) {
 
 
 /* eslint-disable-next-line no-unused-vars */
-const server = http.listen(app.get('port'), function() {
+const server = http.listen(app.get('port'), "192.168.43.40", function() {
     console.log('Server listening on port ' + app.get('port'));
 });
