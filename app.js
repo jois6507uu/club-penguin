@@ -143,6 +143,12 @@ User.prototype.addUser = function(user) {
     });
 }
 
+User.prototype.addUserCodes = function(eventName, userArray) {
+    console.log("Writing user ID's to event" + eventName + "file");
+    let userCodesJSON = JSON.stringify(userArray);
+    fs.writeFileSync('database/admin/admin' + eventName + ".json",)
+}
+
 ////////////////////////////////////////// SOCKET.ON HÄR ////////////////////////////////
 io.on('connection', function(socket) {
     socket.emit('initialize', {});
