@@ -2,9 +2,10 @@
 const socket = io();
 
 
-function Event(eventName, eventPopulation) {
+function Event(eventName, eventPopulation, userArray) {
     this.eventName = eventName;
     this.eventPopulation = eventPopulation;
+    this.userArray = userArray; // alla användar-koder (endast koder) i en array
 }
 
 function User(userCode) {
@@ -76,21 +77,14 @@ function initEvent(eventName, eventPopulation) {
 }
 
 function goToEvent(eventName, eventPopulation) {
-    // CREATE EVENT AND PUT THINGS INTO DATABASE
-
-    let event = new Event(eventName, eventPopulation);
-    socket.emit('addEvent', event);
-    createUsers(eventName);
-    window.location.href = "http://localhost:3000/admin/eventview" + '#' + eventName;
-}
-
-function createUsers(eventName) {
     let userArray = [];
     for (let i = 0; i < 20; i++) {
 	let rand = Math.floor((Math.random() * 90000) + 9999);
 	let user = new User(rand);
-	userArray[i] = user;
+	userArray[i] = rand;
 	socket.emit('addUser', user); //adds a file with the code as name
     }
-    socket.emit('addUserCodes', eventName, userArray); //
+    let event = new Event(eventName, eventPopulation, userArray);
+    socket.emit('addEvent', event);
+    window.location.href = "http://localhost:3000/admin/eventview" + '#' + eventName;
 }

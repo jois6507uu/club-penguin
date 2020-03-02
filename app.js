@@ -108,11 +108,17 @@ function Event() {
 
 Event.prototype.addEvent = function(event) {
     console.log("writing to file");
+    let codesJSON = JSON.stringify(event.userArray);
     let eventJSON = JSON.stringify(event);
     fs.writeFileSync('database/admin/admin/' + event.eventName + '.json', eventJSON, 'utf8', function(error) {
         if (error) {
             console.log('Could not write to file: ' + event.eventName + '.json');
         }
+    });
+    fs.writeFileSync('database/users/allActiveCodes.json', codesJSON, 'utf8', function(error) {
+	if (error) {
+	    console.log('Cound not write to file: allActiveCodes.json');
+	}
     });
 }
 
@@ -143,10 +149,13 @@ User.prototype.addUser = function(user) {
     });
 }
 
-User.prototype.addUserCodes = function(eventName, userArray) {
-    console.log("Writing user ID's to event" + eventName + "file");
-    let userCodesJSON = JSON.stringify(userArray);
-    fs.writeFileSync('database/admin/admin' + eventName + ".json",)
+function getUserCodes() {
+    let array = fs.readFileSync('database/users/allActiveCodes.json', 'utf8', function(error) {
+	if (err) {
+	    throw err;
+	}
+    });
+    return JSON.parse(array);
 }
 
 ////////////////////////////////////////// SOCKET.ON HÄR ////////////////////////////////
@@ -162,7 +171,6 @@ io.on('connection', function(socket) {
             console.log('invalid login');
             socket.emit('adminLoginRes', false);
         }
-
     });
 
 
@@ -179,6 +187,10 @@ io.on('connection', function(socket) {
         user.addUser(newUser);
     });
 
+    socket.on('getUserCodes', function() {
+	let userCodes = getUserCodes();
+	socket.emit('returnUserCodes', userCodes);
+    });
 });
 
 
