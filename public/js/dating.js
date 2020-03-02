@@ -1,5 +1,5 @@
 function timer() {
-    var totSec = 10; // Kanske kan vara timer(totSec) ifall arrangören vill ändra tiden?
+    var totSec = 10;
     var totalSeconds = totSec;
     timeInterval = setInterval(countAndDisplay, 1000);
 
@@ -12,23 +12,9 @@ function timer() {
         document.getElementById("timer").innerHTML = minutes + ":" + seconds;
         if (totalSeconds == 0) {
             clearInterval(timeInterval);
-            // Lägg till adress till frågor efter date
-            window.location.href = 'http://localhost:3000/user/dating';
+            window.location.href = 'http://localhost:3000/user/contacts';
         }
     }
 
 }
-
 window.onload = timer(); // Tillfällig. Timern ska starta när den får en ping från arrangören
-
-
-
-// -------------------------------------------------
-// Tillfällig funktion för att kunna påskynda testet
-
-function nextPage() {
-    // Lägg till adress till frågor efter date
-    // window.location.href = 'http://localhost:3000/user/...'; 
-}
-
-// -------------------------------------------------

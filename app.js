@@ -48,6 +48,10 @@ app.get('/user/meeting', function(req, res) {
     res.sendFile(path.join(__dirname, 'views/user/DuringEvent/meeting.html'));
 });
 
+app.get('/user/dating', function(req, res) {
+    res.sendFile(path.join(__dirname, 'views/user/DuringEvent/dating.html'));
+});
+
 app.get('/user/evaluationQuestions', function(req, res) {
     res.sendFile(path.join(__dirname, 'views/user/DuringEvent/evaluationQuestions.html'));
 });

@@ -1,0 +1,16 @@
+h2 {
+    text-align: center;
+    padding-top: 300px;
+    font-size: 150px;
+}
+
+#timer {
+    font-size: 150px;
+    font-weight: bolder;
+    text-align: center;
+}
+
+#heart {
+    text-align: center;
+    font-size: 700%;
+}
