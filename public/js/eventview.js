@@ -24,7 +24,7 @@ async function initEventView() {
     
     socket.emit('getEventData', eventname);
     socket.on('eventDataResponse', function(eventData) {
-	initTables(eventData);
+	initTables(eventData.eventPopulation);
 	initUsers(eventData);
     });
 
@@ -42,10 +42,10 @@ function initTables(eventPopulation) {
     }
 }
 
-function initUsers(eventPopulation) {
+function initUsers(eventData) {
     let view = document.getElementById('sidebar');
-    for (let i = 0; i < eventPopulation; ++i) {
-	createUserContainer(view, i);
+    for (let i = 0; i < eventData.eventPopulation; ++i) {
+	createUserContainer(view, i, eventData.userArray[i]);
     }
     
 }
@@ -78,7 +78,7 @@ function createTableContainer(view, index) {
     view.appendChild(container);
 }
 
-function createUserContainer(view, index) {
+function createUserContainer(view, index, codeNumber) {
     let backgroundContainer = document.createElement('div');
     backgroundContainer.onclick = function() {onSingleClick(this)};
     backgroundContainer.ondblclick = function() {onDoubleClick(this)};
@@ -87,6 +87,10 @@ function createUserContainer(view, index) {
     let userContainer = document.createElement('div');
     userContainer.setAttribute('class', 'user');
 
+    let codeContainer = document.createElement('p');
+    let code = document.createTextNode(codeNumber);
+    codeContainer.appendChild(code);
+    
     /// Måste hämta info om alla användare här! ///
     let imageContainer = document.createElement('img');
     imageContainer.src = '/img/aubergine_logo.png';
@@ -96,6 +100,7 @@ function createUserContainer(view, index) {
     textContainer.setAttribute("class", "userText");
     textContainer.appendChild(text);
 
+    userContainer.appendChild(codeContainer);
     userContainer.appendChild(imageContainer);
     userContainer.appendChild(textContainer);
     backgroundContainer.appendChild(userContainer);

@@ -130,7 +130,7 @@ Event.prototype.getEventData = function(eventname) {
         }
     });
     data = JSON.parse(data);
-    return data.eventPopulation;
+    return data;
 }
 
 const user = new User();
