@@ -24,10 +24,8 @@ async function initEventView() {
     
     socket.emit('getEventData', eventname);
     socket.on('eventDataResponse', function(eventData) {
-	
 	initTables(eventData);
 	initUsers(eventData);
-	
     });
 
     if (roundNumber > 3) {

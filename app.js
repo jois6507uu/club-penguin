@@ -20,13 +20,12 @@ app.set('port', (process.env.PORT || port));
 // Serve static assets from public/
 app.use(express.static(path.join(__dirname, 'public/')));
 // Serve vue from node_modules as vue/
-app.use('/vue',
-    express.static(path.join(__dirname, '/node_modules/vue/dist/')));
-// Serve index.html directly as root page
+app.use('/vue',	express.static(path.join(__dirname, '/node_modules/vue/dist/')));
+
+//----------------------------HÄR SÄTTER MAN SIDOR-------------------------------
 app.get('/', function(req, res) {
     res.sendFile(path.join(__dirname, 'views/index.html'));
 });
-
 
 app.get('/user/profile', function(req, res) {
     res.sendFile(path.join(__dirname, 'views/user/ProfileMaking/profile.html'));
@@ -73,7 +72,10 @@ app.get('/admin/eventview', function(req, res) {
     res.sendFile(path.join(__dirname, 'views/admin/eventview.html'));
 });
 
+//-------------------------------------------------------------------------
+//-------------------------------------------------------------------------
 
+const adminuser = new AdminUser();
 
 function AdminUser() {
     this.adminuser = {};
@@ -98,8 +100,7 @@ AdminUser.prototype.checkLogin = function(username, password) {
     return false;
 }
 
-const adminuser = new AdminUser();
-
+const event = new Event();
 
 function Event() {
     this.event = {};
@@ -117,22 +118,30 @@ Event.prototype.addEvent = function(event) {
 
 Event.prototype.getEventData = function(eventname) {
     console.log("reading data from " + eventname + ".json");
-
     let data = fs.readFileSync('database/admin/admin/' + eventname + ".json", 'utf8', function(error) {
         if (err) {
             throw err;
         }
     });
-
     data = JSON.parse(data);
-
     return data.eventPopulation;
 }
 
+const user = new User();
 
+function User() {
+    this.user = {};
+}
 
-const event = new Event();
-
+User.prototype.addUser = function(user) {
+    console.log("writing user to file");
+    let userJSON = JSON.stringify(user);
+    fs.writeFileSync('database/users/' + user.userCode + '.json', userJSON, 'utf8', function(error) {
+	if (err) {
+	    console.log('Could not write to file ' + user.userCode + '.json');
+	}
+    });
+}
 
 ////////////////////////////////////////// SOCKET.ON HÄR ////////////////////////////////
 io.on('connection', function(socket) {
@@ -158,7 +167,10 @@ io.on('connection', function(socket) {
 
     socket.on('addEvent', function(newEvent) {
         event.addEvent(newEvent);
+    });
 
+    socket.on('addUser', function(newUser) {
+        user.addUser(newUser);
     });
 
 });

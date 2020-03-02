@@ -2,19 +2,18 @@
 const socket = io();
 
 
-
-
 function Event(eventName, eventPopulation) {
     this.eventName = eventName;
     this.eventPopulation = eventPopulation;
 }
 
-function getEvents() {
+function User(userCode) {
+    this.userCode = userCode;
+}
 
+function getEvents() {
     let username = window.location.hash.substring(1);
-    
     socket.emit('loadEvents', username);
-    
     socket.on('getEvents', function(events) {
 	console.log(events);
     });
@@ -80,8 +79,18 @@ function goToEvent(eventName, eventPopulation) {
     // CREATE EVENT AND PUT THINGS INTO DATABASE
 
     let event = new Event(eventName, eventPopulation);
-
     socket.emit('addEvent', event);
-
+    createUsers(eventName);
     window.location.href = "http://localhost:3000/admin/eventview" + '#' + eventName;
+}
+
+function createUsers(eventName) {
+    let userArray = [];
+    for (let i = 0; i < 20; i++) {
+	let rand = Math.floor((Math.random() * 90000) + 9999);
+	let user = new User(rand);
+	userArray[i] = user;
+	socket.emit('addUser', user); //adds a file with the code as name
+    }
+    socket.emit('addUserCodes', eventName, userArray); //
 }
