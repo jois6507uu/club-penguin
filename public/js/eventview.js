@@ -86,21 +86,16 @@ function createUserContainer(view, index, codeNumber) {
     
     let userContainer = document.createElement('div');
     userContainer.setAttribute('class', 'user');
-
-    let codeContainer = document.createElement('p');
-    let code = document.createTextNode(codeNumber);
-    codeContainer.appendChild(code);
     
     /// Måste hämta info om alla användare här! ///
     let imageContainer = document.createElement('img');
     imageContainer.src = '/img/aubergine_logo.png';
     
     let textContainer = document.createElement('p');
-    let text = document.createTextNode('Namn, ' + Math.floor((Math.random() * 80) + 18));
+    let text = document.createTextNode('Namn, ' + codeNumber); //blir för tillfället den slumpade koden
     textContainer.setAttribute("class", "userText");
     textContainer.appendChild(text);
 
-    userContainer.appendChild(codeContainer);
     userContainer.appendChild(imageContainer);
     userContainer.appendChild(textContainer);
     backgroundContainer.appendChild(userContainer);
@@ -389,7 +384,6 @@ function matchInSidebar(table) {
     let indexAge = getAgeFromProfile(sidebarDivs[index]);
     for (let i = parseInt(index, 10)+1; i < sidebarDivs.length; ++i) {
 	if (sidebarDivs[i].getAttribute('hasProfile') == 'true') {
-	    console.log("yes");
 	    let sidebarAge = getAgeFromProfile(sidebarDivs[i]);
 	    if (bestMatch == null) {
 		bestMatch = sidebarDivs[i];
@@ -417,7 +411,7 @@ function getFirstSidebarProfile() {
     }
 }
 
-//divven måste vara den utanför profilen och måste innehålla en profil
+//divven måste vara den utanför profilen och måste innehålla en profil, children 1 måste vara namn/ålder
 function getAgeFromProfile(div) {
     let info = div.children[0].children[1].textContent;
     let strAge = info.split(",").pop();

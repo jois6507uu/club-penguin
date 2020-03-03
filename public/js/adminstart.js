@@ -82,7 +82,7 @@ function goToEvent(eventName, eventPopulation) {
 	let rand = Math.floor((Math.random() * 90000) + 9999);
 	let user = new User(rand);
 	userArray[i] = rand;
-	socket.emit('addUser', user); //adds a file with the code as name
+	socket.emit('addUser', user); //skriver koden i users.json
     }
     let event = new Event(eventName, eventPopulation, userArray);
     socket.emit('addEvent', event);

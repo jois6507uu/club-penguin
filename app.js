@@ -107,7 +107,7 @@ function Event() {
 }
 
 Event.prototype.addEvent = function(event) {
-    console.log("writing to file");
+    console.log("writing event to new file");
     let codesJSON = JSON.stringify(event.userArray);
     let eventJSON = JSON.stringify(event);
     fs.writeFileSync('database/admin/admin/' + event.eventName + '.json', eventJSON, 'utf8', function(error) {
@@ -140,9 +140,15 @@ function User() {
 }
 
 User.prototype.addUser = function(user) {
-    console.log("writing user to file");
-    let userJSON = JSON.stringify(user);
-    fs.writeFileSync('database/users/' + user.userCode + '.json', userJSON, 'utf8', function(error) {
+    console.log("writing user to user.json file");
+    let users = JSON.parse(fs.readFileSync('database/users/users.json', function(error) {
+	if (err) {
+	    throw err;
+	}
+    }));
+    users[user.userCode] = ""; //kommer inte på ett bättre sätt att göra detta på
+    let userJSON = JSON.stringify(users, null, 2); //null och 2 är bara för att allt inte ska stå på en enda rad i json filen
+    fs.writeFileSync('database/users/users.json', userJSON, function(error) {
 	if (err) {
 	    console.log('Could not write to file ' + user.userCode + '.json');
 	}
