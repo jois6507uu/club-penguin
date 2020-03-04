@@ -173,6 +173,16 @@ if (err) {
   });
 }
 
+User.prototype.getUsers = function () {
+    let users = fs.readFileSync('database/users/users.json', function(error) {
+        if (error) {
+            throw error;
+        }
+    });
+
+    return JSON.parse(users);
+}
+
 
 function getUserCodes() {
     let array = fs.readFileSync('database/users/allActiveCodes.json', 'utf8', function(error) {
@@ -220,7 +230,13 @@ io.on('connection', function(socket) {
     });
 
     socket.on('addProfile', function (newProfile) {
-    user.addProfile(newProfile);
+        user.addProfile(newProfile);
+        io.sockets.emit('newUserCreated', newProfile);
+    });
+
+    socket.on('getUsers', function() {
+        let users = user.getUsers();
+        socket.emit('profileDataResponse', users);
     });
 });
 
