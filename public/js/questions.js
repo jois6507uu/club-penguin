@@ -13,6 +13,10 @@ const vm = new Vue({
         tobacco: "",
         question1: "4",
         question2: "4",
+        question3: "4",
+        question4: "4",
+        question5: "4",
+        question6: "4",
     },
     methods: {
         profileDone: async function() {
@@ -20,6 +24,10 @@ const vm = new Vue({
                 localStorage.setItem("tobacco", this.tobacco);
                 localStorage.setItem("question1", this.question1);
                 localStorage.setItem("question2", this.question2);
+                localStorage.setItem("question3", this.question3);
+                localStorage.setItem("question4", this.question4);
+                localStorage.setItem("question5", this.question5);
+                localStorage.setItem("question6", this.question6);
                 console.log("väntat 10 sek");
                 // Get the modal
                 var modal = document.getElementById("myModal");
