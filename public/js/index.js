@@ -7,17 +7,18 @@ function loginUser() {
     let userInput = document.getElementById('userInput');
     let userLogin = document.getElementById('userLogin');
     let errorMsgNode = document.getElementById('userError');
-    
-    for (let code of preGenUserCodes) {
-	if (userInput.value == code) {
-	    // goto next page'
-	    window.location.href = "http://localhost:3000/user/profile";
-	    return;
-	}
-    }
-    printErrorMsg(errorMsgNode,"Ogitltig kod!");
-    userInput.value = "";
 
+    socket.emit('getUserCodes');
+    socket.on('returnUserCodes', function(userCodes) {
+	for (let code of userCodes) {
+	    if (userInput.value == code) {
+		window.location.href = "http://localhost:3000/user/profile";
+		return;
+	    }
+	}
+	printErrorMsg(errorMsgNode,"Ogitltig kod!");
+	userInput.value = "";	
+    });
 }
 
 function showAdminLogin() {
