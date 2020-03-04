@@ -1,5 +1,5 @@
 function timer() {
-    var totSec = 100; // Kanske kan vara timer(totSec) ifall arrangören vill ändra tiden?
+    var totSec = 10; // Kanske kan vara timer(totSec) ifall arrangören vill ändra tiden?
     var totalSeconds = totSec;
     timeInterval = setInterval(countAndDisplay, 1000);
 
