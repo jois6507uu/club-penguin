@@ -13,10 +13,9 @@ const vm = new Vue({
         let ålder = this.age;
         if(namn.length > 0 && ålder > 0){
         let kön = this.gender;
-        let profile = [namn,ålder,kön];
-        for(let i = 0; i<3; i++){
-          console.log(profile[i]);
-        }
+            localStorage.setItem("name", namn);
+            localStorage.setItem("age", ålder);
+            localStorage.setItem("gender", kön);
         window.location.href = 'http://localhost:3000/user/questions';
       } else {
         alert("Vänligen fyll i alla rutor");
