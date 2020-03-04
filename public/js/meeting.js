@@ -18,17 +18,13 @@ function timer() {
     }
 
 }
-
-var c = document.getElementById("stage");
-var ctx = c.getContext("2d");
-ctx.beginPath();
-ctx.rect(50, 20, 200, 15);
-ctx.fillStyle = "black";
-ctx.fill();
-
-
 window.onload = timer(); // Tillfällig. Timern ska starta när den får en ping från arrangören
 
+
+var c = document.getElementById("stage");
+var stage = c.getContext("2d");
+stage.font = "90px arial";
+stage.fillText("stage", 30, 100);
 
 
 // -------------------------------------------------

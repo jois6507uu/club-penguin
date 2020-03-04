@@ -1,4 +1,3 @@
-
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -17,10 +16,9 @@ const vm = new Vue({
     },
     methods: {
         profileDone: async function() {
-            if(confirm("Ãr du nöjd med dina svar?"))
-            {
-            localStorage.setItem("tobacco", this.tobacco);
-            localStorage.setItem("question1", this.question1);
+            if (confirm("Ãr du nöjd med dina svar?")) {
+                localStorage.setItem("tobacco", this.tobacco);
+                localStorage.setItem("question1", this.question1);
                 localStorage.setItem("question2", this.question2);
                 console.log("väntat 10 sek");
                 // Get the modal
@@ -32,10 +30,10 @@ const vm = new Vue({
                 // Get the <span> element that closes the modal
                 var span = document.getElementsByClassName("close")[0];
 
-            modal.style.display = "block";
-            await sleep(10000);
-            console.log("väntat 10 sek");
-            window.location.href = 'http://localhost:3000/user/meeting';
+                modal.style.display = "block";
+                await sleep(10000);
+                console.log("väntat 10 sek");
+                window.location.href = 'http://localhost:3000/user/meeting';
             }
         }
     }

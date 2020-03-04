@@ -26,24 +26,41 @@
     font-weight: bolder;
 }
 
-.table {
-    height: 70px;
+#tables {
+    display: block;
+}
+
+#table1,
+#table2,
+#table3,
+#table4,
+#table5,
+#table6,
+#table7,
+#table8,
+#table9,
+#table10 {
     width: 100px;
+    height: 150px;
     border: 2px solid black;
-    margin: 2%
+    display: inline-block;
+    margin: 2%;
 }
 
 #stage {
     display: block;
+    height: 80px;
+    width: 200px;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 30px;
+    border: 5px solid black;
+    margin-top: 50px;
 }
 
 #timer {
     font-size: 150px;
     font-weight: bolder;
-    margin: 2%;
+    margin: 12%;
     /* background-color: purple; */
 }
 
