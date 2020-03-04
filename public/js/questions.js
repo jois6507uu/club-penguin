@@ -1,12 +1,27 @@
+'use strict';
+const socket = io();
+
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function Profile(name, age, gender, tobacco, quest1, quest2) {
+    this.name = name;
+    this.age = age;
+    this.gender = gender;
+    this.tobacco = tobacco;
+    this.question1 = quest1;
+    this.question2 = quest2;
+}
 
-console.log(localStorage.getItem("name"));
-console.log(localStorage.getItem("age"));
-console.log(localStorage.getItem("gender"));
+function ProfileComplete(profileCode, profile) {
+    this.profileCode = profileCode;
+    this.profile = profile;
+}
+
+let profileArr = [localStorage.getItem("name"), localStorage.getItem("age"), localStorage.getItem("gender")]
+console.log(profileArr);
 
 const vm = new Vue({
     el: '#profileID',
@@ -16,26 +31,19 @@ const vm = new Vue({
         question2: "4",
     },
     methods: {
-        profileDone: async function() {
+        profileDone: function() {
             if(confirm("Ãr du nöjd med dina svar?"))
             {
-            localStorage.setItem("tobacco", this.tobacco);
-            localStorage.setItem("question1", this.question1);
-                localStorage.setItem("question2", this.question2);
-                console.log("väntat 10 sek");
+                let profile = new Profile(localStorage.getItem("name"), localStorage.getItem("age"), localStorage.getItem("gender"), this.tobacco, this.question1, this.question2)
+                let profileComplete = new ProfileComplete(localStorage.getItem("code"), profile);
+                socket.emit('addProfile', profileComplete);
                 // Get the modal
-                var modal = document.getElementById("myModal");
-
-                // Get the button that opens the modal
-                var btn = document.getElementById("doneButton");
-
-                // Get the <span> element that closes the modal
-                var span = document.getElementsByClassName("close")[0];
-
+               /* var modal = document.getElementById("myModal");
             modal.style.display = "block";
             await sleep(10000);
             console.log("väntat 10 sek");
             window.location.href = 'http://localhost:3000/user/meeting';
+            */
             }
         }
     }

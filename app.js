@@ -155,6 +155,25 @@ User.prototype.addUser = function(user) {
     });
 }
 
+User.prototype.addProfile = function (profile) {
+    console.log("writing to file");
+    let users = JSON.parse(fs.readFileSync('database/users/users.json', function(error) {
+  if (err) {
+      throw err;
+  }
+}));
+  var myObject = new Object();
+  myObject.profile = profile.profile;
+  users[profile.profileCode] = myObject;
+  let profileJSON = JSON.stringify(users, null, 2); //null och 2 är bara för att allt inte ska stå på en enda rad i json filen
+  fs.writeFileSync('database/users/users.json', profileJSON, function(error) {
+if (err) {
+    console.log('Could not write to file ' + user.userCode + '.json');
+}
+  });
+}
+
+
 function getUserCodes() {
     let array = fs.readFileSync('database/users/allActiveCodes.json', 'utf8', function(error) {
 	if (err) {
@@ -163,6 +182,8 @@ function getUserCodes() {
     });
     return JSON.parse(array);
 }
+
+
 
 ////////////////////////////////////////// SOCKET.ON HÄR ////////////////////////////////
 io.on('connection', function(socket) {
@@ -196,6 +217,10 @@ io.on('connection', function(socket) {
     socket.on('getUserCodes', function() {
 	let userCodes = getUserCodes();
 	socket.emit('returnUserCodes', userCodes);
+    });
+
+    socket.on('addProfile', function (newProfile) {
+    user.addProfile(newProfile);
     });
 });
 

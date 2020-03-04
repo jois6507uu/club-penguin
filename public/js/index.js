@@ -12,12 +12,13 @@ function loginUser() {
     socket.on('returnUserCodes', function(userCodes) {
 	for (let code of userCodes) {
 	    if (userInput.value == code) {
+          localStorage.setItem("code", userInput.value);
 		window.location.href = "http://localhost:3000/user/profile";
 		return;
 	    }
 	}
 	printErrorMsg(errorMsgNode,"Ogitltig kod!");
-	userInput.value = "";	
+	userInput.value = "";
     });
 }
 
@@ -43,20 +44,20 @@ function loginAdmin() {
     let adminUsername = document.getElementById('adminUsername');
     let adminPassword = document.getElementById('adminPassword');
     let errorMsgNode = document.getElementById('adminError');
-    
+
     socket.emit('checkLogin', adminUsername.value, adminPassword.value);
 
     socket.on('adminLoginRes', function(loginOk) {
 	let login = loginOk;
-	
+
 	if (login) {
 	    window.location.href = "http://localhost:3000/admin/start" + '#' + adminUsername.value;
-	    
+
 	} else {
 	    printErrorMsg(errorMsgNode, "Felaktigt lösenord");
 	    adminUsername.value = "";
 	    adminPassword.value = "";
 	}
     });
-        
+
 }
