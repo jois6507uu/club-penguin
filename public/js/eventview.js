@@ -1,17 +1,27 @@
 'use strict';
 const socket = io();
 
+
+function ProfileComplete(profileCode, profile) {
+    this.profileCode = profileCode;
+    this.profile = profile;
+}
+
+
 socket.on('newUserCreated', function(userData) {
+    let userCodeContainers = document.getElementsByClassName('userCodes');
     let userTextContainers = document.getElementsByClassName('userText');
-    for (let i = 0; i < userTextContainers.length; ++i) {
-        if (userData.profileCode == userTextContainers[i].textContent) {
-            replaceUserData(userData, userTextContainers[i]);
+    for (let i = 0; i < userCodeContainers.length; ++i) {
+        if (userData.profileCode == userCodeContainers[i].textContent) {
+            showNameAge(userData, userTextContainers[i], userCodeContainers[i]);
         }
     }
 });
 
-function replaceUserData(data, div) {
-    div.innerHTML = data.profile.name + ", " + data.profile.age;
+function showNameAge(data, textDiv, codeDiv) {
+    textDiv.innerHTML = data.profile.name + ", " + data.profile.age;
+    textDiv.removeAttribute("hidden");
+    codeDiv.setAttribute("hidden", "");
 }
 
 /// Gets the round number that is stored in localstorage, if it does not exist  inititalize it as 1.
@@ -30,17 +40,20 @@ async function initEventView() {
     let eventPopulation;
 
     let mainView = document.getElementById('mainView');
+    let view = document.getElementById('tableGrid');
     let roundTitle = document.createElement('h1');
     roundTitle.setAttribute("id", "eventViewTitle");
     roundTitle.innerHTML = "Runda #" + (roundNumber);
     mainView.prepend(roundTitle);
-    
+    	
     socket.emit('getUsers');
     socket.on('profileDataResponse', function(users) {
-        initTables(Object.keys(users).length / 2);
+	if (view.children.length < 2) {
+	    initTables(Object.keys(users).length / 2);
 	    initUsers(users);
+	}
     });
-
+    
     if (roundNumber > 3) {
 	showFinishedEventPopup();
 	await new Promise(r => setTimeout(r, 3000));  // Works as sleep(3000 ms)
@@ -100,23 +113,27 @@ function createUserContainer(view, userKey, userObj) {
     let userContainer = document.createElement('div');
     userContainer.setAttribute('class', 'user');
     
-    /// Måste hämta info om alla användare här! ///
     let imageContainer = document.createElement('img');
     imageContainer.src = '/img/aubergine_logo.png';
     
-    let textContainer = document.createElement('p');
-    let text;
-    if (userObj == "") {
-        text = document.createTextNode(userKey); //blir för tillfället den slumpade koden
-    } else {
-        text = document.createTextNode(userObj.profile.name + ", " + userObj.profile.age);
-    }
-    
-    textContainer.setAttribute("class", "userText");
-    textContainer.appendChild(text);
+    let codeContainer = document.createElement('p');
+    codeContainer.setAttribute("class", "userCode");
+    let nameAgeContainer = document.createElement('p');
+    nameAgeContainer.setAttribute("class", "userText");
 
+    //har ändrat så det är två divvar för text, en med kod och en med namn+ålder, den som inte visas ska vara hidden, man måste ta bort hidden helt, gå inte att sätta till false bara
+    var userCode = document.createTextNode(userKey); //den slumpade koden
+    nameAgeContainer.setAttribute("hidden", "");
+    codeContainer.appendChild(userCode);
+    if (userObj != "") {
+        var nameAge = document.createTextNode(userObj.profile.name + ", " + userObj.profile.age);
+	nameAgeContainer.appendChild(nameAge);
+	codeContainer.setAttribute("hidden", "");
+	nameAgeContainer.removeAttribute("hidden");
+    }
     userContainer.appendChild(imageContainer);
-    userContainer.appendChild(textContainer);
+    userContainer.appendChild(codeContainer);
+    userContainer.appendChild(nameAgeContainer);
     backgroundContainer.appendChild(userContainer);
     view.appendChild(backgroundContainer);
 }
@@ -236,13 +253,66 @@ function hidePopup() {
     }
 }
 
-/// Denna funktion simulerar en rundomgång
-function startRound() {
-
+//visar popupen om att informationen skickas till deltagarna
+function sendTableInfoPopup() {
     let tables = document.getElementsByClassName('table');
     if (getFirstNonFullTable(tables) != null) {
 	return popupDenied();
     }
+    let popup = document.getElementById('sendingInfoPopup');
+    let popupInfo = document.getElementById('sendingInfoInfo');
+    let overlay = document.getElementsByClassName('overlay')[0];
+    overlay.style.display = 'block';
+    popup.style.display = 'block';
+
+    let header = document.createElement('h2');
+    let headerText= document.createTextNode('Skickar ut bordsplaceringar till användarna, starta när alla är på plats');
+    header.appendChild(headerText);
+    popupInfo.prepend(header);
+
+    sendTableAndName();
+}
+
+//funktion som skickar infon om vilket bord och date som deltagarna har till databasen innan rundan startar
+function sendTableAndName() {
+    socket.emit('getUsers');
+    socket.on('profileDataResponse', function(data) {
+	let tables = document.getElementsByClassName('table');
+	let users = data;
+	let index = 1;
+	for (let table of tables) {
+	    let right = table.children[1];
+	    let left = table.children[2];
+	    let codeRight = parseInt(right.children[0].children[1].textContent);
+	    let codeLeft = left.children[0].children[1].textContent;
+	    let nameRight = right.children[0].children[2].textContent.split(",")[0];
+	    let nameLeft = left.children[0].children[2].textContent.split(",")[0];
+
+	    let userRight = users[codeRight];
+	    let userLeft = users[codeLeft];
+	    sendInfoToDatabase(codeRight, userRight, nameLeft, index);
+	    sendInfoToDatabase(codeLeft, userLeft, nameRight, index);
+	    ++index;
+	}
+    });   
+}
+
+function sendInfoToDatabase(code, user, dateName, table) {
+    if (user.profile) {
+	let profile = user.profile;
+	profile.dateName = dateName;
+	profile.table = table;
+	let profileComplete = new ProfileComplete(code, profile);
+	socket.emit('addProfile', profileComplete);
+    }
+}
+
+/// Denna funktion simulerar en rundomgång
+function startRound() {
+    //för att ta bort föregående popup
+    let sendingpopup = document.getElementById('sendingInfoPopup');
+    sendingpopup.style.display = 'none';
+    
     let startRoundPopup = document.getElementById('ongoingRoundPopup');
     let startRoundInfo = document.getElementById('ongoingRoundInfo');
     let overlay = document.getElementsByClassName('overlay')[0];
@@ -431,8 +501,9 @@ function getFirstSidebarProfile() {
 }
 
 //divven måste vara den utanför profilen och måste innehålla en profil, children 1 måste vara namn/ålder
+//returnar ålder som int inte str
 function getAgeFromProfile(div) {
-    let info = div.children[0].children[1].textContent;
+    let info = div.children[0].children[2].textContent;
     let strAge = info.split(",").pop();
     return parseInt(strAge, 10);
 }
