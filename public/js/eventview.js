@@ -1,6 +1,19 @@
 'use strict';
 const socket = io();
 
+socket.on('newUserCreated', function(userData) {
+    let userTextContainers = document.getElementsByClassName('userText');
+    for (let i = 0; i < userTextContainers.length; ++i) {
+        if (userData.profileCode == userTextContainers[i].textContent) {
+            replaceUserData(userData, userTextContainers[i]);
+        }
+    }
+});
+
+function replaceUserData(data, div) {
+    div.innerHTML = data.profile.name + ", " + data.profile.age;
+}
+
 /// Gets the round number that is stored in localstorage, if it does not exist  inititalize it as 1.
 let roundNumber = parseInt(localStorage.getItem("roundNumber"));
 if (!roundNumber) {
@@ -22,10 +35,10 @@ async function initEventView() {
     roundTitle.innerHTML = "Runda #" + (roundNumber);
     mainView.prepend(roundTitle);
     
-    socket.emit('getEventData', eventname);
-    socket.on('eventDataResponse', function(eventData) {
-	initTables(eventData.eventPopulation);
-	initUsers(eventData);
+    socket.emit('getUsers');
+    socket.on('profileDataResponse', function(users) {
+        initTables(Object.keys(users).length / 2);
+	    initUsers(users);
     });
 
     if (roundNumber > 3) {
@@ -35,17 +48,17 @@ async function initEventView() {
     }
 }
 
-function initTables(eventPopulation) {
+function initTables(amountOfTables) {
     let view = document.getElementById('tableGrid');
-    for (let i = 0; i <= (eventPopulation / 2)-1; ++i) {
+    for (let i = 0; i < amountOfTables; ++i) {
 	createTableContainer(view, i);
     }
 }
 
-function initUsers(eventData) {
+function initUsers(users) {
     let view = document.getElementById('sidebar');
-    for (let i = 0; i < eventData.eventPopulation; ++i) {
-	createUserContainer(view, i, eventData.userArray[i]);
+    for (let user in users) {
+	   createUserContainer(view, user, users[user]);
     }
     
 }
@@ -78,7 +91,7 @@ function createTableContainer(view, index) {
     view.appendChild(container);
 }
 
-function createUserContainer(view, index, codeNumber) {
+function createUserContainer(view, userKey, userObj) {
     let backgroundContainer = document.createElement('div');
     backgroundContainer.onclick = function() {onSingleClick(this)};
     backgroundContainer.ondblclick = function() {onDoubleClick(this)};
@@ -92,7 +105,13 @@ function createUserContainer(view, index, codeNumber) {
     imageContainer.src = '/img/aubergine_logo.png';
     
     let textContainer = document.createElement('p');
-    let text = document.createTextNode('Namn, ' + codeNumber); //blir för tillfället den slumpade koden
+    let text;
+    if (userObj == "") {
+        text = document.createTextNode(userKey); //blir för tillfället den slumpade koden
+    } else {
+        text = document.createTextNode(userObj.profile.name + ", " + userObj.profile.age);
+    }
+    
     textContainer.setAttribute("class", "userText");
     textContainer.appendChild(text);
 
