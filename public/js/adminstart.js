@@ -30,6 +30,7 @@ function showCreateEvent() {
     let overlay = document.getElementsByClassName('overlay')[0];
     overlay.style.display = 'block';
     eventPopup.style.display = "block";
+    document.getElementById("eventName").focus();
 }
 
 function hideCreateEvent() {
