@@ -39,6 +39,11 @@ function hideCreateEvent() {
     eventPopup.style.display = 'none';
 }
 
+document.onkeydown = function(){
+    if(window.event.keyCode == '13')
+    {createNewEvent();}
+}
+
 function createNewEvent() {
     let eventName = document.getElementById('eventName');
     let currentEventsDiv = document.createElement('currentEvents');

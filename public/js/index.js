@@ -40,8 +40,13 @@ function closeAdminLogin() {
     overlay.style.display = 'none';
 }
 
-document.getElementById("adminLoginPopup").onkeydown = function(pressedKey){
-    if(pressedKey == 13)
+function loginByEnter()
+{
+
+}
+
+document.onkeydown = function(){
+    if(window.event.keyCode == '13')
     {loginAdmin();}
 }
 
