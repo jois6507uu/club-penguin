@@ -40,6 +40,12 @@ function closeAdminLogin() {
     overlay.style.display = 'none';
 }
 
+document.getElementById("adminLoginPopup").onkeydown = function(pressedKey){
+    if(pressedKey == 13)
+    {loginAdmin();}
+}
+
+
 function loginAdmin() {
     let adminUsername = document.getElementById('adminUsername');
     let adminPassword = document.getElementById('adminPassword');

@@ -1,51 +1,54 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Club Penguin</title>
-    <link rel="stylesheet" type="text/css" href="/css/globalstyle.css">
-    <link rel="stylesheet" type="text/css" href="/css/index.css">
-    <script src="/socket.io/socket.io.js" defer></script>
-    <script src="/js/global.js" defer></script>
-    <script src="/js/index.js" defer></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  </head>
-  <div class="overlay"></div>
-  <body>
-    <header>
-      <div class="topbar">
-	<img src="/img/aubergine_logo.png" width="260">
-	<input type="button" class="smallButton" value="Admin" id="adminBtn" onclick="showAdminLogin()">
+
+<head>
+  <title>Club Penguin</title>
+  <link rel="stylesheet" type="text/css" href="/css/globalstyle.css">
+  <link rel="stylesheet" type="text/css" href="/css/index.css">
+  <script src="/socket.io/socket.io.js" defer></script>
+  <script src="/js/global.js" defer></script>
+  <script src="/js/index.js" defer></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<div class="overlay"></div>
+
+<body>
+  <header>
+    <div class="topbar">
+      <img src="/img/aubergine_logo.png" width="260">
+      <input type="button" class="smallButton" value="Admin" id="adminBtn" onclick="showAdminLogin()">
+    </div>
+  </header>
+  <main>
+
+
+    <section id="userLogin">
+
+      <h2>Skriv in din tilldelade kod:</h2>
+      <input id="userInput" type="text" name="userCode" placeholder="Din kod ..." required="required"><br>
+      <input type="submit" value="Fortsätt" id="userBtn" onclick="loginUser()">
+      <p class="errorMessage" id="userError"></p>
+
+    </section>
+
+    <form class="popup" id="adminLoginPopup">
+      <div class="popupHeader">
+        <span class="closePopup" onclick="closeAdminLogin()">&times</span>
+        <h2>Logga in som administratör</h2>
       </div>
-    </header>
-    <main>
-      
-
-      <section id="userLogin">
-	
-	<h2>Skriv in din tilldelade kod:</h2>
-	<input id="userInput" type="text" name="userCode" placeholder="Din kod ..." required="required"><br>
-	<input type="submit" value="Fortsätt" id="userBtn" onclick="loginUser()">
-	<p class="errorMessage" id="userError"></p>
-
-      </section>
-
-      <div class="popup" id="adminLoginPopup">
-	<div class="popupHeader">
-	  <span class="closePopup" onclick="closeAdminLogin()">&times</span>
-	  <h2>Logga in som administratör</h2>
-	</div>
-	<div class="popupBody">
-	  <label for="adminUsername">Användarnamn</label><br>
-	  <input type="text" id="adminUsername" required><br>
-	  <label for="adminPassword">Lösenord</label><br>
-	  <input type="password" id="adminPassword" required><br>
-	  <p class="errorMessage" id="adminError"></p>
-	  <button class="smallButton" id="loginBtn" type="submit" onclick="loginAdmin()">Logga in</button><br>
-	</div>
+      <div class="popupBody">
+        <label for="adminUsername">Användarnamn</label><br>
+        <input type="text" id="adminUsername" required><br>
+        <label for="adminPassword">Lösenord</label><br>
+        <input type="password" id="adminPassword" required><br>
+        <p class="errorMessage" id="adminError"></p>
+        <button class="smallButton" id="loginBtn" type="submit" onclick="loginAdmin()">Logga in</button><br>
       </div>
-   
-    </main>
-    <footer>
-    </footer>
-  </body>
+    </form>
+
+  </main>
+  <footer>
+  </footer>
+</body>
+
 </html>
