@@ -34,17 +34,21 @@ app.get('/user/profile', function(req, res) {
 app.get('/user/questions', function(req, res) {
     res.sendFile(path.join(__dirname, 'views/user/ProfileMaking/questions.html'));
 });
-
+/*
 app.get('/user/Round', function(req, res) {
     res.sendFile(path.join(__dirname, 'views/user/DuringEvent/DuringRound.html'));
 });
-
+*/
 app.get('/user/waiting', function(req, res) {
     res.sendFile(path.join(__dirname, 'views/user/DuringEvent/waiting.html'));
 });
 
 app.get('/user/meeting', function(req, res) {
     res.sendFile(path.join(__dirname, 'views/user/DuringEvent/meeting.html'));
+});
+
+app.get('/user/round', function(req, res) {
+    res.sendFile(path.join(__dirname, 'views/user/DuringEvent/roundTimer.html'));
 });
 
 app.get('/user/evaluationQuestions', function(req, res) {
@@ -296,6 +300,14 @@ io.on('connection', function(socket) {
 
     socket.on('removeUserData', function(eventname) {
 	event.removeUserData(eventname);
+    });
+
+    socket.on('pingUserRoundInfo', function() {
+	io.sockets.emit('userPingRoundReady');
+    });
+
+    socket.on('pingUserRoundStart', function() {
+	io.sockets.emit('userPingRoundStart');
     });
 });
 

@@ -295,6 +295,7 @@ function sendTableAndName() {
 	    sendInfoToDatabase(codeLeft, userLeft, nameRight, index);
 	    ++index;
 	}
+	socket.emit('pingUserRoundInfo');
     });   
 }
 
@@ -314,6 +315,7 @@ function startRound() {
     let sendingpopup = document.getElementById('sendingInfoPopup');
     sendingpopup.style.display = 'none';
 
+    socket.emit('pingUserRoundStart');
     
     let startRoundPopup = document.getElementById('ongoingRoundPopup');
     let startRoundInfo = document.getElementById('ongoingRoundInfo');
