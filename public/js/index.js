@@ -1,8 +1,6 @@
 'use strict';
 const socket = io();
 
-let preGenUserCodes = [129,123,234,765]; // Test array
-
 function loginUser() {
     let userInput = document.getElementById('userInput');
     let userLogin = document.getElementById('userLogin');
@@ -27,6 +25,7 @@ function showAdminLogin() {
     let overlay = document.getElementsByClassName('overlay')[0];
     overlay.style.display = 'block';
     popup.style.display = "block";
+    document.getElementById("adminUsername").focus();
 }
 
 function closeAdminLogin() {
@@ -39,6 +38,17 @@ function closeAdminLogin() {
     let overlay = document.getElementsByClassName('overlay')[0];
     overlay.style.display = 'none';
 }
+
+
+document.onkeydown = function(){
+    if(document.getElementById('adminLoginPopup').style.display == 'block') {
+	
+	if(window.event.keyCode == '13') {
+	    loginAdmin();
+	}
+    }
+}
+
 
 function loginAdmin() {
     let adminUsername = document.getElementById('adminUsername');
