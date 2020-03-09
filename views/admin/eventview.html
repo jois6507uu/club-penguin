@@ -22,7 +22,7 @@
 	</div>
 	<div id="buttons">
 
-	  <input type="button" value="Starta" id="startButton" onclick="startRound()">
+	  <input type="button" value="Starta" id="startButton" onclick="sendTableInfoPopup()">
 	  <input type="button" value="Matcha" id="macthButton" onclick="algorithm()">
 	  <input type="button" value="Avsluta event" id="finishButton" onclick="showExitEvent()">
 	</div>
@@ -30,10 +30,17 @@
       <div id="sidebar">
 	
       </div>
+      
       <div class="popup" id="ongoingRoundPopup" overlaySafe="true">
 	<div class="popupBody" id="ongoingRoundInfo">
 	  <span id="timer"></span><br>
 	  <input class="smallButton" id="skipBtn" type="button" value="Nästa runda" onclick="skipRound()">
+	</div>
+      </div>
+
+      <div class="popup" id="sendingInfoPopup" overlaySafe="true">
+	<div class="popupBody" id="sendingInfoInfo">
+	  <input class="smallButton" id="startDateRound" type="button" value="Starta Runda" onclick="startRound()">
 	</div>
       </div>
 

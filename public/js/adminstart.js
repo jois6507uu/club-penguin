@@ -2,9 +2,8 @@
 const socket = io();
 
 
-function Event(eventName, eventPopulation, userArray) {
+function Event(eventName, userArray) {
     this.eventName = eventName;
-    this.eventPopulation = eventPopulation;
     this.userArray = userArray; // alla användar-koder (endast koder) i en array
 }
 
@@ -12,6 +11,7 @@ function User(userCode) {
     this.userCode = userCode;
 }
 
+//bygg vidar på denna, den är inte kopplad någonstans atm
 function getEvents() {
     let username = window.location.hash.substring(1);
     socket.emit('loadEvents', username);
@@ -30,6 +30,7 @@ function showCreateEvent() {
     let overlay = document.getElementsByClassName('overlay')[0];
     overlay.style.display = 'block';
     eventPopup.style.display = "block";
+    document.getElementById("eventName").focus();
 }
 
 function hideCreateEvent() {
@@ -39,16 +40,18 @@ function hideCreateEvent() {
     eventPopup.style.display = 'none';
 }
 
+document.onkeydown = function(){
+    if(window.event.keyCode == '13')
+    {createNewEvent();}
+}
+
 function createNewEvent() {
     let eventName = document.getElementById('eventName');
-    let eventPopulation = document.getElementById('eventPopulation');
     let currentEventsDiv = document.createElement('currentEvents');
     let errorMsgNode = document.getElementById('createEventError');
 
-    if (eventName.value.length < 1 || eventPopulation.value.length < 1) {
+    if (eventName.value.length < 1) {
 	printErrorMsg(errorMsgNode, "Var vänlig fyll i alla fält!");
-    } else if (eventPopulation.value < 3) {
-	printErrorMsg(errorMsgNode, "Ett event måste ha 3 eller fler deltagare");
     } else {
 	let buttons = document.getElementsByClassName('eventButtons');
 	for (let child = 0; child < buttons.length; child++) {
@@ -57,19 +60,19 @@ function createNewEvent() {
 		return;
 	    }
 	}
-	initEvent(eventName.value, eventPopulation.value);
+	initEvent(eventName.value);
 	hideCreateEvent();
     }
 }
 
-function initEvent(eventName, eventPopulation) {
+function initEvent(eventName) {
     let currentEventsDiv = document.getElementById('currentEvents');
     let eventButton = document.createElement('button');
     let linebreak = document.createElement('br');
     let eventNameInside = document.createTextNode(`${eventName}`);
     eventButton.setAttribute("value", `${eventName}`);
     eventButton.setAttribute("class", "eventButtons");
-    eventButton.setAttribute("onclick", `goToEvent('${eventName}', '${eventPopulation}')`);
+    eventButton.setAttribute("onclick", `goToEvent('${eventName}')`);
     eventButton.appendChild(eventNameInside);
     
     currentEventsDiv.appendChild(eventButton);
@@ -84,12 +87,7 @@ function goToEvent(eventName, eventPopulation) {
 	userArray[i] = rand;
 	socket.emit('addUser', user); //skriver koden i users.json
     }
-    let event = new Event(eventName, eventPopulation, userArray);
+    let event = new Event(eventName, userArray);
     socket.emit('addEvent', event);
-<<<<<<< HEAD
-
-    window.location.href = "http://192.168.43.40:3000/admin/eventview" + '#' + eventName;
-=======
     window.location.href = "http://localhost:3000/admin/eventview" + '#' + eventName;
->>>>>>> 21da252146db3b860c8329c8cd96f925ad71138a
 }

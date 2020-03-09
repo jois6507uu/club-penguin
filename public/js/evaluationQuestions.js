@@ -11,7 +11,7 @@ const vm = new Vue({
             localStorage.setItem("fraga2", this.fraga2);
             console.log(localStorage.getItem("fraga1"));
             console.log(localStorage.getItem("fraga2"));
-            window.location.href = 'http://192.168.43.40:3000/user/contacts';
+            window.location.href = 'http://localhost:3000/user/contacts';
 
         }
     }

@@ -13,7 +13,7 @@ function timer() {
         if (totalSeconds == 0) {
             clearInterval(timeInterval);
             // Lägg till adress till frågor efter date
-            window.location.href = 'http://192.168.43.40:3000/user/evaluationQuestions';
+            window.location.href = 'http://localhost:3000/user/evaluationQuestions';
         }
     }
 

@@ -9,7 +9,7 @@ function sleep(ms)
 
 async function demo(){
     await sleep(5000);
-    window.location = 'http://192.168.43.40:3000/user/meeting';
+    window.location = 'http://localhost:3000/user/meeting';
 }
 
 demo();

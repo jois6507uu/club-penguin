@@ -6,7 +6,7 @@ const vm = new Vue({
     },
     methods: {
         contactsAnswered: function() {
-            window.location.href = 'http://192.168.43.40:3000/user/Done';
+            window.location.href = 'http://localhost:3000/user/Done';
         }
     }
 })
