@@ -7,6 +7,7 @@ function loginUser() {
     let userInput = document.getElementById('userInput');
     let userLogin = document.getElementById('userLogin');
     let errorMsgNode = document.getElementById('userError');
+<<<<<<< HEAD
     
     for (let code of preGenUserCodes) {
 	if (userInput.value == code) {
@@ -17,7 +18,20 @@ function loginUser() {
     }
     printErrorMsg(errorMsgNode,"Ogitltig kod!");
     userInput.value = "";
+=======
+>>>>>>> 21da252146db3b860c8329c8cd96f925ad71138a
 
+    socket.emit('getUserCodes');
+    socket.on('returnUserCodes', function(userCodes) {
+	for (let code of userCodes) {
+	    if (userInput.value == code) {
+		window.location.href = "http://localhost:3000/user/profile";
+		return;
+	    }
+	}
+	printErrorMsg(errorMsgNode,"Ogitltig kod!");
+	userInput.value = "";	
+    });
 }
 
 function showAdminLogin() {
