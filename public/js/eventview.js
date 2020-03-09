@@ -210,27 +210,48 @@ function onDoubleClick(div) {
 }
 
 function showProfile(div) {
-    cleanPopupProfile();
     let profilePopup = document.getElementById('profilePopup');
     let popupBody = profilePopup.children[0];
     let overlay = document.getElementsByClassName('overlay')[0];
+    
     overlay.style.display = 'block';
     profilePopup.style.display = 'block';
-
-    //Här måste vi hämta profilinfon från servern och displaya den
-    let paragraph1 = document.createElement('p');
-    let paragraph2 = document.createElement('p');
-    let profileImgClone = div.children[0].children[0].cloneNode(true);
-    let profileNameAgeClone = div.children[0].children[1].cloneNode(true);
-    let tempInfo1 = document.createTextNode('Info om rökning');
-    let tempInfo2 = document.createTextNode('Info om barn');
     
-    popupBody.appendChild(profileImgClone);
-    popupBody.appendChild(profileNameAgeClone);
-    paragraph1.appendChild(tempInfo1);
-    popupBody.appendChild(paragraph1);
-    paragraph2.appendChild(tempInfo2)
-    popupBody.appendChild(paragraph2);
+    socket.emit('getUsers');
+    socket.on('profileDataResponse', function(data) {
+	if (profilePopup.style.display == 'block') {
+	    cleanPopupProfile();
+	    let code = parseInt(div.children[0].children[1].textContent);
+	    let user = data[code];
+	    let profileImgClone = div.children[0].children[0].cloneNode(true);
+
+	    if (!user) {
+		popupBody.appendChild(document.createElement('p').appendChild(document.createTextNode("INGEN PROFIL SKAPAD ÄNNU")));
+		return;
+	    }
+	    let name = user["profile"]["name"];
+	    let age = user["profile"]["age"];
+	    let gender = user["profile"]["gender"];
+	    let tobacco = user["profile"]["tobacco"];
+	    let question1 = user["profile"]["question1"];
+	    let question2 = user["profile"]["question2"];
+	    
+	    let nameAgeGenderParagraph = document.createElement('p');
+	    let tobaccoParagraph = document.createElement('p');
+	    let question1Paragraph = document.createElement('p');
+	    let question2Paragraph = document.createElement('p');
+
+	    nameAgeGenderParagraph.appendChild(document.createTextNode(name + ", " + age + "år, " + gender));
+	    tobaccoParagraph.appendChild(document.createTextNode("Röker: " + tobacco));
+	    question1Paragraph.appendChild(document.createTextNode("Fråga 1: " + question1));
+	    question2Paragraph.appendChild(document.createTextNode("Fråga 2: " + question2));
+	    popupBody.appendChild(profileImgClone);
+	    popupBody.appendChild(nameAgeGenderParagraph);
+	    popupBody.appendChild(tobaccoParagraph);
+	    popupBody.appendChild(question1Paragraph);
+	    popupBody.appendChild(question2Paragraph);
+	}
+    });
 }
 
 function cleanPopupProfile() {
@@ -278,22 +299,25 @@ function sendTableInfoPopup() {
 function sendTableAndName() {
     socket.emit('getUsers');
     socket.on('profileDataResponse', function(data) {
-	let tables = document.getElementsByClassName('table');
-	let users = data;
-	let index = 1;
-	for (let table of tables) {
-	    let right = table.children[1];
-	    let left = table.children[2];
-	    let codeRight = parseInt(right.children[0].children[1].textContent);
-	    let codeLeft = left.children[0].children[1].textContent;
-	    let nameRight = right.children[0].children[2].textContent.split(",")[0];
-	    let nameLeft = left.children[0].children[2].textContent.split(",")[0];
-
-	    let userRight = users[codeRight];
-	    let userLeft = users[codeLeft];
-	    sendInfoToDatabase(codeRight, userRight, nameLeft, index);
-	    sendInfoToDatabase(codeLeft, userLeft, nameRight, index);
-	    ++index;
+	let profilePopup = document.getElementById('profilePopup');
+	if (profilePopup.style.display != 'block') {   
+	    let tables = document.getElementsByClassName('table');
+	    let users = data;
+	    let index = 1;
+	    for (let table of tables) {
+		let right = table.children[1];
+		let left = table.children[2];
+		let codeRight = parseInt(right.children[0].children[1].textContent, 10);
+		let codeLeft = parseInt(left.children[0].children[1].textContent, 10);
+		let nameRight = right.children[0].children[2].textContent.split(",")[0];
+		let nameLeft = left.children[0].children[2].textContent.split(",")[0];
+		
+		let userRight = users[codeRight];
+		let userLeft = users[codeLeft];
+		sendInfoToDatabase(codeRight, userRight, nameLeft, index);
+		sendInfoToDatabase(codeLeft, userLeft, nameRight, index);
+		++index;
+	    }
 	}
     });   
 }

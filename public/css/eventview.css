@@ -143,9 +143,10 @@ h1 {
 }
 
 #profilePopup {
-    width: 600px;
+    width: 700px;
     height: 800px;
     font-size: 50px;
+    overflow-y: auto;
 }
 
 #profilePopup img {
