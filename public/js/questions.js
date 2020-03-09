@@ -21,9 +21,6 @@ function ProfileComplete(profileCode, profile) {
     this.profile = profile;
 }
 
-let profileArr = [localStorage.getItem("name"), localStorage.getItem("age"), localStorage.getItem("gender")]
-console.log(profileArr);
-
 const vm = new Vue({
     el: '#profileID',
     data: {
@@ -38,6 +35,7 @@ const vm = new Vue({
                 let profile = new Profile(localStorage.getItem("code"), localStorage.getItem("name"), localStorage.getItem("age"), localStorage.getItem("gender"), this.tobacco, this.question1, this.question2)
                 let profileComplete = new ProfileComplete(localStorage.getItem("code"), profile);
                 socket.emit('addProfile', profileComplete);
+                window.location.href = 'http://localhost:3000/user/waiting';
             }
         }
     }
