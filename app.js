@@ -142,19 +142,19 @@ Event.prototype.removeUserData = function(eventname) {
     
     fs.writeFileSync('database/users/users.json', JSON.stringify(emptyJSON), function(error) {
 	if (err) {
-	    console.log('Could not write to file ' + user.userCode + '.json');
+	    console.log('Could not clear file ' + user.userCode + '.json');
 	}
     });
 
     fs.writeFileSync('database/users/allActiveCodes.json', emptyArray, function(error) {
 	if (err) {
-	    console.log('Could not write to file ' + user.userCode + '.json');
+	    console.log('Could not clear file allActiveCodes.json');
 	}
     });
 
     fs.unlinkSync('database/admin/admin/' + eventname + '.json', function(error) {
 	if (err) {
-	    console.log('Could not write to file ' + eventname + '.json');
+	    console.log('Could not delete file ' + eventname + '.json');
 	}
     });
 }

@@ -22,7 +22,7 @@ function getEvents() {
 
 
 function logout() {
-    window.location.href = "http://192.168.43.40:3000/";
+    window.location.href = "http://localhost:3000/";
 }
 
 function showCreateEvent() {
