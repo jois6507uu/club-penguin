@@ -9,7 +9,8 @@ function ProfileComplete(profileCode, profile) {
 
 
 socket.on('newUserCreated', function(userData) {
-    let userCodeContainers = document.getElementsByClassName('userCodes');
+    
+    let userCodeContainers = document.getElementsByClassName('userCode');
     let userTextContainers = document.getElementsByClassName('userText');
     for (let i = 0; i < userCodeContainers.length; ++i) {
         if (userData.profileCode == userCodeContainers[i].textContent) {
@@ -312,6 +313,7 @@ function startRound() {
     //för att ta bort föregående popup
     let sendingpopup = document.getElementById('sendingInfoPopup');
     sendingpopup.style.display = 'none';
+
     
     let startRoundPopup = document.getElementById('ongoingRoundPopup');
     let startRoundInfo = document.getElementById('ongoingRoundInfo');
@@ -326,7 +328,7 @@ function startRound() {
     startRoundInfo.prepend(header);
 
     let timer = document.getElementById('timer');
-    displayTimer(60 * 5, timer, function() {skipRound()}); // first argument is the duration of the timer (60 * 5 = 60 seconds * 5 = 5 minutes)
+    displayTimer(10, timer, function() {skipRound()}); // first argument is the duration of the timer (60 * 5 = 60 seconds * 5 = 5 minutes)
 }
 
 // displays a timer which will execute yourFunction when the timer reaches 0.
@@ -398,7 +400,13 @@ function skipRound() {
 // Directs the browser to admin start page
 function exitEvent() {
     resetRoundNumber();
+    let eventname  = window.location.hash.substring(1);
+    removeUserData(eventname);
     window.location.href = "http://localhost:3000/admin/start#admin";
+}
+
+function removeUserData(eventname) {
+    socket.emit('removeUserData', eventname);
 }
 
 // Shows a popup that tells the admin that the event is over, and he/she wil be redirected to admin start page

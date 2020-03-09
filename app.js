@@ -133,6 +133,32 @@ Event.prototype.getEventData = function(eventname) {
     return data;
 }
 
+Event.prototype.removeUserData = function(eventname) {
+
+    let emptyJSON = { 
+    };
+
+    let emptyArray = "[]";
+    
+    fs.writeFileSync('database/users/users.json', JSON.stringify(emptyJSON), function(error) {
+	if (err) {
+	    console.log('Could not clear file ' + user.userCode + '.json');
+	}
+    });
+
+    fs.writeFileSync('database/users/allActiveCodes.json', emptyArray, function(error) {
+	if (err) {
+	    console.log('Could not clear file allActiveCodes.json');
+	}
+    });
+
+    fs.unlinkSync('database/admin/admin/' + eventname + '.json', function(error) {
+	if (err) {
+	    console.log('Could not delete file ' + eventname + '.json');
+	}
+    });
+}
+
 const user = new User();
 
 function User() {
@@ -238,6 +264,10 @@ io.on('connection', function(socket) {
         let users = user.getUsers();
         socket.emit('profileDataResponse', users);
 	console.log(users);
+    });
+
+    socket.on('removeUserData', function(eventname) {
+	event.removeUserData(eventname);
     });
 });
 
