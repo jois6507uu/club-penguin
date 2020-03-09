@@ -30,6 +30,7 @@ function showCreateEvent() {
     let overlay = document.getElementsByClassName('overlay')[0];
     overlay.style.display = 'block';
     eventPopup.style.display = "block";
+    document.getElementById("eventName").focus();
 }
 
 function hideCreateEvent() {
@@ -37,6 +38,11 @@ function hideCreateEvent() {
     let overlay = document.getElementsByClassName('overlay')[0];
     overlay.style.display = 'none';
     eventPopup.style.display = 'none';
+}
+
+document.onkeydown = function(){
+    if(window.event.keyCode == '13')
+    {createNewEvent();}
 }
 
 function createNewEvent() {
