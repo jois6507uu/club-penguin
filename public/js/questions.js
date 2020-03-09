@@ -2,6 +2,7 @@
 const socket = io();
 
 
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -27,11 +28,14 @@ const vm = new Vue({
         tobacco: "",
         question1: "4",
         question2: "4",
+        question3: "4",
+        question4: "4",
+        question5: "4",
+        question6: "4",
     },
     methods: {
         profileDone: function() {
-            if(confirm("Ãr du nöjd med dina svar?"))
-            {
+            if (confirm("Ãr du nöjd med dina svar?")) {
                 let profile = new Profile(localStorage.getItem("code"), localStorage.getItem("name"), localStorage.getItem("age"), localStorage.getItem("gender"), this.tobacco, this.question1, this.question2)
                 let profileComplete = new ProfileComplete(localStorage.getItem("code"), profile);
                 socket.emit('addProfile', profileComplete);

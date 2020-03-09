@@ -1,37 +1,69 @@
-
-#meeting{
+#meeting {
     text-align: center;
 }
 
-#youreMeeting{
+#youreMeeting {
     font-weight: bolder;
     font-size: 75px;
 }
+
 
 /* #profilePic{
     
   } */
 
-#meetingName{
+#meetingName {
     font-size: 50px;
     font-style: italic;
 }
 
-#atTable{
+#atTable {
     font-size: 50px;
 }
 
-#tableNumber{
+#tableNumber {
     font-size: 50px;
     font-weight: bolder;
 }
 
-#timer{
+#tables {
+    display: block;
+}
+
+#table1,
+#table2,
+#table3,
+#table4,
+#table5,
+#table6,
+#table7,
+#table8,
+#table9,
+#table10 {
+    width: 100px;
+    height: 150px;
+    border: 2px solid black;
+    display: inline-block;
+    margin: 2%;
+}
+
+#stage {
+    display: block;
+    height: 80px;
+    width: 200px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 5px solid black;
+    margin-top: 50px;
+}
+
+#timer {
     font-size: 150px;
     font-weight: bolder;
+    margin: 12%;
     /* background-color: purple; */
 }
 
-#timerButton{
+#timerButton {
     font-size: 25px;
 }

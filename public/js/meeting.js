@@ -13,14 +13,18 @@ function timer() {
         if (totalSeconds == 0) {
             clearInterval(timeInterval);
             // Lägg till adress till frågor efter date
-            window.location.href = 'http://localhost:3000/user/evaluationQuestions';
+            window.location.href = 'http://localhost:3000/user/dating';
         }
     }
 
 }
-
 window.onload = timer(); // Tillfällig. Timern ska starta när den får en ping från arrangören
 
+
+var c = document.getElementById("stage");
+var stage = c.getContext("2d");
+stage.font = "90px arial";
+stage.fillText("stage", 30, 100);
 
 
 // -------------------------------------------------
