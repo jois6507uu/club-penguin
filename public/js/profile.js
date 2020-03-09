@@ -16,6 +16,7 @@ const vm = new Vue({
             localStorage.setItem("name", namn);
             localStorage.setItem("age", ålder);
             localStorage.setItem("gender", kön);
+            localStorage.setItem("RoundNumber", 0);
         window.location.href = 'http://localhost:3000/user/questions';
       } else {
         alert("Vänligen fyll i alla rutor");

@@ -173,6 +173,30 @@ User.prototype.addProfile = function (profile) {
     });
 }
 
+User.prototype.addQuestions = function (questions) {
+    console.log("writing to file");
+    let users = JSON.parse(fs.readFileSync('database/users/users.json', function (error) {
+        if (err) {
+            throw err;
+        }
+    }));
+    console.log(questions.roundNumber);
+    if (questions.roundNumber == 1) {
+        users[questions.profileCode].questions1 = questions.questions;
+    } else if (questions.roundNumber == 2) {
+        users[questions.profileCode].questions2 = questions.questions;
+    } else {
+        users[questions.profileCode].questions3 = questions.questions;
+    }
+    console.log(users[questions.profileCode]);
+    let questionsJSON = JSON.stringify(users, null, 2); //null och 2 är bara för att allt inte ska stå på en enda rad i json filen
+    fs.writeFileSync('database/users/users.json', questionsJSON, function (error) {
+        if (err) {
+            console.log('Could not write to file ' + user.userCode + '.json');
+        }
+    });
+}
+
 User.prototype.getUsers = function () {
     let users = fs.readFileSync('database/users/users.json', function(error) {
         if (error) {
@@ -232,6 +256,10 @@ io.on('connection', function(socket) {
     socket.on('addProfile', function (newProfile) {
         user.addProfile(newProfile);
         io.sockets.emit('newUserCreated', newProfile);
+    });
+
+    socket.on('addQuestions', function (questions) {
+        user.addQuestions(questions);
     });
 
     socket.on('getUsers', function() {

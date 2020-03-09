@@ -21,9 +21,6 @@ function ProfileComplete(profileCode, profile) {
     this.profile = profile;
 }
 
-let profileArr = [localStorage.getItem("name"), localStorage.getItem("age"), localStorage.getItem("gender")]
-console.log(profileArr);
-
 const vm = new Vue({
     el: '#profileID',
     data: {
