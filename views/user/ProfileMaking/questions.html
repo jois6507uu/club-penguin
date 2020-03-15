@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -22,17 +22,13 @@
 
             <p id="dropDownTobacco">
                 <label for="tobacco">Använder du tobak?</label><br>
-                <select name="tobak" class="dropdown">
-                      <option class="dropdownChoice" value="Ja">Ja</option>
-                      <option class="dropdownChoice" value="Nej" selected="selected">Nej</option>
+                <select v-model="tobacco" name="tobak" class="dropdown">
+		  <option disabled value="">Välj ett alternativ</option>
+                  <option class="dropdownChoice" value="1">Ja</option>
+                  <option class="dropdownChoice" value="0" selected="selected">Nej</option>
                   </select>
             </p>
-
-
-
-
-            <label class="questions" for="question1" id="question1Buttons">Du bjuder ofta inte in till samtal</label><br>
-
+            <label class="questions" for="question1" id="question1Buttons">Du bjuder ofta in till samtal</label><br>
             <label class="disagree">Stämmer Inte</label>
             <label class="agree">Stämmer</label><br>
             <input type="radio" v-model="question1" class="radio" name="question1" value="1">
@@ -53,7 +49,56 @@
             <input type="radio" v-model="question2" class="radio" name="question2" value="5">
             <input type="radio" v-model="question2" class="radio" name="question2" value="6">
             <input type="radio" v-model="question2" class="radio" name="question2" value="7">
+
+            <label class="questions" for="question3" id="question3Buttons">Du har svårt att presentera dig för andra människor.
+            </label><br>
+            <label class="disagree">Stämmer Inte</label>
+            <label class="agree">Stämmer</label><br>
+            <input type="radio" v-model="question3" class="radio" name="question3" value="1">
+            <input type="radio" v-model="question3" class="radio" name="question3" value="2">
+            <input type="radio" v-model="question3" class="radio" name="question3" value="3">
+            <input type="radio" v-model="question3" class="radio" name="question3" value="4" checked="checked">
+            <input type="radio" v-model="question3" class="radio" name="question3" value="5">
+            <input type="radio" v-model="question3" class="radio" name="question3" value="6">
+            <input type="radio" v-model="question3" class="radio" name="question3" value="7"><br>
+
+            <label class="questions" for="question4" id="question4Buttons">Du anser dig själv vara mer praktisk än kreativ.
+            </label><br>
+            <label class="disagree">Stämmer Inte</label>
+            <label class="agree">Stämmer</label><br>
+            <input type="radio" v-model="question4" class="radio" name="question4" value="1">
+            <input type="radio" v-model="question4" class="radio" name="question4" value="2">
+            <input type="radio" v-model="question4" class="radio" name="question4" value="3">
+            <input type="radio" v-model="question4" class="radio" name="question4" value="4" checked="checked">
+            <input type="radio" v-model="question4" class="radio" name="question4" value="5">
+            <input type="radio" v-model="question4" class="radio" name="question4" value="6">
+            <input type="radio" v-model="question4" class="radio" name="question4" value="7"><br>
+
+            <label class="questions" for="question5" id="question5Buttons">Dina resplaner är vanligtvis väl genomtänkta.
+            </label><br>
+            <label class="disagree">Stämmer Inte</label>
+            <label class="agree">Stämmer</label><br>
+            <input type="radio" v-model="question5" class="radio" name="question5" value="1">
+            <input type="radio" v-model="question5" class="radio" name="question5" value="2">
+            <input type="radio" v-model="question5" class="radio" name="question5" value="3">
+            <input type="radio" v-model="question5" class="radio" name="question5" value="4" checked="checked">
+            <input type="radio" v-model="question5" class="radio" name="question5" value="5">
+            <input type="radio" v-model="question5" class="radio" name="question5" value="6">
+            <input type="radio" v-model="question5" class="radio" name="question5" value="7"><br>
+
+            <label class="questions" for="question6" id="question6Buttons">Ditt humör kan ändras mycket snabbt.
+            </label><br>
+            <label class="disagree">Stämmer Inte</label>
+            <label class="agree">Stämmer</label><br>
+            <input type="radio" v-model="question6" class="radio" name="question6" value="1">
+            <input type="radio" v-model="question6" class="radio" name="question6" value="2">
+            <input type="radio" v-model="question6" class="radio" name="question6" value="3">
+            <input type="radio" v-model="question6" class="radio" name="question6" value="4" checked="checked">
+            <input type="radio" v-model="question6" class="radio" name="question6" value="5">
+            <input type="radio" v-model="question6" class="radio" name="question6" value="6">
+            <input type="radio" v-model="question6" class="radio" name="question6" value="7"><br><br>
         </div>
+
 
         <div id="myModal" class="modal">
 
@@ -65,7 +110,7 @@
 
         </div>
 
-        <footer>
+        <footer id="footer">
             <input type="button" v-on:click="profileDone()" id="doneButton" value="Klar">
         </footer>
     </main>

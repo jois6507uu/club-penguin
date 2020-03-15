@@ -16,23 +16,22 @@ const socket = io();
         if (totalSeconds == 0) {
             clearInterval(timeInterval);
             // Lägg till adress till frågor efter date
-            window.location.href = 'http://localhost:3000/user/evaluationQuestions';
+            window.location.href = 'http://localhost:3000/user/dating';
         }
     }
 
 }
-
 window.onload = timer(); // Tillfällig. Timern ska starta när den får en ping från arrangören
 */
 
 socket.on('userPingRoundStart', function() {
-    let popup = document.getElementById('timerPopup');
-
-    popup.style.display = 'block';
-
-    let timer = document.getElementById('timer');
-    displayTimer(10, timer, function() {skipRound()});
+    window.location.href = 'http://localhost:3000/user/dating'
 }); 
+
+var c = document.getElementById("stage");
+var stage = c.getContext("2d");
+stage.font = "90px arial";
+stage.fillText("stage", 30, 100);
 
 
 // -------------------------------------------------
@@ -43,30 +42,3 @@ function nextPage() {
     // window.location.href = 'http://localhost:3000/user/...'; 
 }
 
-// -------------------------------------------------
-
-
-
-
-function displayTimer(duration, display, yourFunction) {
-    let timer = duration, minutes, seconds;
-
-    setInterval(function() {
-	minutes = parseInt(timer / 60, 10);
-	seconds = parseInt(timer % 60, 10);
-
-	minutes = minutes < 10 ? "0" + minutes : minutes;
-	seconds = seconds < 10 ? "0" + seconds : seconds;
-
-        display.textContent = minutes + ":" + seconds;
-	
-        if (--timer < 0) {
-	    yourFunction();
-        }
-    }, 1000);
-}
-
-
-function skipRound() {
-    window.location.href = "http://localhost:3000/user/evaluationQuestions";
-}

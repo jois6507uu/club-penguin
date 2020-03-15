@@ -34,11 +34,7 @@ app.get('/user/profile', function(req, res) {
 app.get('/user/questions', function(req, res) {
     res.sendFile(path.join(__dirname, 'views/user/ProfileMaking/questions.html'));
 });
-/*
-app.get('/user/Round', function(req, res) {
-    res.sendFile(path.join(__dirname, 'views/user/DuringEvent/DuringRound.html'));
-});
-*/
+
 app.get('/user/waiting', function(req, res) {
     res.sendFile(path.join(__dirname, 'views/user/DuringEvent/waiting.html'));
 });
@@ -47,8 +43,8 @@ app.get('/user/meeting', function(req, res) {
     res.sendFile(path.join(__dirname, 'views/user/DuringEvent/meeting.html'));
 });
 
-app.get('/user/round', function(req, res) {
-    res.sendFile(path.join(__dirname, 'views/user/DuringEvent/roundTimer.html'));
+app.get('/user/dating', function(req, res) {
+    res.sendFile(path.join(__dirname, 'views/user/DuringEvent/dating.html'));
 });
 
 app.get('/user/evaluationQuestions', function(req, res) {
@@ -195,6 +191,7 @@ User.prototype.addProfile = function (profile) {
     var myObject = new Object();
     myObject.profile = profile.profile;
     users[profile.profileCode] = myObject;
+    
     let profileJSON = JSON.stringify(users, null, 2); //null och 2 är bara för att allt inte ska stå på en enda rad i json filen
     fs.writeFileSync('database/users/users.json', profileJSON, function(error) {
 	if (err) {
@@ -210,7 +207,9 @@ User.prototype.addQuestions = function (questions) {
             throw err;
         }
     }));
-    console.log(questions.roundNumber);
+
+    console.log(questions);
+    
     if (questions.roundNumber == 1) {
         users[questions.profileCode].questions1 = questions.questions;
     } else if (questions.roundNumber == 2) {
