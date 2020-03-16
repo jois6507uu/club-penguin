@@ -6,12 +6,13 @@
     <title>WaitingPage</title>
     <link rel="stylesheet" href="/css/meeting.css">
     <link rel="stylesheet" href="/css/globalstyle.css">
+      <script src="/socket.io/socket.io.js" defer></script>
     <script src="https://vuejs.org/js/vue.js" defer></script>
     <script src="/js/meeting.js" defer></script>
 </head>
 
 <body>
-
+  <
     <header>
         <div class="topbar">
             <img src="/img/picture1.png" width="260">
@@ -20,16 +21,29 @@
 
     <div id="meeting">
         <p id="youreMeeting">Du träffar:</p><br>
-        <img id="profilePic" src="/img/awaiting.jpg" width="400"><br>
+        <img id="profilePic" src="/img/awaiting.jpg" width="300"><br>
         <p id="meetingName">Förnamn Efternamn</p><br>
         <div>
             <div id="atTable">Vid bord:</div>
-            <div id="tableNumber">X</div>
-        </div>
-            <!-- Den ska ej vara en knapp när vi är klara. 
+            <div id="tableNumber">X</div><br><br>
+            <div id="tables">
+                <div id="table1"></div>
+                <div id="table2"></div>
+                <div id="table3"></div>
+                <div id="table4"></div>
+                <div id="table5"></div><br>
+                <div id="table6"></div>
+                <div id="table7"></div>
+                <div id="table8"></div>
+                <div id="table9"></div>
+                <div id="table10"></div>
+            </div>
+        </div><br>
+        <canvas id="stage">scen</canvas>
+        <!-- Den ska ej vara en knapp när vi är klara. 
                 Tillfälligt där för att kunna skynda på testerna -->
-            <div id="timer" type="button" onclick="nextPage()"></div>
-        
+        <div id="timer" type="button" onclick="nextPage()"></div>
+
 
     </div>
 
