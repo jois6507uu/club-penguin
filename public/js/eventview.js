@@ -220,38 +220,71 @@ function showProfile(div) {
     socket.emit('getUsers');
     socket.on('profileDataResponse', function(data) {
 	if (profilePopup.style.display == 'block') {
-	    cleanPopupProfile();
-	    let code = parseInt(div.children[0].children[1].textContent);
-	    let user = data[code];
-	    let profileImgClone = div.children[0].children[0].cloneNode(true);
-
-	    if (!user) {
-		popupBody.appendChild(document.createElement('p').appendChild(document.createTextNode("INGEN PROFIL SKAPAD ÄNNU")));
-		return;
+	    if (div.getAttribute("hasprofile") == "true") {
+		writeInfoInPopup(popupBody, data, div);
 	    }
-	    let name = user["profile"]["name"];
-	    let age = user["profile"]["age"];
-	    let gender = user["profile"]["gender"];
-	    let tobacco = user["profile"]["tobacco"];
-	    let question1 = user["profile"]["question1"];
-	    let question2 = user["profile"]["question2"];
-	    
-	    let nameAgeGenderParagraph = document.createElement('p');
-	    let tobaccoParagraph = document.createElement('p');
-	    let question1Paragraph = document.createElement('p');
-	    let question2Paragraph = document.createElement('p');
-
-	    nameAgeGenderParagraph.appendChild(document.createTextNode(name + ", " + age + "år, " + gender));
-	    tobaccoParagraph.appendChild(document.createTextNode("Röker: " + tobacco));
-	    question1Paragraph.appendChild(document.createTextNode("Fråga 1: " + question1));
-	    question2Paragraph.appendChild(document.createTextNode("Fråga 2: " + question2));
-	    popupBody.appendChild(profileImgClone);
-	    popupBody.appendChild(nameAgeGenderParagraph);
-	    popupBody.appendChild(tobaccoParagraph);
-	    popupBody.appendChild(question1Paragraph);
-	    popupBody.appendChild(question2Paragraph);
 	}
     });
+}
+
+//skriver ut all info från databasen in i profilpopupen
+function writeInfoInPopup(popupBody , data, div) {
+    cleanPopupProfile();
+    let code = parseInt(div.children[0].children[1].textContent, 10);
+    let user = data[code];
+    let profileImgClone = div.children[0].children[0].cloneNode(true);
+
+    if (!user) {
+	popupBody.appendChild(document.createElement('p').appendChild(document.createTextNode("INGEN PROFIL SKAPAD ÄNNU")));
+	return;
+    }
+    let name = user["profile"]["name"];
+    let age = user["profile"]["age"];
+    let gender = user["profile"]["gender"];
+    let tobacco = parseInt(user["profile"]["tobacco"], 10);
+    let questions = user["profile"]["profileQuestions"];
+    
+    let nameAgeGenderSmokerParagraph = document.createElement('p');
+    nameAgeGenderSmokerParagraph.setAttribute("class", "popupMainParagraph");
+    if (tobacco == 1) {
+	nameAgeGenderSmokerParagraph.appendChild(document.createTextNode(name + " " + age + "år " + gender + " Röker"));
+    }
+    else {
+	nameAgeGenderSmokerParagraph.appendChild(document.createTextNode(name + " " + age + "år " + gender + " Röker ej"));
+    }
+    popupBody.appendChild(profileImgClone);
+    popupBody.appendChild(nameAgeGenderSmokerParagraph);
+
+    let profileQuestionsP = document.createElement('p');
+    profileQuestionsP.setAttribute("class", "questionHeader");
+    profileQuestionsP.appendChild(document.createTextNode("Profilfrågor: 1 = Stämmer inte, 7 = Stämmer"));
+    popupBody.appendChild(profileQuestionsP);
+    let questionsArray = ["Bjuder ofta in till samtal: ", "Att vara organiserad är viktigare än att vara anpassningsbar: ", "Har svårt att presentera sig för andra människor: ", "Har svårt att presentera sig för andra människor: ", "Anser sig själv vara mer praktisk än kreativ: ", "Resplaner är vanligtvis väl genomtänkta: ", "Humör kan ändras mycket snabbt: "]
+    for (let question in questions) {
+	let questionParagraph = document.createElement('p');
+	questionParagraph.setAttribute("class", "popupParagraph");
+	questionParagraph.appendChild(document.createTextNode(questionsArray[question] + questions[question]));
+	popupBody.appendChild(questionParagraph);
+    }
+    for (let i = 0; i < roundNumber - 1; i++) {
+	let roundNumberP = document.createElement('p');
+	roundNumberP.setAttribute("class", "questionHeader");
+	roundNumberP.appendChild(document.createTextNode("Svar efter dejt " + (i+1) + " med (dejtNamn)"));
+	popupBody.appendChild(roundNumberP);
+	writeRoundQuestionsPopup(i+1, user, popupBody);
+    }
+}
+
+//skriver ut en rundas frågor i profil popupen
+function writeRoundQuestionsPopup(round, user, popupBody) {
+    let roundQuestionsArray = ["Nöjdhet med dejten: ", "Var dejten en bra matchning: "];
+    let roundQuestions = user["questions" + round];
+    for (let question in roundQuestions) {
+	let questionParagraph = document.createElement('p');
+	questionParagraph.setAttribute("class", "popupParagraph");
+	questionParagraph.appendChild(document.createTextNode(roundQuestionsArray[question] + roundQuestions[question]));
+	popupBody.appendChild(questionParagraph);
+    }
 }
 
 function cleanPopupProfile() {

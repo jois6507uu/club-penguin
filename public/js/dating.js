@@ -12,7 +12,7 @@ function timer() {
         document.getElementById("timer").innerHTML = minutes + ":" + seconds;
         if (totalSeconds == 0) {
             clearInterval(timeInterval);
-            window.location.href = 'http://localhost:3000/user/contacts';
+            window.location.href = 'http://localhost:3000/user/evaluationQuestions';
         }
     }
 
