@@ -254,6 +254,15 @@ function getDateDataFunc(code) {
     return data;
 }
 
+function profileData(user){
+    this.code = user.code;
+    this.name = user.name;
+    this.age = user.age;
+    this.gender = user.gender;
+    this.tobacco = user.tobacco;
+    this.profileQuestions = user.profileQuestions;
+}
+
 function getProfileInfoFunc(code){
     console.log("Reading from file");
     let users = JSON.parse(fs.readFileSync('database/users/users.json', function (error) {
@@ -261,7 +270,8 @@ function getProfileInfoFunc(code){
             throw err;
         }
     }));
-    let returnProfile = users[code].profile;
+    console.log("in app.js. User = " + users[code].profile);
+    let returnProfile = new profileData(users[code].profile);
     return returnProfile;
     
 }

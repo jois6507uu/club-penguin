@@ -423,47 +423,67 @@ function showFinishedEventPopup() {
 
 let bestMatch = null;
 
+
 function algorithm() {
     let tables = document.getElementsByClassName('table');
-    // var userLeft;
-    var userRight;
-    while (getFirstNonFullTable(tables) != null) {
+    var testIndex = 0;
+    while (getFirstNonFullTable(tables) != null && testIndex < 1) {
+        console.log(testIndex);
+        ++testIndex;
         let table = getFirstNonFullTable(tables);
         let left = table.children[1];
         let right = table.children[2];
-        
+        var userLeft = {};
+        var userRight = {};
         if (left.getAttribute('hasProfile') == 'true') {
-            let profileLeftValue = left.children[0].children[1].getAttribute('value');
+            let profileLeftID = left.children[0].children[1].getAttribute('value');
             console.log("in left");
-            socket.emit('getProfileData', profileLeftValue);
-            socket.on('returnProfileData', function (data) {
-                let userLeft = data;
-                console.log(userLeft.age);
-                console.log(userLeft.gender);
+            socket.emit('getProfileData', profileLeftID);
+            socket.on('returnProfileData', function (profileData) {
                 ///TODO: Hamnar i någon idiotisk loop om matchOnTable är i socket.on!?
-                matchOnTable(table, userLeft.age);
+                let userProfile = profileData;
+                console.log("Before matchOnTable");
+                matchProfileOnTable(table, userProfile);
+                console.log("Before matchOnTable");
+                matchOnTable(table, userLeft);
             });
-            // console.log("after: User is = " + userLeft);
-            
+
+            // console.log("after: User is = " + userLeft.age);
+
+
+
             // if(profileIsMale(left)){matchOnTable(table, left, "male");}
             // else {matchOnTable(table, left, "female");}
-            
+
         } else if (right.getAttribute('hasProfile') == 'true') {
-            let profileRightValue = right.children[0].children[1].getAttribute('value');
+            let profileRightID = right.children[0].children[1].getAttribute('value');
             console.log("in right");
-            socket.emit('getProfileData', profileRightValue);
+            socket.emit('getProfileData', profileRightID);
             socket.on('returnProfileData', function (data) {
                 userRight = data;
             });
             // if(profileIsMale(right)){matchOnTable(table, right, "male");}
             // else {matchOnTable(table, right, "female");}
+
             matchOnTable(table, userRight);
+
         }
         else {
             matchInSidebar(table);
         }
     }
 }
+
+function matchProfileOnTable(table, user) {
+    console.log(user);
+    socket.emit('getUserCodes');
+    socket.on('returnUserCodes', function (userCodes) {
+        let matches = userCodes;
+        console.log(matches);
+    });
+
+}
+
 
 //kollar alla tables och returnar det första som inte är fullt, är alla fulla returnar det null
 function getFirstNonFullTable(tables) {
@@ -477,13 +497,19 @@ function getFirstNonFullTable(tables) {
     return null;
 }
 
-function matchOnTable(table, tableDiv) {
+
+function matchOnTable(table, user) {
     let sidebarDivs = document.getElementById('sidebar').children;
-    // let tableAge = getAgeFromProfile(tableDiv);
-    let tableAge = tableDiv;
-    console.log("in matchOnTable. User = " + tableDiv);
+    let tableAge = 30;//getAgeFromProfile(tableDiv);
+
+    // console.log("in matchOnTable. User = " + userProfile);
     for (let sidebarDiv of sidebarDivs) {
         if (sidebarDiv.getAttribute('hasProfile') == 'true') {
+            socket.emit('getProfileData', sidebarDiv.children[0].children[1].getAttribute('value'));
+            socket.on('returnProfileData', function (data) {
+                let newUser = data;
+                console.log(data);
+            });
             let sidebarAge = getAgeFromProfile(sidebarDiv);
             if (bestMatch == null) {
                 bestMatch = sidebarDiv;
