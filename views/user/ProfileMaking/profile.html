@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
@@ -17,21 +17,27 @@
     </div>
   </header>
   <main id="profileID">
-    <div id="profileQuestion">
-      <!-- <label class="textklass" for="image"></label> -->
-      <label id="uploadPic">
-        <img id="profilePic" src="/img/awaiting.jpg"><br>
-        <input type="file" id="img" name="img" accept="image/*" style="display: none;">
-      </label>
-      <label class="textklass" for="Namn">Ditt namn:</label><br>
-      <input type="text" v-model="name" id="Namn" name="Namn" required="required" placeholder="Namn"><br>
-      <label class="textklass" for="Ålder">Din ålder:</label><br>
-      <input type="number" v-model="age" id="Ålder" name="Ålder" required="required" placeholder="Ålder"><br>
-      <label class="textklass" for="gender" id="genderButtons">Ditt kön:</label><br>
-      <input type="radio" v-model="gender" id="radio" name="gender" value="Man" checked="checked">Man<br>
-      <input type="radio" v-model="gender" id="radio" name="gender" value="Kvinna"> Kvinna<br>
-      <input type="button" v-on:click="profileDone()" id="doneButton" value="Nästa">
-    </div>
+      <div id="profileQuestion">
+          <!-- <label class="textklass" for="image"></label> -->
+          <label id="uploadPic">
+              <img id="profilePic" src="/img/awaiting.jpg"><br>
+              <input type="file" id="img" name="img" accept="image/*" style="display: none;">
+          </label>
+          <label class="textklass" for="Namn">Ditt namn:</label><br>
+          <input type="text" v-model="name" id="Namn" name="Namn" required="required" placeholder="Namn"><br>
+
+          <label class="textklass" for="Ålder">Din ålder:</label><br>
+          <input type="number" v-model="age" id="Ålder" name="Ålder" required="required" placeholder="Ålder"><br>
+
+          <label class="textklass" for="PhoneNr">Ditt telefonnummer:</label><br>
+          <input type="text" v-model="PhoneNr" id="PhoneNr" name="PhoneNr" required="required" placeholder="Telefonnummer"><br>
+
+          <label class="textklass" for="gender" id="genderButtons">Ditt kön:</label><br>
+          <input type="radio" v-model="gender" id="radio" name="gender" value="Man" checked="checked">Man<br>
+          <input type="radio" v-model="gender" id="radio" name="gender" value="Kvinna"> Kvinna<br>
+
+          <input type="button" v-on:click="profileDone()" id="doneButton" value="Nästa">
+      </div>
     
   </main>
 </body>
