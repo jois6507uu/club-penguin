@@ -3,6 +3,7 @@ const vm = new Vue({
   data: {
     name: "",
     age: "",
+    PhoneNr: "",
     gender: "Man",
   },
   methods: {
@@ -12,10 +13,11 @@ const vm = new Vue({
         let namn = this.name;
         let ålder = this.age;
         if(namn.length > 0 && ålder > 0){
-        let kön = this.gender;
+            let kön = this.gender;
             localStorage.setItem("name", namn);
             localStorage.setItem("age", ålder);
             localStorage.setItem("gender", kön);
+            localStorage.setItem("PhoneNr", this.PhoneNr);
             localStorage.setItem("RoundNumber", 0);
         window.location.href = 'http://localhost:3000/user/questions';
       } else {
