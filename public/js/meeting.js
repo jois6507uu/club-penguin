@@ -25,7 +25,7 @@ window.onload = timer(); // Tillfällig. Timern ska starta när den får en ping
 */
 
 socket.on('userPingRoundStart', function() {
-    window.location.href = 'http://localhost:3000/user/dating'
+    window.location.href = 'http://localhost:3000/user/dating';
 }); 
 
 var c = document.getElementById("stage");
@@ -36,9 +36,7 @@ stage.fillText("stage", 30, 100);
 
 // -------------------------------------------------
 // Tillfällig funktion för att kunna påskynda testet
-
-function nextPage() {
-    // Lägg till adress till frågor efter date
-    // window.location.href = 'http://localhost:3000/user/...'; 
+function ping() {
+    window.location.href = 'http://localhost:3000/user/dating';
 }
 

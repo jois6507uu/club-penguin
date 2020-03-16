@@ -208,7 +208,6 @@ User.prototype.addQuestions = function (questions) {
         }
     }));
 
-    console.log(questions);
     
     if (questions.roundNumber == 1) {
         users[questions.profileCode].questions1 = questions.questions;
@@ -217,7 +216,7 @@ User.prototype.addQuestions = function (questions) {
     } else {
         users[questions.profileCode].questions3 = questions.questions;
     }
-    console.log(users[questions.profileCode]);
+    
     let questionsJSON = JSON.stringify(users, null, 2); //null och 2 är bara för att allt inte ska stå på en enda rad i json filen
     fs.writeFileSync('database/users/users.json', questionsJSON, function (error) {
         if (err) {
@@ -236,6 +235,34 @@ User.prototype.getUsers = function () {
     return JSON.parse(users);
 }
 
+User.prototype.getDateCodes = function (userCode) {
+    let users = fs.readFileSync('database/users/users.json', function(error) {
+        if (error) {
+            throw error;
+        }
+    });
+
+    let parsedUsers = JSON.parse(users);
+    let activeUser = parsedUsers[userCode];
+    
+    return [activeUser["profile"]["dateCode1"], activeUser["profile"]["dateCode2"], activeUser["profile"]["dateCode3"]];
+}
+
+User.prototype.getUserName = function (userCode) {
+     let users = fs.readFileSync('database/users/users.json', function(error) {
+        if (error) {
+            throw error;
+        }
+    });
+
+    let parsedUsers = JSON.parse(users);
+    let activeUser = parsedUsers[userCode];
+    //console.log(activeUser["profile"]);
+    console.log(userCode);
+    console.log("-------------");
+    console.log(activeUser["profile"]["name"]);
+    return activeUser["profile"]["name"];
+}
 
 function getUserCodes() {
     let array = fs.readFileSync('database/users/allActiveCodes.json', 'utf8', function(error) {
@@ -307,6 +334,16 @@ io.on('connection', function(socket) {
 
     socket.on('pingUserRoundStart', function() {
 	io.sockets.emit('userPingRoundStart');
+    });
+
+    socket.on('getDateCodes', function(userCode) {
+	let dateCodes = user.getDateCodes(userCode);
+	socket.emit('dateCodeResponse', dateCodes);
+    });
+
+    socket.on('getUserName', function(userCode) {
+	let name = user.getUserName(userCode);
+	socket.emit('userNameResponse', name);
     });
 });
 

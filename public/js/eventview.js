@@ -286,24 +286,38 @@ function sendTableAndName() {
 	    let left = table.children[2];
 	    let codeRight = parseInt(right.children[0].children[1].textContent);
 	    let codeLeft = left.children[0].children[1].textContent;
-	    let nameRight = right.children[0].children[2].textContent.split(",")[0];
-	    let nameLeft = left.children[0].children[2].textContent.split(",")[0];
 
 	    let userRight = users[codeRight];
 	    let userLeft = users[codeLeft];
-	    sendInfoToDatabase(codeRight, userRight, nameLeft, index);
-	    sendInfoToDatabase(codeLeft, userLeft, nameRight, index);
+	    sendInfoToDatabase(codeRight, userRight, codeLeft, index);
+	    sendInfoToDatabase(codeLeft, userLeft, codeRight, index);
 	    ++index;
 	}
 	socket.emit('pingUserRoundInfo');
     });   
 }
 
-function sendInfoToDatabase(code, user, dateName, table) {
+function sendInfoToDatabase(code, user, dateCode, table) {
     if (user.profile) {
 	let profile = user.profile;
-	profile.dateName = dateName;
+
 	profile.table = table;
+	
+	switch (roundNumber) {
+	case 1:
+	    profile.dateCode1 = dateCode;
+	    break;
+	case 2:
+	    profile.dateCode2 = dateCode;
+	    break;
+	case 3:
+	    profile.dateCode3 = dateCode;
+	    break;
+	default:
+	    console.log("roundNumber is " + roundNumber);
+	}
+	
+	
 	let profileComplete = new ProfileComplete(code, profile);
 	socket.emit('addProfile', profileComplete);
     }
