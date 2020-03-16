@@ -23,8 +23,18 @@ const socket = io();
 }
 window.onload = timer(); // Tillfällig. Timern ska starta när den får en ping från arrangören
 */
+socket.emit('getDateData', localStorage.getItem("code"));
 
-socket.on('userPingRoundStart', function() {
+socket.on('returnDateData', function (data) {
+    console.log(localStorage.getItem("code"), data.code);   
+    if (localStorage.getItem("code") == data.code) {
+        document.getElementById("tableNumber").innerHTML = data.table;
+        document.getElementById("meetingName").innerHTML = data.dateName;
+        document.getElementById("table"+ data.table).style.background = "cyan";
+    }
+})
+
+socket.on('userPingRoundStart', function() {     
     window.location.href = 'http://localhost:3000/user/dating'
 }); 
 
