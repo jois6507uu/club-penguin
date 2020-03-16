@@ -236,6 +236,36 @@ User.prototype.getUsers = function () {
     return JSON.parse(users);
 }
 
+function dateData(table, dateName, code) {
+    this.table = table;
+    this.dateName = dateName;
+    this.code = code;
+}
+
+function getDateDataFunc(code) {
+    console.log("writing to file");
+    let users = JSON.parse(fs.readFileSync('database/users/users.json', function (error) {
+        if (err) {
+            throw err;
+        }
+    }));
+    console.log("test");
+    let data = new dateData(users[code].profile.table, users[code].profile.dateName, users[code].profile.code);
+    return data;
+}
+
+function getProfileInfoFunc(code){
+    console.log("Reading from file");
+    let users = JSON.parse(fs.readFileSync('database/users/users.json', function (error) {
+        if (err) {
+            throw err;
+        }
+    }));
+    let returnProfile = users[code].profile;
+    return (returnProfile);
+    
+}
+
 
 function getUserCodes() {
     let array = fs.readFileSync('database/users/allActiveCodes.json', 'utf8', function(error) {
@@ -307,6 +337,15 @@ io.on('connection', function(socket) {
 
     socket.on('pingUserRoundStart', function() {
 	io.sockets.emit('userPingRoundStart');
+    });
+
+    socket.on('getDateData', function (code) {
+        let data = getDateDataFunc(code);
+        socket.emit('returnDateData', data);
+    });
+
+    socket.on('getProfileData', function (code){
+        socket.emit('returnProfileData', getProfileInfoFunc(code));
     });
 });
 
