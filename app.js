@@ -262,7 +262,7 @@ function getProfileInfoFunc(code){
         }
     }));
     let returnProfile = users[code].profile;
-    return (returnProfile);
+    return returnProfile;
     
 }
 
@@ -345,7 +345,8 @@ io.on('connection', function(socket) {
     });
 
     socket.on('getProfileData', function (code){
-        socket.emit('returnProfileData', getProfileInfoFunc(code));
+        let data = getProfileInfoFunc(code);
+        socket.emit('returnProfileData', data);
     });
 });
 

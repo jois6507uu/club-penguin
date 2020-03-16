@@ -425,7 +425,7 @@ let bestMatch = null;
 
 function algorithm() {
     let tables = document.getElementsByClassName('table');
-    var userLeft;
+    // var userLeft;
     var userRight;
     while (getFirstNonFullTable(tables) != null) {
         let table = getFirstNonFullTable(tables);
@@ -437,13 +437,13 @@ function algorithm() {
             console.log("in left");
             socket.emit('getProfileData', profileLeftValue);
             socket.on('returnProfileData', function (data) {
-                userLeft = data;
+                let userLeft = data;
                 console.log(userLeft.age);
                 console.log(userLeft.gender);
                 ///TODO: Hamnar i någon idiotisk loop om matchOnTable är i socket.on!?
                 matchOnTable(table, userLeft.age);
             });
-            console.log("after: User is = " + userLeft);
+            // console.log("after: User is = " + userLeft);
             
             // if(profileIsMale(left)){matchOnTable(table, left, "male");}
             // else {matchOnTable(table, left, "female");}
