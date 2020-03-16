@@ -1,10 +1,6 @@
 'use strict';
 const socket = io();
 
-function DateQuestions(quest1, quest2) {
-    this.question1 = quest1;
-    this.question2 = quest2;
-}
 
 function questionsComplete(profileCode, roundNumber, questions) {
     this.profileCode = profileCode;
@@ -22,7 +18,7 @@ const vm = new Vue({
         evaluationDone: function () {
             localStorage.setItem("RoundNumber", parseInt(localStorage.getItem("RoundNumber")) + 1);
             console.log(localStorage.getItem("RoundNumber"));
-            let dateQuestionsObj = new DateQuestions(this.fraga1, this.fraga2);
+            let dateQuestionsObj = [this.fraga1, this.fraga2];
             let Questions = new questionsComplete(localStorage.getItem("code"), localStorage.getItem("RoundNumber"), dateQuestionsObj);
             socket.emit('addQuestions', Questions);
             window.location.href = 'http://localhost:3000/user/contacts';
