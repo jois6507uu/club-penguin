@@ -36,7 +36,7 @@ const vm = new Vue({
     methods: {
         profileDone: function() {
             if (confirm("Ãr du nöjd med dina svar?")) {
-		let profileQuestions = [this.question1, this.question2, this.question3, this.question4, this.question5, this.question6];
+		        let profileQuestions = [this.question1, this.question2, this.question3, this.question4, this.question5, this.question6];
                 let profile = new Profile(localStorage.getItem("code"), localStorage.getItem("name"), localStorage.getItem("age"), localStorage.getItem("PhoneNr"), localStorage.getItem("gender"), this.tobacco, profileQuestions);
                 let profileComplete = new ProfileComplete(localStorage.getItem("code"), profile);
                 socket.emit('addProfile', profileComplete);
