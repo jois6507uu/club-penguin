@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -22,9 +22,10 @@
 
             <p id="dropDownTobacco">
                 <label for="tobacco">Använder du tobak?</label><br>
-                <select name="tobak" class="dropdown">
-                      <option class="dropdownChoice" value="Ja">Ja</option>
-                      <option class="dropdownChoice" value="Nej" selected="selected">Nej</option>
+                <select v-model="tobacco" name="tobak" class="dropdown">
+		  <option disabled value="">Välj ett alternativ</option>
+                  <option class="dropdownChoice" value="1">Ja</option>
+                  <option class="dropdownChoice" value="0" selected="selected">Nej</option>
                   </select>
             </p>
             <label class="questions" for="question1" id="question1Buttons">Du bjuder ofta in till samtal</label><br>

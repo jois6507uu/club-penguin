@@ -7,14 +7,13 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function Profile(code, name, age, gender, tobacco, quest1, quest2) {
+function Profile(code, name, age, gender, tobacco, profileQuestions) {
     this.code = code;
     this.name = name;
     this.age = age;
     this.gender = gender;
     this.tobacco = tobacco;
-    this.question1 = quest1;
-    this.question2 = quest2;
+    this.profileQuestions = profileQuestions;
 }
 
 function ProfileComplete(profileCode, profile) {
@@ -36,7 +35,8 @@ const vm = new Vue({
     methods: {
         profileDone: function() {
             if (confirm("Ãr du nöjd med dina svar?")) {
-                let profile = new Profile(localStorage.getItem("code"), localStorage.getItem("name"), localStorage.getItem("age"), localStorage.getItem("gender"), this.tobacco, this.question1, this.question2)
+		let profileQuestions = [this.question1, this.question2, this.question3, this.question4, this.question5, this.question6];
+                let profile = new Profile(localStorage.getItem("code"), localStorage.getItem("name"), localStorage.getItem("age"), localStorage.getItem("gender"), this.tobacco, profileQuestions);
                 let profileComplete = new ProfileComplete(localStorage.getItem("code"), profile);
                 socket.emit('addProfile', profileComplete);
                 window.location.href = 'http://localhost:3000/user/waiting';

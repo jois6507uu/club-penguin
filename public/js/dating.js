@@ -1,5 +1,5 @@
 function timer() {
-    var totSec = 10;
+    var totSec = 11;
     var totalSeconds = totSec;
     timeInterval = setInterval(countAndDisplay, 1000);
 
