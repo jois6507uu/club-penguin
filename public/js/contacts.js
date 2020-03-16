@@ -2,7 +2,8 @@ const vm = new Vue({
     el: '#contacts',
     data: {
         contact1: "Nej",
-        contact2: "Nej"
+        contact2: "Nej",
+        contact3: "Nej"
     },
     methods: {
         contactsAnswered: function() {
