@@ -207,16 +207,8 @@ User.prototype.addQuestions = function (questions) {
             throw err;
         }
     }));
-
-    console.log(questions);
-    
-    if (questions.roundNumber == 1) {
-        users[questions.profileCode].questions1 = questions.questions;
-    } else if (questions.roundNumber == 2) {
-        users[questions.profileCode].questions2 = questions.questions;
-    } else {
-        users[questions.profileCode].questions3 = questions.questions;
-    }
+    console.log(users[questions.profileCode]);
+    users[questions.profileCode]["questions" + questions.roundNumber] = questions.questions;
     console.log(users[questions.profileCode]);
     let questionsJSON = JSON.stringify(users, null, 2); //null och 2 är bara för att allt inte ska stå på en enda rad i json filen
     fs.writeFileSync('database/users/users.json', questionsJSON, function (error) {
@@ -312,7 +304,6 @@ io.on('connection', function(socket) {
     socket.on('getUsers', function() {
         let users = user.getUsers();
         socket.emit('profileDataResponse', users);
-	console.log(users);
     });
 
     socket.on('removeUserData', function(eventname) {

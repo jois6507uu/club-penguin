@@ -268,8 +268,9 @@ function writeInfoInPopup(popupBody , data, div) {
     }
     for (let i = 0; i < roundNumber - 1; i++) {
 	let roundNumberP = document.createElement('p');
+	let dateName = user["profile"]["dateName"];
 	roundNumberP.setAttribute("class", "questionHeader");
-	roundNumberP.appendChild(document.createTextNode("Svar efter dejt " + (i+1) + " med (dejtNamn)"));
+	roundNumberP.appendChild(document.createTextNode("Svar efter dejt " + (i+1) + " med " + dateName));
 	popupBody.appendChild(roundNumberP);
 	writeRoundQuestionsPopup(i+1, user, popupBody);
     }
