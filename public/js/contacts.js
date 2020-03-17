@@ -52,15 +52,13 @@ function done() {
 
     socket.on('dateCodeResponse', function(dateCodes) {
 
-	let result = [localStorage.getItem('code')];
-	
+	let userCode = localStorage.getItem('code');
 	for (let i = 0; i < dropdowns.length; ++i) {
 	    if (dropdowns[i].options[dropdowns[i].selectedIndex].text == "Ja") {
-		result.push(dateCodes[i]);
+		localStorage.setItem("dateCodes" + i, dateCodes[i]);
+		socket.emit('shareMyCode', dateCodes[i], userCode);
 	    }
 	}
-	
-	socket.emit('addSharedUsers', result);
     });
     
     window.location.href = 'http://localhost:3000/user/Done';

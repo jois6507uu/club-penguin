@@ -24,8 +24,39 @@ const socket = io();
 window.onload = timer(); // Tillfällig. Timern ska starta när den får en ping från arrangören
 */
 
-socket.on('userPingRoundStart', function() {
-    window.location.href = 'http://localhost:3000/user/dating';
+socket.emit('getUserData', localStorage.getItem("code"));
+
+socket.on('userDataResponse', function (data) {
+    console.log(localStorage.getItem("code"), data.code);   
+    if (localStorage.getItem("code") == data["profile"]["code"]) {
+        document.getElementById("tableNumber").innerHTML = data["profile"]["table"];
+	let date;
+	let roundNumber = localStorage.getItem("roundNumber");
+
+	if (roundNumber == 1) {
+	    date = data["profile"]["dateCode1"];
+	    console.log("case 1");
+	} else if (roundNumber == 2) {
+	    console.log("case 2");
+	    date = data["profile"]["dateCode1"];
+	} else {
+	    console.log("case 3");
+	    date = data["profile"]["dateCode1"];
+	}
+
+	socket.emit('getUserName', date);
+
+	socket.on('userNameResponse', function(dateName) {
+	    document.getElementById("meetingName").innerHTML = dateName;
+            
+	});
+	
+        document.getElementById("table"+ data["profile"]["table"]).style.background = "cyan";
+    }
+})
+
+socket.on('userPingRoundStart', function() {     
+    window.location.href = 'http://localhost:3000/user/dating'
 }); 
 
 var c = document.getElementById("stage");
