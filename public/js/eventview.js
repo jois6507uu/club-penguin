@@ -1,7 +1,7 @@
 'use strict';
 const socket = io();
 
-
+//Så att man kan skriva .remove() på en nodelist med object
 NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
     for(var i = this.length - 1; i >= 0; i--) {
         if(this[i] && this[i].parentElement) {
@@ -53,7 +53,7 @@ async function initEventView() {
     socket.emit('getUsers');
     socket.on('profileDataResponse', function(users) {
 	if (view.children.length < 2) {
-	    initTables(Object.keys(users).length / 2);
+	    initTables(10);
 	    initUsers(users);
 	}
     });
@@ -75,7 +75,9 @@ function initTables(amountOfTables) {
 function initUsers(users) {
     let view = document.getElementById('sidebar');
     for (let user in users) {
-	   createUserContainer(view, user, users[user]);
+	if (!Number.isInteger(users[user])){
+	    createUserContainer(view, user, users[user]);
+	} 
     }
     
 }
@@ -329,6 +331,7 @@ function sendTableInfoPopup() {
     if (getFirstNonFullTable(tables) != null) {
 	return popupDenied();
     }
+    socket.emit("setRoundNumber", roundNumber);
     let popup = document.getElementById('sendingInfoPopup');
     let popupInfo = document.getElementById('sendingInfoInfo');
     let overlay = document.getElementsByClassName('overlay')[0];

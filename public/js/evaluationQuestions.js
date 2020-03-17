@@ -1,13 +1,6 @@
 'use strict';
 const socket = io();
 
-
-function QuestionsComplete(profileCode, roundNumber, questions) {
-    this.profileCode = profileCode;
-    this.roundNumber = parseInt(roundNumber, 10);
-    this.questions = questions;
-}
-
 const vm = new Vue({
     el: '#profileID',
     data: {
@@ -16,17 +9,15 @@ const vm = new Vue({
     },
     methods: {
         evaluationDone: function () {
-            localStorage.setItem("RoundNumber", parseInt(localStorage.getItem("RoundNumber"), 10) + 1);
-            console.log(localStorage.getItem("RoundNumber"));
-            let dateQuestionsObj = [this.fraga1, this.fraga2];
-            let Questions = new QuestionsComplete(localStorage.getItem("code"), localStorage.getItem("RoundNumber"), dateQuestionsObj);
-            socket.emit('addQuestions', Questions);
-            if (localStorage.getItem("RoundNumber") < 3) {
-                window.location.href = 'http://localhost:3000/user/waiting';
-            } else {
-                window.location.href = 'http://localhost:3000/user/contacts';
-            }
-
+            let dateQuestions = [this.fraga1, this.fraga2];
+            socket.emit('addQuestions', localStorage.getItem("code"), dateQuestions);
+	    socket.on('roundNumberReturn', function(roundNumber) {
+		if (roundNumber < 3) {
+                    window.location.href = 'http://localhost:3000/user/waiting';
+		} else {
+                    window.location.href = 'http://localhost:3000/user/contacts';
+		}
+	    });
         }
     }
 })
