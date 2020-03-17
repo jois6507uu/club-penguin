@@ -47,21 +47,21 @@ function onLoad() {
 function done() {
     
     let dropdowns = document.getElementsByClassName('dropdown');
-    let dropdown1 = dropdowns[0];
-    let dropdown2 = dropdowns[1];
-    let dropdown3 = dropdowns[2];
 
     socket.emit('getDateCodes', localStorage.getItem('code'));
 
     socket.on('dateCodeResponse', function(dateCodes) {
 
+	let result = [localStorage.getItem('code')];
 	
-	
-	let result = [[dateCodes[0], dropdown1.options[dropdown1.selectedIndex].text], [dateCodes[1], dropdown2.options[dropdown2.selectedIndex].text], [dateCodes[2], dropdown3.options[dropdown3.selectedIndex].text]];
-	console.log(result);
-	
+	for (let i = 0; i < dropdowns.length; ++i) {
+	    if (dropdowns[i].options[dropdowns[i].selectedIndex].text == "Ja") {
+		result.push(dateCodes[i]);
+	    }
+	}
 	
 	socket.emit('addSharedUsers', result);
     });
-    //window.location.href = 'http://localhost:3000/user/Done';
+    
+    window.location.href = 'http://localhost:3000/user/Done';
 }

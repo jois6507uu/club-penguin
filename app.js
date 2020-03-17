@@ -257,11 +257,47 @@ User.prototype.getUserName = function (userCode) {
 
     let parsedUsers = JSON.parse(users);
     let activeUser = parsedUsers[userCode];
-    //console.log(activeUser["profile"]);
-    console.log(userCode);
-    console.log("-------------");
-    console.log(activeUser["profile"]["name"]);
+
     return activeUser["profile"]["name"];
+}
+
+User.prototype.addSharedUsers = function (userCodes) {
+    let users = JSON.parse(fs.readFileSync('database/users/users.json', function (error) {
+        if (err) {
+            throw err;
+        }
+    }));
+
+    users[userCodes[0]].sharedUsers = userCodes.slice(1);
+    
+    let updatedJSON = JSON.stringify(users, null, 2);
+
+    fs.writeFileSync('database/users/users.json', updatedJSON, function (error) {
+        if (err) {
+            console.log('Could not write to file ' + user.userCode + '.json');
+        }
+    });
+    
+}
+
+User.prototype.getSharedContacts = function (userCode) {
+    let users = JSON.parse(fs.readFileSync('database/users/users.json', function (error) {
+        if (err) {
+            throw err;
+        }
+    }));
+
+    return users[userCode]["sharedContacts"];
+}
+
+User.prototype.getUserData = function (userCode) {
+    let users = JSON.parse(fs.readFileSync('database/users/users.json', function (error) {
+        if (err) {
+            throw err;
+        }
+    }));
+    
+    return users[userCode];
 }
 
 function getUserCodes() {
@@ -344,6 +380,31 @@ io.on('connection', function(socket) {
     socket.on('getUserName', function(userCode) {
 	let name = user.getUserName(userCode);
 	socket.emit('userNameResponse', name);
+    });
+
+    socket.on('addSharedUsers', function(userCodes) {
+	user.addSharedUsers(userCodes);
+    });
+
+    socket.on('getSharedContacts', function(userCode) {
+	if (userCode) {
+	    let sharedContacts = user.getSharedContacts(userCode);
+	    socket.emit('sharedContactsResponse', sharedContacts);
+	}
+	else {
+	    console.log("UserCode is not defined");
+	}
+	
+    });
+
+    socket.on('getUserData', function(userCode) {
+	if (userCode) {
+	    let userData = user.getUserData(userCode);
+	    is.sockets.emit('userDataResponse', userData);
+	}
+	else {
+	    console.log("UserCode is not defined");
+	}
     });
 });
 
