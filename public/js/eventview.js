@@ -2,6 +2,14 @@
 const socket = io();
 
 
+NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
+}
+
 function ProfileComplete(profileCode, profile) {
     this.profileCode = profileCode;
     this.profile = profile;
@@ -199,8 +207,12 @@ function sortUserList() {
 
 function onDoubleClick(div) {
     if (div.getAttribute('hasProfile') == "true") {
-	showProfile(div);
-	selectedDiv = null;
+	console.log(div.children[0].children[1]);
+	console.log(div.children[0].children[1].getAttribute("hidden"));
+	if (div.children[0].children[2].getAttribute("hidden") == null) {
+	    showProfile(div);
+	    selectedDiv = null;
+	}
     }
 }
 
@@ -228,11 +240,6 @@ function writeInfoInPopup(popupBody , data, div) {
     let code = parseInt(div.children[0].children[1].textContent, 10);
     let user = data[code];
     let profileImgClone = div.children[0].children[0].cloneNode(true);
-
-    if (!user) {
-	popupBody.appendChild(document.createElement('p').appendChild(document.createTextNode("INGEN PROFIL SKAPAD ÄNNU")));
-	return;
-    }
     let name = user["profile"]["name"];
     let age = user["profile"]["age"];
     let gender = user["profile"]["gender"];
@@ -261,14 +268,26 @@ function writeInfoInPopup(popupBody , data, div) {
 	questionParagraph.appendChild(document.createTextNode(questionsArray[question] + questions[question]));
 	popupBody.appendChild(questionParagraph);
     }
-    for (let i = 0; i < roundNumber - 1; i++) {
-	let roundNumberP = document.createElement('p');
-	let dateName = user["profile"]["dateName"];
-	roundNumberP.setAttribute("class", "questionHeader");
-	roundNumberP.appendChild(document.createTextNode("Svar efter dejt " + (i+1) + " med " + dateName));
-	popupBody.appendChild(roundNumberP);
-	writeRoundQuestionsPopup(i+1, user, popupBody);
-    }
+    socket.emit('getDateNamesFromDateCodes', code);
+    socket.on('dateNamesResponse', function (response) {
+	cleanQuestionsAndParagraphs();
+	let dateNames = response;
+	for (let i = 1; i < roundNumber; i++) {
+	    let roundNumberP = document.createElement('p');
+	    roundNumberP.setAttribute("class", "questionHeader");
+	    roundNumberP.appendChild(document.createTextNode("Svar efter dejt " + i + " med " + dateNames[i-1]));
+	    popupBody.appendChild(roundNumberP);
+	    writeRoundQuestionsPopup(i, user, popupBody);
+	};
+    });
+    
+}
+
+//rensar questionHeader och popupParagraphAnswers
+function cleanQuestionsAndParagraphs() {
+    let questions = document.getElementsByClassName("questionHeader").remove();
+    let answers = document.getElementsByClassName("popupParagraphAnswers").remove();
+    
 }
 
 //skriver ut en rundas frågor i profil popupen
@@ -277,7 +296,7 @@ function writeRoundQuestionsPopup(round, user, popupBody) {
     let roundQuestions = user["questions" + round];
     for (let question in roundQuestions) {
 	let questionParagraph = document.createElement('p');
-	questionParagraph.setAttribute("class", "popupParagraph");
+	questionParagraph.setAttribute("class", "popupParagraphAnswers");
 	questionParagraph.appendChild(document.createTextNode(roundQuestionsArray[question] + roundQuestions[question]));
 	popupBody.appendChild(questionParagraph);
     }
@@ -328,7 +347,6 @@ function sendTableInfoPopup() {
 function sendTableAndName() {
     socket.emit('getUsers');
     socket.on('profileDataResponse', function(data) {
-<<<<<<< HEAD
 	let profilePopup = document.getElementById('profilePopup');
 	if (profilePopup.style.display != 'block') {   
 	    let tables = document.getElementsByClassName('table');
@@ -337,37 +355,20 @@ function sendTableAndName() {
 	    for (let table of tables) {
 		let right = table.children[1];
 		let left = table.children[2];
-		let codeRight = parseInt(right.children[0].children[1].textContent, 10);
-		let codeLeft = parseInt(left.children[0].children[1].textContent, 10);
-		let nameRight = right.children[0].children[2].textContent.split(",")[0];
-		let nameLeft = left.children[0].children[2].textContent.split(",")[0];
-		
+		let codeRight = parseInt(right.children[0].children[1].textContent);
+		let codeLeft = left.children[0].children[1].textContent;
+
 		let userRight = users[codeRight];
 		let userLeft = users[codeLeft];
-		sendInfoToDatabase(codeRight, userRight, nameLeft, index);
-		sendInfoToDatabase(codeLeft, userLeft, nameRight, index);
+		sendInfoToDatabase(codeRight, userRight, codeLeft, index);
+		sendInfoToDatabase(codeLeft, userLeft, codeRight, index);
 		++index;
 	    }
-=======
-	let tables = document.getElementsByClassName('table');
-	let users = data;
-	let index = 1;
-	for (let table of tables) {
-	    let right = table.children[1];
-	    let left = table.children[2];
-	    let codeRight = parseInt(right.children[0].children[1].textContent);
-	    let codeLeft = left.children[0].children[1].textContent;
-
-	    let userRight = users[codeRight];
-	    let userLeft = users[codeLeft];
-	    sendInfoToDatabase(codeRight, userRight, codeLeft, index);
-	    sendInfoToDatabase(codeLeft, userLeft, codeRight, index);
-	    ++index;
->>>>>>> 471a9485fb7dee9ed488a064f067e1432fd6d18d
+	    socket.emit('pingUserRoundInfo');
 	}
-	socket.emit('pingUserRoundInfo');
-    });   
+    });
 }
+
 
 function sendInfoToDatabase(code, user, dateCode, table) {
     if (user.profile) {

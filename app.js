@@ -276,6 +276,27 @@ User.prototype.getUserData = function (userCode) {
     return users[userCode];
 }
 
+User.prototype.getDateNamesFromUserCode = function (userCode, roundNumber) {
+    let users = JSON.parse(fs.readFileSync('database/users/users.json', function (error) {
+        if (err) {
+            throw err;
+        }
+    }));
+
+    let dateCodes = [];
+    for (let i = 1; i < 4; ++i) {
+	if (users[userCode]["profile"]["dateCode" + i]) {
+	    dateCodes.push(users[userCode]["profile"]["dateCode" + i]);
+	}
+    }
+    let dateNames = [];
+    for (let index in dateCodes) {
+	dateNames.push(users[dateCodes[index]]["profile"]["name"]);
+    }
+    console.log(dateNames);
+    return dateNames;
+}
+
 User.prototype.shareCode = function (dateCode, userCode) {
     let users = JSON.parse(fs.readFileSync('database/users/users.json', function (error) {
         if (err) {
@@ -398,6 +419,10 @@ io.on('connection', function(socket) {
 	socket.emit('userNameResponse', name);
     });
 
+    socket.on('getDateNamesFromDateCodes', function(userCode) {
+	let dateName = user.getDateNamesFromUserCode(userCode);
+	socket.emit('dateNamesResponse', dateName);
+    });
 
     socket.on('getSharedContacts', function(userCode) {
 	let sharedContacts = user.getSharedContacts(userCode);
