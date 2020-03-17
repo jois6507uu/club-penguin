@@ -328,6 +328,7 @@ function sendTableInfoPopup() {
 function sendTableAndName() {
     socket.emit('getUsers');
     socket.on('profileDataResponse', function(data) {
+<<<<<<< HEAD
 	let profilePopup = document.getElementById('profilePopup');
 	if (profilePopup.style.display != 'block') {   
 	    let tables = document.getElementsByClassName('table');
@@ -347,16 +348,48 @@ function sendTableAndName() {
 		sendInfoToDatabase(codeLeft, userLeft, nameRight, index);
 		++index;
 	    }
+=======
+	let tables = document.getElementsByClassName('table');
+	let users = data;
+	let index = 1;
+	for (let table of tables) {
+	    let right = table.children[1];
+	    let left = table.children[2];
+	    let codeRight = parseInt(right.children[0].children[1].textContent);
+	    let codeLeft = left.children[0].children[1].textContent;
+
+	    let userRight = users[codeRight];
+	    let userLeft = users[codeLeft];
+	    sendInfoToDatabase(codeRight, userRight, codeLeft, index);
+	    sendInfoToDatabase(codeLeft, userLeft, codeRight, index);
+	    ++index;
+>>>>>>> 471a9485fb7dee9ed488a064f067e1432fd6d18d
 	}
 	socket.emit('pingUserRoundInfo');
     });   
 }
 
-function sendInfoToDatabase(code, user, dateName, table) {
+function sendInfoToDatabase(code, user, dateCode, table) {
     if (user.profile) {
 	let profile = user.profile;
-	profile.dateName = dateName;
+
 	profile.table = table;
+	
+	switch (roundNumber) {
+	case 1:
+	    profile.dateCode1 = dateCode;
+	    break;
+	case 2:
+	    profile.dateCode2 = dateCode;
+	    break;
+	case 3:
+	    profile.dateCode3 = dateCode;
+	    break;
+	default:
+	    console.log("roundNumber is " + roundNumber);
+	}
+	
+	
 	let profileComplete = new ProfileComplete(code, profile);
 	socket.emit('addProfile', profileComplete);
     }

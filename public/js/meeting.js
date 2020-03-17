@@ -23,14 +23,35 @@ const socket = io();
 }
 window.onload = timer(); // Tillfällig. Timern ska starta när den får en ping från arrangören
 */
-socket.emit('getDateData', localStorage.getItem("code"));
 
-socket.on('returnDateData', function (data) {
+socket.emit('getUserData', localStorage.getItem("code"));
+
+socket.on('userDataResponse', function (data) {
     console.log(localStorage.getItem("code"), data.code);   
-    if (localStorage.getItem("code") == data.code) {
-        document.getElementById("tableNumber").innerHTML = data.table;
-        document.getElementById("meetingName").innerHTML = data.dateName;
-        document.getElementById("table"+ data.table).style.background = "cyan";
+    if (localStorage.getItem("code") == data["profile"]["code"]) {
+        document.getElementById("tableNumber").innerHTML = data["profile"]["table"];
+	let date;
+	let roundNumber = localStorage.getItem("roundNumber");
+
+	if (roundNumber == 1) {
+	    date = data["profile"]["dateCode1"];
+	    console.log("case 1");
+	} else if (roundNumber == 2) {
+	    console.log("case 2");
+	    date = data["profile"]["dateCode1"];
+	} else {
+	    console.log("case 3");
+	    date = data["profile"]["dateCode1"];
+	}
+
+	socket.emit('getUserName', date);
+
+	socket.on('userNameResponse', function(dateName) {
+	    document.getElementById("meetingName").innerHTML = dateName;
+            
+	});
+	
+        document.getElementById("table"+ data["profile"]["table"]).style.background = "cyan";
     }
 })
 
@@ -46,9 +67,7 @@ stage.fillText("stage", 30, 100);
 
 // -------------------------------------------------
 // Tillfällig funktion för att kunna påskynda testet
-
-function nextPage() {
-    // Lägg till adress till frågor efter date
-    // window.location.href = 'http://localhost:3000/user/...'; 
+function ping() {
+    window.location.href = 'http://localhost:3000/user/dating';
 }
 
