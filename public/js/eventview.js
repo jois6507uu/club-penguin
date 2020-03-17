@@ -31,11 +31,6 @@ if (!roundNumber) {
     roundNumber = 1;
 }
 
-// ändra så att den går tillbaka till rätt adminsida
-function goBack() {
-    window.location.href = 'http://localhost:3000/admin/start#admin';
-}
-
 async function initEventView() {
     let eventname  = window.location.hash.substring(1);
     let eventPopulation;
