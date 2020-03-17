@@ -1,38 +1,53 @@
-
-
-#profileQuestion{
-  text-align: center;
-  font-size: 76px;
+#profileQuestion {
+    text-align: center;
+    font-size: 76px;
 }
 
-.textklass{
-  display: inline-block;
-  margin-top: 40px;
+.textklass {
+    display: inline-block;
+    margin-top: 40px;
 }
 
-
-input[type="radio"]{
+input[type="radio"] {
     width: 40px;
-    height:   40px;
+    height: 40px;
 }
 
-#profilePic{
-  margin-top: 20px;
+#output {
+    height: auto;
+    width: 500px;
+    margin: 0em;
 }
 
-#Namn{
-  text-align: center;
-  font-size: 76px;
-  width: 80%;
+#out {
+    margin-top: 5%;
+    margin-bottom: 0%;
 }
 
-#Ålder{
-  text-align: center;
-  font-size: 76px;
-  width: 80%;
+#profileTemp {
+    margin-top: 20px;
 }
 
-#doneButton{
+#profilePic {
+    font-size: 30px;
+    text-align: center;
+    padding-left: 30%;
+    margin-bottom: 1px;
+}
+
+#Namn {
+    text-align: center;
+    font-size: 76px;
+    width: 80%;
+}
+
+#Ålder {
+    text-align: center;
+    font-size: 76px;
+    width: 80%;
+}
+
+#doneButton {
     position: relative;
     background-color: purple;
     border: none;
