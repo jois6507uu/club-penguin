@@ -143,9 +143,39 @@ h1 {
 }
 
 #profilePopup {
-    width: 600px;
+    background-color: #FFEEF2;
+    width: 700px;
     height: 800px;
-    font-size: 50px;
+    font-size: 40px;
+    overflow-y: auto;
+}
+
+.popupMainParagraph {
+    margin: 30px;
+    font-family: sans;
+}
+
+.questionHeader {
+    margin: 20px;
+    font-size: 25px;
+    font-family: sans;
+    text-decoration: underline;
+}
+
+.popupParagraph {
+    text-align: left;
+    padding-left: 50px;
+    margin: 10px;
+    font-size: 20px;
+    font-family: sans-serif;
+}
+
+.popupParagraphAnswers {
+    text-align: left;
+    padding-left: 50px;
+    margin: 10px;
+    font-size: 20px;
+    font-family: sans-serif;
 }
 
 #profilePopup img {

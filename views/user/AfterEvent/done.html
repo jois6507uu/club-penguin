@@ -1,10 +1,13 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
     <title>QuestionsPage</title>
     <link rel="stylesheet" href="/css/profile.css">
     <link rel="stylesheet" href="/css/globalstyle.css">
+    <script src="/socket.io/socket.io.js" defer></script>
+    <script src="/js/done.js" defer></script>
+   
 </head>
 <body>
     <header>
@@ -15,10 +18,14 @@
     <main>
         <div id="profileQuestion">
 
-            <p>Nu är eventet över!<br>
-            Tack för din medverkan</p>
+            <p>Nu är eventet över!<p>
+            <p>Tack för din medverkan</p></br>
 
-
+	    <p>Kontaktinformation till de deltagare som vill träffa dig igen:</p>
+	    <div id="sharedContacts">
+	      
+	    </div>
+	    
         </div>
     </main>
 </body>

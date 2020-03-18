@@ -1,49 +1,53 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-
-<head>
+  
+  <head>
     <meta charset="utf-8">
     <title>ProfilePage</title>
-    <link rel="stylesheet" href="/css/ContactsStyle.css">
+    <link rel="stylesheet" href="/css/contacts.css">
     <link rel="stylesheet" href="/css/globalstyle.css">
+    <script src="/socket.io/socket.io.js" defer></script>
     <script src="https://vuejs.org/js/vue.js" defer></script>
     <script src="/js/contacts.js" defer></script>
-</head>
-
-<body>
-  <header>
-    <div class="topbar">
-      <img src="/img/aubergine_logo.png" width="260">
-    </div>
-  </header>
-  <main id="contacts">
+  </head>
+  
+  <body onload="onLoad()">
+    <header>
+      <div class="topbar">
+	<img src="/img/aubergine_logo.png" width="260">
+      </div>
+    </header>
+    <main>
       <div id="contacts">
-          <p id="dropDownContacts1">
-              <label for="contact1">Vill du dela din kontaktinformation med date nummer 1</label><br>
-              <select v-model="contact1" name="contacts1" class="dropdown">
-                  <option class="dropdownChoice" value="Ja">Ja</option>
-                  <option class="dropdownChoice" value="Nej" selected="selected">Nej</option>
-              </select>
-          </p>
-          <p id="dropDownContacs2">
-              <label for="contacs2">Vill du dela din kontaktinformation med date nummer 2</label><br>
-              <select v-model="contact2" name="contacts2" class="dropdown">
-                  <option class="dropdownChoice" value="Ja">Ja</option>
-                  <option class="dropdownChoice" value="Nej" selected="selected">Nej</option>
-              </select>
-          </p>
-          <p id="dropDownContacs3">
-              <label for="contacs3">Vill du dela din kontaktinformation med date nummer 3</label><br>
-              <select v-model="contact3" name="contacts3" class="dropdown">
-                  <option class="dropdownChoice" value="Ja">Ja</option>
-                  <option class="dropdownChoice" value="Nej" selected="selected">Nej</option>
-              </select>
-          </p>
+
+	<div class="labelContainer">
+          <label class="label" for="contact1">Vill du dela din kontaktinformation med date nummer 1</label><br>
+          <select name="contacts1" class="dropdown">
+            <option class="dropdownChoice" value="Ja">Ja</option>
+            <option class="dropdownChoice" value="Nej" selected="selected">Nej</option>
+          </select>
+	</div>
+	
+	<div class="labelContainer">
+          <label class="label" for="contacs2">Vill du dela din kontaktinformation med date nummer 2</label><br>
+          <select name="contacts2" class="dropdown">
+            <option class="dropdownChoice" value="Ja">Ja</option>
+            <option class="dropdownChoice" value="Nej" selected="selected">Nej</option>
+          </select>
+	</div>
+
+	<div class="labelContainer">
+          <label class="label" for="contacs3">Vill du dela din kontaktinformation med date nummer 3</label><br>
+          <select name="contacts3" class="dropdown">
+            <option class="dropdownChoice" value="Ja">Ja</option>
+            <option class="dropdownChoice" value="Nej" selected="selected">Nej</option>
+          </select>
+	</div>
       </div>
       <footer>
-        <input type="button" v-on:click="contactsAnswered()" id="infoButton" value="Dela">
+	<input id="shareButton" type="button" value="Dela" onclick="done()">
       </footer>
-  </main>
-</body>
+    </main>
+  </body>
 
 </html>
