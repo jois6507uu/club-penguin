@@ -14,7 +14,7 @@ setInterval(function () {
     }
     document.getElementById("smallTips").innerHTML = tips[rand];
     nummer = rand;
-}, 2000);
+}, 10000);
 
 
 
