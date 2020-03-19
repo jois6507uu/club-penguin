@@ -16,11 +16,13 @@ socket.on('sharedContactsResponse', function(sharedContacts) {
 	console.log(sharedContacts);
 	console.log(userCode);
 	console.log(dateCodes);
-	console.log(sharedContacts.includes(dateCode.toString()));
+	//console.log(sharedContacts.includes(dateCode.toString()));
 	if (checkSharedContacts(sharedContacts, dateCode.toString())) {
 	    console.log("after check");
 	    createParagraph(dateCode);
 	    alreadyPrinted.push(dateCode);
+	} else {
+	    console.log("sharedContacts is null or already printed");
 	}
     }
 });

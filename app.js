@@ -204,29 +204,46 @@ User.prototype.addProfile = function (profile) {
     });
 }
 
-User.prototype.addQuestions = function (questions) {
+User.prototype.addDateAndTable = function (userCode, dateCode, table) {
+    let users = JSON.parse(fs.readFileSync('database/users/users.json', function(error) {
+	if (err) {
+	    throw err;
+	}
+    }));
+    let rndNum = users["roundNumber"];
+    let stringCode = "dateCode" + rndNum;
+    if (users[userCode]["profile"]) {
+	users[userCode]["profile"]["table"] = table;
+	users[userCode]["profile"][stringCode] = dateCode;
+    }
+    if (users[dateCode]["profile"]) {
+	users[dateCode]["profile"]["table"] = table;
+	users[dateCode]["profile"][stringCode] = userCode;
+    }
+    let usersJSON = JSON.stringify(users, null, 2); //null och 2 är bara för att allt inte ska stå på en enda rad i json filen
+    fs.writeFileSync('database/users/users.json', usersJSON, function (error) {
+        if (err) {
+	    console.log('Could not write to file users.json');
+        }
+    });
+}
+
+
+User.prototype.addQuestions = function (code, questions) {
     console.log("writing to file");
     let users = JSON.parse(fs.readFileSync('database/users/users.json', function (error) {
         if (err) {
             throw err;
         }
     }));
-
-    
-    if (questions.roundNumber == 1) {
-        users[questions.profileCode].questions1 = questions.questions;
-    } else if (questions.roundNumber == 2) {
-        users[questions.profileCode].questions2 = questions.questions;
-    } else {
-        users[questions.profileCode].questions3 = questions.questions;
-    }
-    
+    users[code]["questions" + users["roundNumber"]] = questions;
     let questionsJSON = JSON.stringify(users, null, 2); //null och 2 är bara för att allt inte ska stå på en enda rad i json filen
     fs.writeFileSync('database/users/users.json', questionsJSON, function (error) {
         if (err) {
-            console.log('Could not write to file ' + user.userCode + '.json');
+            console.log('Could not write to file users.json');
         }
     });
+    return users["roundNumber"];
 }
 
 User.prototype.getUsers = function () {
@@ -262,9 +279,14 @@ User.prototype.getUserName = function (userCode) {
 
     let parsedUsers = JSON.parse(users);
     let activeUser = parsedUsers[userCode];
-    console.log(parsedUsers);
-    console.log(activeUser);
-    return activeUser["profile"]["name"];
+
+    if (activeUser) {
+	return activeUser["profile"]["name"];
+    }
+    else {
+	return null;
+    }
+    
 }
 
 
@@ -278,14 +300,42 @@ User.prototype.getSharedContacts = function (userCode) {
     return users[userCode]["sharedUsers"];
 }
 
-User.prototype.getUserData = function (userCode) {
+User.prototype.getDateNamesFromUserCode = function (userCode, roundNumber) {
     let users = JSON.parse(fs.readFileSync('database/users/users.json', function (error) {
         if (err) {
             throw err;
         }
     }));
-    
-    return users[userCode];
+
+    let dateCodes = [];
+    for (let i = 1; i < 4; ++i) {
+	if (users[userCode]["profile"]) {
+	    dateCodes.push(users[userCode]["profile"]["dateCode" + i]);
+	}
+    }
+    let dateNames = [];
+    for (let index in dateCodes) {
+	if (users[dateCodes[index]]) {
+	    dateNames.push(users[dateCodes[index]]["profile"]["name"]);
+	}
+    }
+    console.log(dateNames);
+    return dateNames;
+}
+
+User.prototype.setRoundNumber = function (roundNumber) {
+    let users = JSON.parse(fs.readFileSync('database/users/users.json', function (error) {
+        if (err) {
+            throw err;
+        }
+    }));
+    users["roundNumber"] = roundNumber;
+    let profileJSON = JSON.stringify(users, null, 2); //null och 2 är bara för att allt inte ska stå på en enda rad i json filen
+    fs.writeFileSync('database/users/users.json', profileJSON, function(error) {
+	if (err) {
+	    console.log('Could not write to file ' + user.userCode + '.json');
+	}
+    });
 }
 
 User.prototype.shareCode = function (dateCode, userCode) {
@@ -323,9 +373,7 @@ function getDateDataFunc(code) {
         if (err) {
 	    throw err;
         }
-	console.log("writing to file");
     }));
-    
     console.log("test");
     let data = new dateData(users[code].profile.table, users[code].profile.dateName, users[code].profile.code);
     return data;
@@ -381,14 +429,18 @@ io.on('connection', function(socket) {
         io.sockets.emit('newUserCreated', newProfile);
     });
 
-    socket.on('addQuestions', function (questions) {
-        user.addQuestions(questions);
+    socket.on('addDateAndTable', function (userCode, dateCode, table) {
+	user.addDateAndTable(userCode, dateCode, table);
+    });
+
+    socket.on('addQuestions', function (code, questions) {
+        let roundNumber = user.addQuestions(code, questions);
+	socket.emit('roundNumberReturn', code, roundNumber);
     });
 
     socket.on('getUsers', function() {
         let users = user.getUsers();
         socket.emit('profileDataResponse', users);
-	console.log(users);
     });
 
     socket.on('removeUserData', function(eventname) {
@@ -403,6 +455,10 @@ io.on('connection', function(socket) {
 	io.sockets.emit('userPingRoundStart');
     });
 
+    socket.on('pingUserRoundEnd', function() {
+	io.sockets.emit('userPingRoundEnd');
+    });
+
     socket.on('getDateCodes', function(userCode) {
 	let dateCodes = user.getDateCodes(userCode);
 	socket.emit('dateCodeResponse', dateCodes);
@@ -413,17 +469,20 @@ io.on('connection', function(socket) {
 	socket.emit('userNameResponse', name);
     });
 
+    socket.on('getDateNamesFromDateCodes', function(userCode) {
+	let dateName = user.getDateNamesFromUserCode(userCode);
+	socket.emit('dateNamesResponse', dateName);
+    });
 
     socket.on('getSharedContacts', function(userCode) {
 	let sharedContacts = user.getSharedContacts(userCode);
-	console.log("inside getSharedContacts");
 	io.sockets.emit('sharedContactsResponse', sharedContacts);
     });
 
 
     socket.on('getUserData', function(userCode) {
-	let userData = user.getUserData(userCode);
-	socket.emit('userDataResponse', userData);
+	let users = user.getUsers();
+	socket.emit('userDataResponse', users[userCode], users["roundNumber"]);
 
     });
     
@@ -434,6 +493,10 @@ io.on('connection', function(socket) {
 
     socket.on('shareMyCode', function(dateCode, userCode) {
 	user.shareCode(dateCode, userCode);
+    });
+
+    socket.on('setRoundNumber', function(roundNumber) {
+	user.setRoundNumber(roundNumber);
     });
     
 });
