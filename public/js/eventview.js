@@ -10,12 +10,6 @@ NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
     }
 }
 
-function ProfileComplete(profileCode, profile) {
-    this.profileCode = profileCode;
-    this.profile = profile;
-}
-
-
 socket.on('newUserCreated', function(userData) {
     
     let userCodeContainers = document.getElementsByClassName('userCode');
@@ -348,54 +342,19 @@ function sendTableInfoPopup() {
 
 //funktion som skickar infon om vilket bord och date som deltagarna har till databasen innan rundan startar
 function sendTableAndName() {
-    socket.emit('getUsers');
-    socket.on('profileDataResponse', function(data) {
-	let profilePopup = document.getElementById('profilePopup');
-	if (profilePopup.style.display != 'block') {   
-	    let tables = document.getElementsByClassName('table');
-	    let users = data;
-	    let index = 1;
-	    for (let table of tables) {
-		let right = table.children[1];
-		let left = table.children[2];
-		let codeRight = parseInt(right.children[0].children[1].textContent);
-		let codeLeft = left.children[0].children[1].textContent;
-
-		let userRight = users[codeRight];
-		let userLeft = users[codeLeft];
-		sendInfoToDatabase(codeRight, userRight, codeLeft, index);
-		sendInfoToDatabase(codeLeft, userLeft, codeRight, index);
-		++index;
-	    }
-	    socket.emit('pingUserRoundInfo');
+    let profilePopup = document.getElementById('profilePopup');
+    if (profilePopup.style.display != 'block') {   
+	let tables = document.getElementsByClassName('table');
+	let index = 1;
+	for (let table of tables) {
+	    let right = table.children[1];
+	    let left = table.children[2];
+	    let codeRight = parseInt(right.children[0].children[1].textContent, 10);
+	    let codeLeft = parseInt(left.children[0].children[1].textContent, 10);
+	    socket.emit('addDateAndTable', codeRight, codeLeft, index);
+	    ++index;
 	}
-    });
-}
-
-
-function sendInfoToDatabase(code, user, dateCode, table) {
-    if (user.profile) {
-	let profile = user.profile;
-
-	profile.table = table;
-	
-	switch (roundNumber) {
-	case 1:
-	    profile.dateCode1 = dateCode;
-	    break;
-	case 2:
-	    profile.dateCode2 = dateCode;
-	    break;
-	case 3:
-	    profile.dateCode3 = dateCode;
-	    break;
-	default:
-	    console.log("roundNumber is " + roundNumber);
-	}
-	
-	
-	let profileComplete = new ProfileComplete(code, profile);
-	socket.emit('addProfile', profileComplete);
+	socket.emit('pingUserRoundInfo');
     }
 }
 

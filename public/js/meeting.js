@@ -3,7 +3,8 @@ const socket = io();
 
 socket.emit('getUserData', localStorage.getItem("code"));
 
-socket.on('userDataResponse', function (data, roundNumberResp) { 
+socket.on('userDataResponse', function (data, roundNumberResp) {
+    //gör så att vi bara plockar upp en signal och inte alla 20
     if (localStorage.getItem("code") == data["profile"]["code"]) {
         document.getElementById("tableNumber").innerHTML = data["profile"]["table"];
 	let date;
