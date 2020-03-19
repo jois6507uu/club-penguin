@@ -451,6 +451,10 @@ io.on('connection', function(socket) {
 	io.sockets.emit('userPingRoundStart');
     });
 
+    socket.on('pingUserRoundEnd', function() {
+	io.sockets.emit('userPingRoundEnd');
+    });
+
     socket.on('getDateCodes', function(userCode) {
 	let dateCodes = user.getDateCodes(userCode);
 	socket.emit('dateCodeResponse', dateCodes);

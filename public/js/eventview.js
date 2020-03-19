@@ -379,7 +379,7 @@ function startRound() {
     startRoundInfo.prepend(header);
 
     let timer = document.getElementById('timer');
-    displayTimer(10, timer, function() {skipRound()}); // first argument is the duration of the timer (60 * 5 = 60 seconds * 5 = 5 minutes)
+    displayTimer(300, timer, function() {skipRound()}); // first argument is the duration of the timer (60 * 5 = 60 seconds * 5 = 5 minutes)
 }
 
 // displays a timer which will execute yourFunction when the timer reaches 0.
@@ -433,6 +433,7 @@ function hideExitEventPopup() {
 
 //Go to the next round
 function skipRound() {
+    socket.emit('pingUserRoundEnd');
     let startRoundPopup = document.getElementById('ongoingRoundPopup');
     let startRoundInfo = document.getElementById('ongoingRoundInfo');
     let overlay = document.getElementsByClassName('overlay')[0];
@@ -444,7 +445,7 @@ function skipRound() {
 
     let timer = document.getElementById('timer');
     timer.innerHTML = '00:00';
-    
+
     location.reload();
 }
 

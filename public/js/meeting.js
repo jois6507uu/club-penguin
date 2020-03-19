@@ -30,7 +30,7 @@ socket.on('userDataResponse', function (data, roundNumberResp) {
 })
 
 socket.on('userPingRoundStart', function() {     
-    window.location.href = 'http://localhost:3000/user/dating'
+    window.location.href = 'http://localhost:3000/user/dating';
 }); 
 
 var c = document.getElementById("stage");

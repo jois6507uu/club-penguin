@@ -16,9 +16,6 @@ setInterval(function () {
     nummer = rand;
 }, 10000);
 
-
-
-
 socket.on('userPingRoundReady', function() {
     window.location.href = "http://localhost:3000/user/meeting";
 });
