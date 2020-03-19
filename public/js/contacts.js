@@ -10,34 +10,13 @@ function onLoad() {
     
     let userCode = localStorage.getItem('code');
 
-    socket.emit('getDateCodes', userCode);
+    socket.emit('getDateNamesFromCodes', userCode);
 
-    socket.on('dateCodeResponse', function(dateCodes) {
-	console.log(dateCodes);
-
-	if (dateCodes[0]) {
-	    socket.emit('getUserName', dateCodes[0]);
-	    
-	    socket.on('userNameResponse', function(name) {
-		label1.textContent = "Vill du dela din kontaktinformation med " + name + "?";
-	    });
-
-	}
-
-	if (dateCodes[1]) {
-	    socket.emit('getUserName', dateCodes[1]);
-	    
-	    socket.on('userNameResponse', function(name) {
-		label2.textContent = "Vill du dela din kontaktinformation med " + name + "?";
-	    });
-	}
-
-	if (dateCodes[2]) {
-	    socket.emit('getUserName', dateCodes[2]);
-	    
-	    socket.on('userNameResponse', function(name) {
-		label3.textContent = "Vill du dela din kontaktinformation med " + name + "?";
-	    });
+    socket.on('dateNamesResponse', function(code, dateNames) {
+	if (userCode == code) {
+	    label1.textContent = "Vill du dela din kontaktinformation med " + dateNames[0] + "?";
+	    label2.textContent = "Vill du dela din kontaktinformation med " + dateNames[1] + "?";
+	    label3.textContent = "Vill du dela din kontaktinformation med " + dateNames[2] + "?";
 	}
     });
 }
@@ -50,19 +29,19 @@ function done() {
 
     socket.emit('getDateCodes', localStorage.getItem('code'));
 
-    socket.on('dateCodeResponse', function(dateCodes) {
-	let dates = []
-	let userCode = localStorage.getItem('code');
-	for (let i = 0; i < dropdowns.length; ++i) {
-	    if (dropdowns[i].options[dropdowns[i].selectedIndex].text == "Ja") {
-		console.log(dateCodes[i]);
-		dates.push(dateCodes[i]);
-		socket.emit('shareMyCode', dateCodes[i], userCode);
+    socket.on('dateCodeResponse', function(code, dateCodes) {
+	if (code = localStorage.getItem('code')) {
+	    let dates = []
+	    let userCode = localStorage.getItem('code');
+	    for (let i = 0; i < dropdowns.length; ++i) {
+		if (dropdowns[i].options[dropdowns[i].selectedIndex].text == "Ja") {
+		    dates.push(dateCodes[i]);
+		    socket.emit('shareMyCode', dateCodes[i], userCode);
+		}
+		
 	    }
-	    
+	    localStorage.setItem("dateCodes", JSON.stringify(dates));
 	}
-	localStorage.setItem("dateCodes", JSON.stringify(dates));
+	window.location.href = 'http://localhost:3000/user/Done';
     });
-    
-    window.location.href = 'http://localhost:3000/user/Done';
 }
