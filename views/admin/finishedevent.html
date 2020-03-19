@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Club Penguin</title>
+  <link rel="stylesheet" type="text/css" href="/css/globalstyle.css">
+  <link rel="stylesheet" type="text/css" href="/css/eventview.css">
+  <link rel="stylesheet" type="text/css" href="/css/finished.css">
+  <script src="/socket.io/socket.io.js" defer></script>
+  <script src="/js/global.js" defer></script>
+  <script src="/js/finished.js" defer></script>
+</head>
+<div class="overlay"></div>
+
+<body>
+  <header>
+    <div class="topbar">
+      <img src="/img/aubergine_logo.png" width="260">
+    </div>
+  </header>
+  <main>
+    <h1>Eventet är nu klart!</h1>
+    <h3>Kontaktuppgifter delas nu ut bland deltagarna</h3>
+
+    <input type="button" value="Avsluta event" id="bigButton" onclick="showExitPopup()">
+
+    <div class="popup" id="exitEventPopup">
+      <div class="popupHeader">
+        <span class="closePopup" onclick="hideExitEvent()">&times</span>
+        <h2>Avsluta event</h2>
+      </div>
+      <div class="popupBody">
+        <label for="eventName">OBS. Om du avslutar eventet så tas all data bort och kan orsaka att användare ej hinner dela sina kontaktuppgifter</label><br>
+	
+        <button class="smallButton" id="yesBtn" onclick="exitEvent()">Avsluta event</button><br>
+      </div>
+    </div>
+    
+  </main>
+</body>
+
+</html>

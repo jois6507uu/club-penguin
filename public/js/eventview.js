@@ -58,7 +58,7 @@ async function initEventView() {
     if (roundNumber > 3) {
 	showFinishedEventPopup();
 	await new Promise(r => setTimeout(r, 3000));  // Works as sleep(3000 ms)
-	exitEvent();
+	finishEvent();
     }
 }
 
@@ -421,6 +421,10 @@ function exitEvent() {
     window.location.href = "http://localhost:3000/admin/start#admin";
 }
 
+function finishEvent() {
+    resetRoundNumber();
+    window.location.href = "http://localhost:3000/admin/finished" + '#' + window.location.hash.substring(1);
+}
 function removeUserData(eventname) {
     socket.emit('removeUserData', eventname);
 }

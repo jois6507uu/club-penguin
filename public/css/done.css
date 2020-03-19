@@ -1,0 +1,28 @@
+
+#subHeader {
+    background-color: purple;
+    margin-left: 20px;
+    margin-right: 20px;
+    padding: 10px;
+
+}
+
+#subHeader h3 {
+    margin: 0;
+    color: white;
+    font-size: 52px;
+}
+
+#sharedContacts {
+    margin: 0 20px 20px 20px;
+}
+
+.shareContactContainer {
+    background-color: white;
+    border-top: thick solid purple;
+}
+
+.shareContactText {
+    margin: 0;
+    padding: 10px;
+}

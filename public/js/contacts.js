@@ -51,14 +51,17 @@ function done() {
     socket.emit('getDateCodes', localStorage.getItem('code'));
 
     socket.on('dateCodeResponse', function(dateCodes) {
-
+	let dates = []
 	let userCode = localStorage.getItem('code');
 	for (let i = 0; i < dropdowns.length; ++i) {
 	    if (dropdowns[i].options[dropdowns[i].selectedIndex].text == "Ja") {
-		localStorage.setItem("dateCodes" + i, dateCodes[i]);
+		console.log(dateCodes[i]);
+		dates.push(dateCodes[i]);
 		socket.emit('shareMyCode', dateCodes[i], userCode);
 	    }
+	    
 	}
+	localStorage.setItem("dateCodes", JSON.stringify(dates));
     });
     
     window.location.href = 'http://localhost:3000/user/Done';

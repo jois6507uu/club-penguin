@@ -1,0 +1,24 @@
+main {
+    text-align: center;
+    margin-top: 10%;
+}
+
+#bigButton {
+    margin-top: 200px;
+    background-color: purple;
+    color: white;
+    font-size: 32px;
+    font-family: 'Open Sans';
+    border: none;
+    height: 120px;
+    padding: 30px;
+}
+
+#bigButton:hover {
+    cursor: pointer;
+    background-color: #5a009c;
+}
+
+#exitEventPopup button {
+    margin-top: 25px;
+}

@@ -72,6 +72,10 @@ app.get('/admin/eventview', function(req, res) {
     res.sendFile(path.join(__dirname, 'views/admin/eventview.html'));
 });
 
+app.get('/admin/finished', function(req, res) {
+    res.sendFile(path.join(__dirname, 'views/admin/finishedevent.html'));
+});
+
 //-------------------------------------------------------------------------
 //-------------------------------------------------------------------------
 
@@ -258,7 +262,8 @@ User.prototype.getUserName = function (userCode) {
 
     let parsedUsers = JSON.parse(users);
     let activeUser = parsedUsers[userCode];
-
+    console.log(parsedUsers);
+    console.log(activeUser);
     return activeUser["profile"]["name"];
 }
 

@@ -4,24 +4,9 @@ const socket = io();
 
 let userCode = localStorage.getItem('code');
 
-let dateCodes = [];
-
-if (localStorage.getItem('dateCode0')) {
-    dateCodes.push(localStorage.getItem('dateCode0'));
-}
-
-if (localStorage.getItem('dateCode1')) {
-    dateCodes.push(localStorage.getItem('dateCode1'));
-}
-
-if (localStorage.getItem('dateCode2')) {
-    dateCodes.push(localStorage.getItem('dateCode2'));
-}
-
-
+let dateCodes = JSON.parse(localStorage.getItem('dateCodes'));
 
 let alreadyPrinted = [];
-
 
 socket.emit('getSharedContacts', userCode);
 
@@ -31,7 +16,8 @@ socket.on('sharedContactsResponse', function(sharedContacts) {
 	console.log(sharedContacts);
 	console.log(userCode);
 	console.log(dateCodes);
-	if (sharedContacts && sharedContacts.includes(dateCode)) {
+	console.log(sharedContacts.includes(dateCode.toString()));
+	if (checkSharedContacts(sharedContacts, dateCode.toString())) {
 	    console.log("after check");
 	    createParagraph(dateCode);
 	    alreadyPrinted.push(dateCode);
@@ -39,15 +25,37 @@ socket.on('sharedContactsResponse', function(sharedContacts) {
     }
 });
 
+function checkSharedContacts(sharedContacts, dateCode) {
+    return (sharedContacts && sharedContacts.includes(dateCode) && !alreadyPrinted.includes(dateCode));
+} 
     
-function resetLocal() {
-    localStorage.removeItem('dateCode0');
-    localStorage.removeItem('dateCode1');
-    localStorage.removeItem('dateCode2');
-}
-
-function createParagraph(dateCode) {
+function createParagraph(dateCode) { 
     console.log("Printing " + dateCode);
+    
+    let div = document.getElementById('sharedContacts');
+
+    let container = document.createElement('div');
+    container.setAttribute("class", "shareContactContainer");
+    let nParagraph = document.createElement('p');
+    let pParagraph = document.createElement('p');
+    nParagraph.setAttribute("class", "shareContactText");
+    pParagraph.setAttribute("class", "shareContactText");
+
+    socket.emit('getUserData', dateCode);
+
+    socket.on('userDataResponse', function(user) {
+
+	let name = document.createTextNode(user["profile"]["name"]);
+	let phonenr = document.createTextNode("Telefonnummer: " + user["profile"]["phoneNr"]);
+
+	nParagraph.appendChild(name);
+	pParagraph.appendChild(phonenr);
+	container.appendChild(nParagraph);
+	container.appendChild(pParagraph);
+	div.appendChild(container);
+    });
+    
+    
 }
 
 /*

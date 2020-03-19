@@ -31,17 +31,16 @@ socket.on('userDataResponse', function (data) {
     if (localStorage.getItem("code") == data["profile"]["code"]) {
         document.getElementById("tableNumber").innerHTML = data["profile"]["table"];
 	let date;
-	let roundNumber = localStorage.getItem("roundNumber");
-
-	if (roundNumber == 1) {
+	let roundNumber = localStorage.getItem("RoundNumber");
+	if (roundNumber == 0) {
 	    date = data["profile"]["dateCode1"];
 	    console.log("case 1");
-	} else if (roundNumber == 2) {
+	} else if (roundNumber == 1) {
 	    console.log("case 2");
-	    date = data["profile"]["dateCode1"];
+	    date = data["profile"]["dateCode2"];
 	} else {
 	    console.log("case 3");
-	    date = data["profile"]["dateCode1"];
+	    date = data["profile"]["dateCode3"];
 	}
 
 	socket.emit('getUserName', date);
