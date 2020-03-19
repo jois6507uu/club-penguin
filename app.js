@@ -72,6 +72,10 @@ app.get('/admin/eventview', function(req, res) {
     res.sendFile(path.join(__dirname, 'views/admin/eventview.html'));
 });
 
+app.get('/admin/finished', function(req, res) {
+    res.sendFile(path.join(__dirname, 'views/admin/finishedevent.html'));
+});
+
 //-------------------------------------------------------------------------
 //-------------------------------------------------------------------------
 
@@ -340,11 +344,11 @@ User.prototype.shareCode = function (dateCode, userCode) {
             throw err;
         }
     }));
-    if (users[dateCode].sharedUsers) {
+    if (users[dateCode] && users[dateCode].sharedUsers) {
 	if (!users[dateCode].sharedUsers.includes(userCode)) {
 	    users[dateCode].sharedUsers.push(userCode);
 	}
-    } else {
+    } else if (users[dateCode]) {
 	users[dateCode].sharedUsers = [userCode];
     }
 
@@ -352,7 +356,7 @@ User.prototype.shareCode = function (dateCode, userCode) {
 
     fs.writeFileSync('database/users/users.json', updatedJSON, function (error) {
         if (err) {
-            console.log('Could not write to file ' + user.userCode + '.json');
+            console.log('Could not write to file users.json');
         }
     });
     
@@ -457,7 +461,16 @@ io.on('connection', function(socket) {
 
     socket.on('getDateCodes', function(userCode) {
 	let dateCodes = user.getDateCodes(userCode);
-	socket.emit('dateCodeResponse', dateCodes);
+	socket.emit('dateCodeResponse', userCode, dateCodes);
+    });
+
+    socket.on('getDateNamesFromCodes', function(userCode) {
+	let dateCodes = user.getDateCodes(userCode);
+	let dateNames = [];
+ 	dateNames[0] = user.getUserName(dateCodes[0]);
+	dateNames[1] = user.getUserName(dateCodes[1]);
+	dateNames[2] = user.getUserName(dateCodes[2]);
+	socket.emit('dateNamesResponse', userCode, dateNames);
     });
 
     socket.on('getUserName', function(userCode) {
@@ -472,9 +485,15 @@ io.on('connection', function(socket) {
 
     socket.on('getSharedContacts', function(userCode) {
 	let sharedContacts = user.getSharedContacts(userCode);
-	io.sockets.emit('sharedContactsResponse', sharedContacts);
+	io.sockets.emit('sharedContactsResponse', userCode, sharedContacts);
     });
 
+
+    socket.on('getUserData2', function(userCode, index) {
+	let users = user.getUsers();
+	socket.emit('userDataResponse2', users[userCode], index);
+
+    });
 
     socket.on('getUserData', function(userCode) {
 	let users = user.getUsers();
