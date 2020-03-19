@@ -427,61 +427,36 @@ let bestMatch = null;
 function algorithm() {
     let tables = document.getElementsByClassName('table');
     var testIndex = 0;
-    while (getFirstNonFullTable(tables) != null && testIndex < 1) {
-        console.log(testIndex);
-        ++testIndex;
-        let table = getFirstNonFullTable(tables);
-        let left = table.children[1];
-        let right = table.children[2];
-        var userLeft = {};
-        var userRight = {};
-        if (left.getAttribute('hasProfile') == 'true') {
-            let profileLeftID = left.children[0].children[1].getAttribute('value');
-            console.log("in left");
-            socket.emit('getProfileData', profileLeftID);
-            socket.on('returnProfileData', function (profileData) {
-                ///TODO: Hamnar i någon idiotisk loop om matchOnTable är i socket.on!?
-                let userProfile = profileData;
-                console.log("Before matchOnTable");
-                matchProfileOnTable(table, userProfile);
-                console.log("Before matchOnTable");
-                matchOnTable(table, userLeft);
-            });
+    // while (testIndex < 1) { //getFirstNonFullTable(tables) != null && 
+    // GLÖM INTE ATT TA BORT testIndex I WHILE LOOP
+    // console.log(testIndex);
+    // ++testIndex;
+    let table = getFirstNonFullTable(tables);
+    console.log(table);
+    let left = table.children[1];
+    let right = table.children[2];
 
-            // console.log("after: User is = " + userLeft.age);
+    if (left.getAttribute('hasProfile') == 'true') {
+        let profileLeftID = left.children[0].children[1].getAttribute('value');
+        socket.emit('getProfileData', profileLeftID);
+        socket.once('returnProfileData', function (profileData) {
+            matchProfileOnTable(table, profileData);
+        });
 
 
+    } else if (right.getAttribute('hasProfile') == 'true') {
+        let profileRightID = right.children[0].children[1].getAttribute('value');
+        socket.emit('getProfileData', profileRightID);
+        socket.once('returnProfileData', function (profileData) {
+            matchProfileOnTable(table, profileData);
+        });
 
-            // if(profileIsMale(left)){matchOnTable(table, left, "male");}
-            // else {matchOnTable(table, left, "female");}
-
-        } else if (right.getAttribute('hasProfile') == 'true') {
-            let profileRightID = right.children[0].children[1].getAttribute('value');
-            console.log("in right");
-            socket.emit('getProfileData', profileRightID);
-            socket.on('returnProfileData', function (data) {
-                userRight = data;
-            });
-            // if(profileIsMale(right)){matchOnTable(table, right, "male");}
-            // else {matchOnTable(table, right, "female");}
-
-            matchOnTable(table, userRight);
-
-        }
-        else {
-            matchInSidebar(table);
-        }
     }
-}
+    else {
+        // matchInSidebar(table);
 
-function matchProfileOnTable(table, user) {
-    console.log(user);
-    socket.emit('getUserCodes');
-    socket.on('returnUserCodes', function (userCodes) {
-        let matches = userCodes;
-        console.log(matches);
-    });
-
+    }
+    // }
 }
 
 
@@ -498,77 +473,174 @@ function getFirstNonFullTable(tables) {
 }
 
 
-function matchOnTable(table, user) {
-    let sidebarDivs = document.getElementById('sidebar').children;
-    let tableAge = 30;//getAgeFromProfile(tableDiv);
+function matchProfileOnTable(table, firstProfile) {
+    var sidebarArray = document.getElementById('sidebar').children;
+    console.log(sidebarArray);
+    let index = 0;
 
-    // console.log("in matchOnTable. User = " + userProfile);
-    for (let sidebarDiv of sidebarDivs) {
-        if (sidebarDiv.getAttribute('hasProfile') == 'true') {
-            socket.emit('getProfileData', sidebarDiv.children[0].children[1].getAttribute('value'));
-            socket.on('returnProfileData', function (data) {
-                let newUser = data;
-                console.log(data);
+    for (let possibleMatch of sidebarArray) {
+        console.log(index);
+        if (possibleMatch.getAttribute('hasProfile') == 'true') {
+            let possibleMatchID = possibleMatch.children[0].children[1].getAttribute('value');
+            console.log(possibleMatchID);
+
+            socket.emit('getSecondProfileData', possibleMatchID);
+            socket.on('returnSecondProfileData', function (secondProfile) {
+                if (firstProfile.gender != secondProfile.gender && Math.abs(parseInt(firstProfile.age, 10) - parseInt(secondProfile.age, 10)) < 10) {
+                    console.log("We have a match!");
+                    index++;
+                    buildTable(table, index);
+                } else {
+                    // console.log("We don't have a match!");
+                    // console.log(firstProfile.gender, firstProfile.code, secondProfile.gender, secondProfile.code);
+                    // console.log("Age difference = ", Math.abs(parseInt(firstProfile.age, 10) - parseInt(secondProfile.age, 10)));
+                    index++;
+                }
             });
-            let sidebarAge = getAgeFromProfile(sidebarDiv);
-            if (bestMatch == null) {
-                bestMatch = sidebarDiv;
-            }
-            else if (Math.abs(getAgeFromProfile(bestMatch) - tableAge) > Math.abs(sidebarAge - tableAge)) {
-                bestMatch = sidebarDiv;
-            }
         }
+        
     }
+}
+
+
+function buildTable(table, index) {
+    console.log(index);
+    let sidebarDivs = document.getElementById('sidebar').children;
+    let nodeProfile = sidebarDivs[index];
+    console.log(sidebarDivs[0]);
+
     if (table.children[1].getAttribute('hasProfile') == 'false') {
-        table.children[1].appendChild(bestMatch.children[0]);
+        table.children[1].appendChild(nodeProfile);
         table.children[1].setAttribute('hasProfile', 'true');
         bestMatch.setAttribute('hasProfile', 'false');
     } else {
-        table.children[2].appendChild(bestMatch.children[0]);
+        table.children[2].appendChild(nodeProfile);
         table.children[2].setAttribute('hasProfile', 'true');
         bestMatch.setAttribute('hasProfile', 'false');
     }
-    bestMatch = null;
 }
+
+//     let possibleMatch = getOppositeGenderFromSidebar(user.gender);
+
+
+
+
+
+// function getOppositeGenderFromSidebar(gender) {
+//     console.log("In 'getOpposite': ", gender);
+//     var sidebarArray = document.getElementById('sidebar').children;
+//     var test = gender;
+//     console.log(sidebarArray);
+//     let possibleMatch = sidebarArray[0];
+//     let possibleMatchID = possibleMatch.children[0].children[1].getAttribute('value');
+    // // for (let possibleMatch of sidebarArray) {
+    //     console.log(possibleMatch.getAttribute('hasProfile'));
+    //     if (possibleMatch.getAttribute('hasProfile') == 'true') {
+    //         let possibleMatchID = possibleMatch.children[0].children[1].getAttribute('value');
+            // console.log("Before emit: ", possibleMatchID);
+            // socket.emit('getProfileData2', possibleMatchID);
+            // socket.on('returnProfileData2', function (profileData) {
+            //     console.log("Inside socket on function");
+            //     console.log("gender is: ", test);
+            //     console.log("profileData.gender is: ", profileData);
+            //     if (gender != profileData.gender) {
+            //         console.log("Returning profileData");
+            //         return profileData;
+            //     }
+            // });
+    //     // }
+
+
+    // }
+    // console.log("Returning null");
+    // return null;
+// }
+
+
+// function getFirstSidebarProfile() {
+//     let sidebarDivs = document.getElementById('sidebar').children;
+//     for (let index in sidebarDivs) {
+//         if (sidebarDivs[index].getAttribute('hasProfile') == 'true') {
+//             return index;
+//         }
+//     }
+// }
+
+
+
+
+
+// function matchOnTable(table, user) {
+//     let sidebarDivs = document.getElementById('sidebar').children;
+//     let tableAge = 30;//getAgeFromProfile(tableDiv);
+
+//     // console.log("in matchOnTable. User = " + userProfile);
+//     for (let sidebarDiv of sidebarDivs) {
+//         if (sidebarDiv.getAttribute('hasProfile') == 'true') {
+//             socket.emit('getProfileData', sidebarDiv.children[0].children[1].getAttribute('value'));
+//             socket.on('returnProfileData', function (data) {
+//                 let newUser = data;
+//                 console.log(data);
+//             });
+//             let sidebarAge = getAgeFromProfile(sidebarDiv);
+//             if (bestMatch == null) {
+//                 bestMatch = sidebarDiv;
+//             }
+//             else if (Math.abs(getAgeFromProfile(bestMatch) - tableAge) > Math.abs(sidebarAge - tableAge)) {
+//                 bestMatch = sidebarDiv;
+//             }
+//         }
+//     }
+//     if (table.children[1].getAttribute('hasProfile') == 'false') {
+//         table.children[1].appendChild(bestMatch.children[0]);
+//         table.children[1].setAttribute('hasProfile', 'true');
+//         bestMatch.setAttribute('hasProfile', 'false');
+//     } else {
+//         table.children[2].appendChild(bestMatch.children[0]);
+//         table.children[2].setAttribute('hasProfile', 'true');
+//         bestMatch.setAttribute('hasProfile', 'false');
+//     }
+//     bestMatch = null;
+// }
 
 //Assumes table is empty
-function matchInSidebar(table) {
-    let sidebarDivs = document.getElementById('sidebar').children;
-    let index = getFirstSidebarProfile();
-    let indexAge = getAgeFromProfile(sidebarDivs[index]);
-    for (let i = parseInt(index, 10) + 1; i < sidebarDivs.length; ++i) {
-        if (sidebarDivs[i].getAttribute('hasProfile') == 'true') {
-            let sidebarAge = getAgeFromProfile(sidebarDivs[i]);
-            if (bestMatch == null) {
-                bestMatch = sidebarDivs[i];
-            }
-            else if (Math.abs(getAgeFromProfile(bestMatch) - indexAge) > Math.abs(sidebarAge - indexAge)) {
-                bestMatch = sidebarDivs[i];
-            }
-        }
-    }
-    table.children[1].appendChild(bestMatch.children[0]);
-    table.children[2].appendChild(sidebarDivs[index].children[0]);
-    table.children[1].setAttribute('hasProfile', 'true');
-    table.children[2].setAttribute('hasProfile', 'true');
-    bestMatch.setAttribute('hasProfile', 'false');
-    sidebarDivs[index].setAttribute('hasProfile', 'false');
-    bestMatch = null;
-}
+// function matchInSidebar(table) {
+//     let sidebarDivs = document.getElementById('sidebar').children;
+//     let index = getFirstSidebarProfile();
+//     let indexAge = getAgeFromProfile(sidebarDivs[index]);
+//     for (let i = parseInt(index, 10) + 1; i < sidebarDivs.length; ++i) {
+//         if (sidebarDivs[i].getAttribute('hasProfile') == 'true') {
+//             let sidebarAge = getAgeFromProfile(sidebarDivs[i]);
+//             if (bestMatch == null) {
+//                 bestMatch = sidebarDivs[i];
+//             }
+//             else if (Math.abs(getAgeFromProfile(bestMatch) - indexAge) > Math.abs(sidebarAge - indexAge)) {
+//                 bestMatch = sidebarDivs[i];
+//             }
+//         }
+//     }
+//     table.children[1].appendChild(bestMatch.children[0]);
+//     table.children[2].appendChild(sidebarDivs[index].children[0]);
+//     table.children[1].setAttribute('hasProfile', 'true');
+//     table.children[2].setAttribute('hasProfile', 'true');
+//     bestMatch.setAttribute('hasProfile', 'false');
+//     sidebarDivs[index].setAttribute('hasProfile', 'false');
+//     bestMatch = null;
+// }
 
-function getFirstSidebarProfile() {
-    let sidebarDivs = document.getElementById('sidebar').children;
-    for (let index in sidebarDivs) {
-        if (sidebarDivs[index].getAttribute('hasProfile') == 'true') {
-            return index;
-        }
-    }
-}
+// function getFirstSidebarProfile() {
+//     let sidebarDivs = document.getElementById('sidebar').children;
+//     for (let index in sidebarDivs) {
+//         if (sidebarDivs[index].getAttribute('hasProfile') == 'true') {
+//             return index;
+//         }
+//     }
+// }
 
 //divven måste vara den utanför profilen och måste innehålla en profil, children 1 måste vara namn/ålder
 //returnar ålder som int inte str
-function getAgeFromProfile(div) {
-    let info = div.children[0].children[2].textContent;
-    let strAge = info.split(",").pop();
-    return parseInt(strAge, 10);
-}
+// function getAgeFromProfile(div) {
+//     let info = div.children[0].children[2].textContent;
+//     let strAge = info.split(",").pop();
+//     return parseInt(strAge, 10);
+// }
