@@ -2,7 +2,7 @@
 const socket = io();
 
 function timer() {
-    var totSec = 11;
+    var totSec = 301;
     var totalSeconds = totSec;
     var timeInterval = setInterval(countAndDisplay, 1000);
 
