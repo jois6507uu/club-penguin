@@ -1,7 +1,7 @@
 'use strict';
 const socket = io();
 
-var tips = ["tips1", "tips2", "tips3"]; 
+var tips = ["Tänk på att hålla ögonkontakt", "Slut på samtalsämnen? Här är några: Resor, Camping, Matlagning, Coronaviruset, Musik", "Glöm inte att ge din dejt en komplimang!", "Tänk på att vara självsäker", "Börja inte prata om vädret!", "Visste du att det finns blåa bananer? Dom ska tydligen vara jättesöta!", "Oroa dig inte, arrangören kommer hitta en bra match till dig", "Det är bara dom med ömsesidigt intresse som får se varandras telefonnummer", "Glöm inte att komma hit nästa Söndag också! Om du nu inte hittar din kärlek idag ;)"]; 
 
 let nummer = 0;
 let random = Math.floor(Math.random() * tips.length);
