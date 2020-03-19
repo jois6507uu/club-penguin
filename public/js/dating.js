@@ -1,7 +1,10 @@
+'use strict';
+const socket = io();
+
 function timer() {
     var totSec = 11;
     var totalSeconds = totSec;
-    timeInterval = setInterval(countAndDisplay, 1000);
+    var timeInterval = setInterval(countAndDisplay, 1000);
 
     function countAndDisplay() {
         totalSeconds = totalSeconds - 1;
@@ -10,11 +13,18 @@ function timer() {
         if (minutes.toString().length < 2) minutes = "0" + minutes;
         if (seconds.toString().length < 2) seconds = "0" + seconds;
         document.getElementById("timer").innerHTML = minutes + ":" + seconds;
-        if (totalSeconds == 0) {
-            clearInterval(timeInterval);
-            window.location.href = 'http://localhost:3000/user/evaluationQuestions';
-        }
+	socket.on('userPingRoundEnd', function() {
+	    window.location.href = 'http://localhost:3000/user/evaluationQuestions';
+	});
     }
-
 }
-window.onload = timer(); // Tillfällig. Timern ska starta när den får en ping från arrangören
+
+//reason for having two socket on is if we would happen to be outside of the function when the ping arrives (for example if the ping arrvies too quickly)
+socket.on('userPingRoundEnd', function() {
+    console.log("ping");
+    window.location.href = 'http://localhost:3000/user/evaluationQuestions';
+});
+
+window.onload = timer();
+
+

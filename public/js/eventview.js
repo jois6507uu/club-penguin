@@ -433,6 +433,7 @@ function hideExitEventPopup() {
 
 //Go to the next round
 function skipRound() {
+    socket.emit('pingUserRoundEnd');
     let startRoundPopup = document.getElementById('ongoingRoundPopup');
     let startRoundInfo = document.getElementById('ongoingRoundInfo');
     let overlay = document.getElementsByClassName('overlay')[0];
@@ -444,7 +445,7 @@ function skipRound() {
 
     let timer = document.getElementById('timer');
     timer.innerHTML = '00:00';
-    
+
     location.reload();
 }
 
