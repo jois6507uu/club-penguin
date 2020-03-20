@@ -22,7 +22,15 @@ socket.on('newUserCreated', function(userData) {
 });
 
 function showNameAge(data, textDiv, codeDiv) {
-    textDiv.innerHTML = data.profile.name + ", " + data.profile.age;
+    let gender;
+    if (data.profile.gender == "Man") {
+	textDiv.innerHTML = data.profile.name + ", M, "  + data.profile.age;
+    } else if (data.profile.gender == "Kvinna") {
+	textDiv.innerHTML = data.profile.name + ", K, "  + data.profile.age;
+    } else {
+	console.log("Error reading gender");
+    }
+    
     textDiv.removeAttribute("hidden");
     codeDiv.setAttribute("hidden", "");
 }
@@ -178,7 +186,7 @@ function onSingleClick(div) {
 		}
 	    } else if (parent.children[2].getAttribute('hasprofile') == "true") {
 		let gender = getGenderFromProfile(selectedDiv);
-		let otherGender = getGenderFromProfile(parent.children[1]);
+		let otherGender = getGenderFromProfile(parent.children[2]);
 		if (gender && otherGender && gender != otherGender) {
 		    selectedDiv.children[0].style.backgroundColor = '';
 		    selectedDiv.children[0].style.border = '';
