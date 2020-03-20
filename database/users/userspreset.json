@@ -1,0 +1,743 @@
+{
+  "19570": {
+    "profile": {
+      "code": "19570",
+      "name": "Gerhard",
+      "age": "18",
+      "phoneNr": "0830328",
+      "gender": "Man",
+      "tobacco": "0",
+      "profileQuestions": [
+        "2",
+        "3",
+        "4",
+        "1",
+        "4",
+        "7"
+      ],
+      "table": 1,
+      "dateCode1": 14770,
+      "dateCode2": 14770,
+      "dateCode3": 14770
+    },
+    "questions1": [
+      "1",
+      "2"
+    ],
+    "questions2": [
+      "6",
+      "5"
+    ],
+    "questions3": [
+      "7",
+      "5"
+    ],
+    "sharedUsers": [
+      "14770"
+    ]
+  },
+  "19746": {
+    "profile": {
+      "code": "19746",
+      "name": "Esther",
+      "age": "79",
+      "phoneNr": "048330",
+      "gender": "Kvinna",
+      "tobacco": "0",
+      "profileQuestions": [
+        "2",
+        "7",
+        "6",
+        "3",
+        "1",
+        "2"
+      ],
+      "table": 1,
+      "dateCode1": 13595,
+      "dateCode2": 13595,
+      "dateCode3": 13595
+    },
+    "questions1": [
+      "1",
+      "2"
+    ],
+    "questions2": [
+      "4",
+      "6"
+    ],
+    "questions3": [
+      "5",
+      "4"
+    ],
+    "sharedUsers": [
+      "13595"
+    ]
+  },
+  "25897": {    
+    "profile": {
+      "code": "25897",
+      "name": "Nathalie",
+      "age": "32",
+      "phoneNr": "0830328",
+      "gender": "Kvinna",
+      "tobacco": "1",
+      "profileQuestions": [
+        "3",
+        "2",
+        "7",
+        "4",
+        "3",
+        "4"
+      ],
+      "table": 1,
+      "dateCode1": 14770,
+      "dateCode2": 14770,
+      "dateCode3": 14770
+    },
+    "questions1": [
+      "6",
+      "4"
+    ],
+    "questions2": [
+      "7",
+      "7"
+    ],
+    "questions3": [
+      "3",
+      "1"
+    ],
+    "sharedUsers": [
+      "14770"
+    ]
+   },
+  "30937":  {    
+    "profile": {
+      "code": "19313",
+      "name": "Natalie",
+      "age": "34",
+      "phoneNr": "0830328",
+      "gender": "Kvinna",
+      "tobacco": "0",
+      "profileQuestions": [
+        "3",
+        "3",
+        "7",
+        "5",
+        "3",
+        "2"
+      ],
+      "table": 1,
+      "dateCode1": 14770,
+      "dateCode2": 14770,
+      "dateCode3": 14770
+    },
+    "questions1": [
+      "7",
+      "5"
+    ],
+    "questions2": [
+      "3",
+      "1"
+    ],
+    "questions3": [
+      "2",
+      "5"
+    ],
+    "sharedUsers": [
+      "14770"
+    ]
+   },
+  "28126":  {    
+    "profile": {
+      "code": "28126",
+      "name": "Theodor",
+      "age": "46",
+      "phoneNr": "0830328",
+      "gender": "Man",
+      "tobacco": "0",
+      "profileQuestions": [
+        "2",
+        "4",
+        "7",
+        "1",
+        "4",
+        "6"
+      ],
+      "table": 1,
+      "dateCode1": 14770,
+      "dateCode2": 14770,
+      "dateCode3": 14770
+    },
+    "questions1": [
+      "3",
+      "3"
+    ],
+    "questions2": [
+      "6",
+      "4"
+    ],
+    "questions3": [
+      "3",
+      "1"
+    ],
+    "sharedUsers": [
+      "14770"
+    ]
+   },
+  "28214":  {    
+    "profile": {
+      "code": "28214",
+      "name": "Ture",
+      "age": "55",
+      "phoneNr": "0830328",
+      "gender": "Man",
+      "tobacco": "0",
+      "profileQuestions": [
+        "3",
+        "7",
+        "4",
+        "2",
+        "3",
+        "4"
+      ],
+      "table": 1,
+      "dateCode1": 14770,
+      "dateCode2": 14770,
+      "dateCode3": 14770
+    },
+    "questions1": [
+      "3",
+      "4"
+    ],
+    "questions2": [
+      "3",
+      "3"
+    ],
+    "questions3": [
+      "1",
+      "1"
+    ],
+    "sharedUsers": [
+      "14770"
+    ]
+   },
+  "33628":  {    
+    "profile": {
+      "code": "33628",
+      "name": "Ina",
+      "age": "69",
+      "phoneNr": "0830328",
+      "gender": "Kvinna",
+      "tobacco": "1",
+      "profileQuestions": [
+        "5",
+        "7",
+        "5",
+        "2",
+        "3",
+        "6"
+      ],
+      "table": 1,
+      "dateCode1": 14770,
+      "dateCode2": 14770,
+      "dateCode3": 14770
+    },
+    "questions1": [
+      "2",
+      "2"
+    ],
+    "questions2": [
+      "1",
+      "3"
+    ],
+    "questions3": [
+      "2",
+      "6"
+    ],
+    "sharedUsers": [
+      "14770"
+    ]
+   },
+  "36670":  {    
+    "profile": {
+      "code": "36670",
+      "name": "Greger",
+      "age": "36",
+      "phoneNr": "0830328",
+      "gender": "Man",
+      "tobacco": "0",
+      "profileQuestions": [
+        "1",
+        "1",
+        "3",
+        "7",
+        "5",
+        "2"
+      ],
+      "table": 1,
+      "dateCode1": 14770,
+      "dateCode2": 14770,
+      "dateCode3": 14770
+    },
+    "questions1": [
+      "5",
+      "7"
+    ],
+    "questions2": [
+      "1",
+      "1"
+    ],
+    "questions3": [
+      "1",
+      "3"
+    ],
+    "sharedUsers": [
+      "14770"
+    ]
+   },
+  "39763":  {    
+    "profile": {
+      "code": "39763",
+      "name": "Henrik",
+      "age": "23",
+      "phoneNr": "0830328",
+      "gender": "Man",
+      "tobacco": "0",
+      "profileQuestions": [
+        "2",
+        "4",
+        "4",
+        "2",
+        "5",
+        "2"
+      ],
+      "table": 1,
+      "dateCode1": 14770,
+      "dateCode2": 14770,
+      "dateCode3": 14770
+    },
+    "questions1": [
+      "3",
+      "5"
+    ],
+    "questions2": [
+      "4",
+      "5"
+    ],
+    "questions3": [
+      "2",
+      "3"
+    ],
+    "sharedUsers": [
+      "14770"
+    ]
+   },
+  "42053":  {    
+    "profile": {
+      "code": "42053",
+      "name": "Charlotte",
+      "age": "25",
+      "phoneNr": "0830328",
+      "gender": "Kvinna",
+      "tobacco": "1",
+      "profileQuestions": [
+        "2",
+        "2",
+        "3",
+        "4",
+        "6",
+        "2"
+      ],
+      "table": 1,
+      "dateCode1": 14770,
+      "dateCode2": 14770,
+      "dateCode3": 14770
+    },
+    "questions1": [
+      "7",
+      "7"
+    ],
+    "questions2": [
+      "3",
+      "4"
+    ],
+    "questions3": [
+      "2",
+      "3"
+    ],
+    "sharedUsers": [
+      "14770"
+    ]
+   },
+  "43061":  {    
+    "profile": {
+      "code": "43061",
+      "name": "Albert",
+      "age": "64",
+      "phoneNr": "0830328",
+      "gender": "Man",
+      "tobacco": "1",
+      "profileQuestions": [
+        "4",
+        "6",
+        "2",
+        "5",
+        "1",
+        "1"
+      ],
+      "table": 1,
+      "dateCode1": 14770,
+      "dateCode2": 14770,
+      "dateCode3": 14770
+    },
+    "questions1": [
+      "5",
+      "4"
+    ],
+    "questions2": [
+      "4",
+      "4"
+    ],
+    "questions3": [
+      "4",
+      "3"
+    ],
+    "sharedUsers": [
+      "14770"
+    ]
+   },
+  "43364":  {    
+    "profile": {
+      "code": "43364",
+      "name": "Lina",
+      "age": "70",
+      "phoneNr": "0830328",
+      "gender": "Kvinna",
+      "tobacco": "0",
+      "profileQuestions": [
+        "7",
+        "4",
+        "2",
+        "5",
+        "2",
+        "4"
+      ],
+      "table": 1,
+      "dateCode1": 14770,
+      "dateCode2": 14770,
+      "dateCode3": 14770
+    },
+    "questions1": [
+      "3",
+      "4"
+    ],
+    "questions2": [
+      "6",
+      "3"
+    ],
+    "questions3": [
+      "2",
+      "4"
+    ],
+    "sharedUsers": [
+      "14770"
+    ]
+   },
+  "44010":  {    
+    "profile": {
+      "code": "44010",
+      "name": "Ingmar",
+      "age": "56",
+      "phoneNr": "0830328",
+      "gender": "Man",
+      "tobacco": "0",
+      "profileQuestions": [
+        "7",
+        "3",
+        "3",
+        "1",
+        "6",
+        "4"
+      ],
+      "table": 1,
+      "dateCode1": 14770,
+      "dateCode2": 14770,
+      "dateCode3": 14770
+    },
+    "questions1": [
+      "5",
+      "2"
+    ],
+    "questions2": [
+      "3",
+      "4"
+    ],
+    "questions3": [
+      "6",
+      "6"
+    ],
+    "sharedUsers": [
+      "14770"
+    ]
+   },
+  "74667":  {    
+    "profile": {
+      "code": "74667",
+      "name": "Oliver",
+      "age": "43",
+      "phoneNr": "0830328",
+      "gender": "Man",
+      "tobacco": "0",
+      "profileQuestions": [
+        "1",
+        "1",
+        "5",
+        "3",
+        "4",
+        "6"
+      ],
+      "table": 1,
+      "dateCode1": 14770,
+      "dateCode2": 14770,
+      "dateCode3": 14770
+    },
+    "questions1": [
+      "2",
+      "4"
+    ],
+    "questions2": [
+      "5",
+      "4"
+    ],
+    "questions3": [
+      "7",
+      "5"
+    ],
+    "sharedUsers": [
+      "14770"
+    ]
+   },
+  "87089":  {    
+    "profile": {
+      "code": "87089",
+      "name": "Emanuel",
+      "age": "30",
+      "phoneNr": "0830328",
+      "gender": "Man",
+      "tobacco": "0",
+      "profileQuestions": [
+        "2",
+        "4",
+        "5",
+        "6",
+        "4",
+        "2"
+      ],
+      "table": 1,
+      "dateCode1": 14770,
+      "dateCode2": 14770,
+      "dateCode3": 14770
+    },
+    "questions1": [
+      "7",
+      "4"
+    ],
+    "questions2": [
+      "4",
+      "1"
+    ],
+    "questions3": [
+      "3",
+      "6"
+    ],
+    "sharedUsers": [
+      "14770"
+    ]
+   },
+  "87851":  {    
+    "profile": {
+      "code": "87851",
+      "name": "Margareta",
+      "age": "22",
+      "phoneNr": "0830328",
+      "gender": "Kvinna",
+      "tobacco": "0",
+      "profileQuestions": [
+        "2",
+        "2",
+        "4",
+        "7",
+        "1",
+        "4"
+      ],
+      "table": 1,
+      "dateCode1": 14770,
+      "dateCode2": 14770,
+      "dateCode3": 14770
+    },
+    "questions1": [
+      "1",
+      "1"
+    ],
+    "questions2": [
+      "2",
+      "4"
+    ],
+    "questions3": [
+      "6",
+      "4"
+    ],
+    "sharedUsers": [
+      "14770"
+    ]
+   },
+  "88279":  {    
+    "profile": {
+      "code": "88279",
+      "name": "Gunda",
+      "age": "28",
+      "phoneNr": "0830328",
+      "gender": "Kvinna",
+      "tobacco": "0",
+      "profileQuestions": [
+        "1",
+        "3",
+        "4",
+        "4",
+        "2",
+        "7"
+      ],
+      "table": 1,
+      "dateCode1": 14770,
+      "dateCode2": 14770,
+      "dateCode3": 14770
+    },
+    "questions1": [
+      "4",
+      "4"
+    ],
+    "questions2": [
+      "2",
+      "2"
+    ],
+    "questions3": [
+      "6",
+      "4"
+    ],
+    "sharedUsers": [
+      "14770"
+    ]
+   },
+  "92676":  {    
+    "profile": {
+      "code": "92676",
+      "name": "Ragnhild",
+      "age": "38",
+      "phoneNr": "0830328",
+      "gender": "Kvinna",
+      "tobacco": "0",
+      "profileQuestions": [
+        "3",
+        "3",
+        "1",
+        "1",
+        "7",
+        "4"
+      ],
+      "table": 1,
+      "dateCode1": 14770,
+      "dateCode2": 14770,
+      "dateCode3": 14770
+    },
+    "questions1": [
+      "2",
+      "4"
+    ],
+    "questions2": [
+      "6",
+      "3"
+    ],
+    "questions3": [
+      "2",
+      "2"
+    ],
+    "sharedUsers": [
+      "14770"
+    ]
+   },
+  "93430":  {    
+    "profile": {
+      "code": "93430",
+      "name": "Hanne",
+      "age": "41",
+      "phoneNr": "0830328",
+      "gender": "Man",
+      "tobacco": "0",
+      "profileQuestions": [
+        "1",
+        "4",
+        "1",
+        "6",
+        "4",
+        "6"
+      ],
+      "table": 1,
+      "dateCode1": 14770,
+      "dateCode2": 14770,
+      "dateCode3": 14770
+    },
+    "questions1": [
+      "4",
+      "2"
+    ],
+    "questions2": [
+      "4",
+      "3"
+    ],
+    "questions3": [
+      "2",
+      "4"
+    ],
+    "sharedUsers": [
+      "14770"
+    ]
+   },
+  "94230":  {    
+    "profile": {
+      "code": "94230",
+      "name": "Philip",
+      "age": "21",
+      "phoneNr": "0830328",
+      "gender": "Man",
+      "tobacco": "1",
+      "profileQuestions": [
+        "7",
+        "6",
+        "7",
+        "4",
+        "4",
+        "2"
+      ],
+      "table": 1,
+      "dateCode1": 14770,
+      "dateCode2": 14770,
+      "dateCode3": 14770
+    },
+    "questions1": [
+      "3",
+      "3"
+    ],
+    "questions2": [
+      "4",
+      "4"
+    ],
+    "questions3": [
+      "6",
+      "7"
+    ],
+    "sharedUsers": [
+      "14770"
+    ]
+   },
+  "roundNumber": 1
+}
