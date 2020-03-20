@@ -1,12 +1,14 @@
 'use strict';
 const socket = io();
 
-
-function ProfileComplete(profileCode, profile) {
-    this.profileCode = profileCode;
-    this.profile = profile;
+//Så att man kan skriva .remove() på en nodelist med object
+NodeList.prototype.remove = HTMLCollection.prototype.remove = function() {
+    for(var i = this.length - 1; i >= 0; i--) {
+        if(this[i] && this[i].parentElement) {
+            this[i].parentElement.removeChild(this[i]);
+        }
+    }
 }
-
 
 socket.on('newUserCreated', function(userData) {
     
@@ -31,11 +33,6 @@ if (!roundNumber) {
     roundNumber = 1;
 }
 
-// ändra så att den går tillbaka till rätt adminsida
-function goBack() {
-    window.location.href = 'http://localhost:3000/admin/start#admin';
-}
-
 async function initEventView() {
     let eventname  = window.location.hash.substring(1);
     let eventPopulation;
@@ -50,7 +47,7 @@ async function initEventView() {
     socket.emit('getUsers');
     socket.on('profileDataResponse', function(users) {
 	if (view.children.length < 2) {
-	    initTables(Object.keys(users).length / 2);
+	    initTables(10);
 	    initUsers(users);
 	}
     });
@@ -58,7 +55,7 @@ async function initEventView() {
     if (roundNumber > 3) {
 	showFinishedEventPopup();
 	await new Promise(r => setTimeout(r, 3000));  // Works as sleep(3000 ms)
-	exitEvent();
+	finishEvent();
     }
 }
 
@@ -72,7 +69,9 @@ function initTables(amountOfTables) {
 function initUsers(users) {
     let view = document.getElementById('sidebar');
     for (let user in users) {
-	   createUserContainer(view, user, users[user]);
+	if (!Number.isInteger(users[user])){
+	    createUserContainer(view, user, users[user]);
+	} 
     }
     
 }
@@ -142,8 +141,14 @@ function createUserContainer(view, userKey, userObj) {
     nameAgeContainer.setAttribute("hidden", "");
     codeContainer.appendChild(userCode);
     if (userObj != "") {
-        var nameAge = document.createTextNode(userObj.profile.name + ", " + userObj.profile.age);
-	nameAgeContainer.appendChild(nameAge);
+	if (userObj.profile.gender == "Man") {
+	    var nameAge = document.createTextNode(userObj.profile.name + ", M, " + userObj.profile.age);
+	} else if (userObj.profile.gender == "Kvinna"){
+	    var nameAge = document.createTextNode(userObj.profile.name + ", K, " + userObj.profile.age);
+	} else {
+	    console.log("neither male or female");
+	}
+        nameAgeContainer.appendChild(nameAge);
 	codeContainer.setAttribute("hidden", "");
 	nameAgeContainer.removeAttribute("hidden");
     }
@@ -161,19 +166,49 @@ let selectedDiv = null;
 function onSingleClick(div) {
     if (div.getAttribute('hasProfile') == "true") {
 	if (selectedDiv && selectedDiv.getAttribute('hasProfile') == "true") {
-	    swapUsers(div);
+	    let gender1 = getGenderFromProfile(div);
+	    let gender2 = getGenderFromProfile(selectedDiv);
+	    if (gender1 && gender1 == gender2) {
+		swapUsers(div);
+	    } else if (!gender1 || !gender2) {
+		swapUsers(div);
+	    }
 	} else {
 	    selectedDiv = div;
 	    selectedDiv.children[0].style.backgroundColor = '#d6d6d6';
 	    selectedDiv.children[0].style.border = 'solid thin black';
-	    
 	}
     } else if (selectedDiv == null){
 	return;
     } else {
-	selectedDiv.children[0].style.backgroundColor = '';
-	selectedDiv.children[0].style.border = '';
-	moveUser(div);
+	let parent = div.parentElement;
+	if (parent.getAttribute("class") == "table") {
+	    if (parent.children[1].getAttribute('hasprofile') == "true") {
+		let gender = getGenderFromProfile(selectedDiv);
+		let otherGender = getGenderFromProfile(parent.children[1]);
+		if (gender && otherGender && gender != otherGender) {
+		    selectedDiv.children[0].style.backgroundColor = '';
+		    selectedDiv.children[0].style.border = '';
+		    moveUser(div);
+		}
+	    } else if (parent.children[2].getAttribute('hasprofile') == "true") {
+		let gender = getGenderFromProfile(selectedDiv);
+		let otherGender = getGenderFromProfile(parent.children[1]);
+		if (gender && otherGender && gender != otherGender) {
+		    selectedDiv.children[0].style.backgroundColor = '';
+		    selectedDiv.children[0].style.border = '';
+		    moveUser(div);
+		}
+	    } else {
+		selectedDiv.children[0].style.backgroundColor = '';
+		selectedDiv.children[0].style.border = '';
+		moveUser(div);
+	    }
+	} else {
+	    selectedDiv.children[0].style.backgroundColor = '';
+	    selectedDiv.children[0].style.border = '';
+	    moveUser(div);
+	}
     }
 }
 
@@ -219,33 +254,99 @@ function sortUserList() {
 
 function onDoubleClick(div) {
     if (div.getAttribute('hasProfile') == "true") {
-	showProfile(div);
-	selectedDiv = null;
+	console.log(div.children[0].children[1]);
+	console.log(div.children[0].children[1].getAttribute("hidden"));
+	if (div.children[0].children[2].getAttribute("hidden") == null) {
+	    showProfile(div);
+	    selectedDiv = null;
+	}
     }
 }
 
 function showProfile(div) {
-    cleanPopupProfile();
     let profilePopup = document.getElementById('profilePopup');
     let popupBody = profilePopup.children[0];
     let overlay = document.getElementsByClassName('overlay')[0];
+    
     overlay.style.display = 'block';
     profilePopup.style.display = 'block';
-
-    //Här måste vi hämta profilinfon från servern och displaya den
-    let paragraph1 = document.createElement('p');
-    let paragraph2 = document.createElement('p');
-    let profileImgClone = div.children[0].children[0].cloneNode(true);
-    let profileNameAgeClone = div.children[0].children[1].cloneNode(true);
-    let tempInfo1 = document.createTextNode('Info om rökning');
-    let tempInfo2 = document.createTextNode('Info om barn');
     
+    socket.emit('getUsers');
+    socket.on('profileDataResponse', function(data) {
+	if (profilePopup.style.display == 'block') {
+	    if (div.getAttribute("hasprofile") == "true") {
+		writeInfoInPopup(popupBody, data, div);
+	    }
+	}
+    });
+}
+
+//skriver ut all info från databasen in i profilpopupen
+function writeInfoInPopup(popupBody , data, div) {
+    cleanPopupProfile();
+    let code = parseInt(div.children[0].children[1].textContent, 10);
+    let user = data[code];
+    let profileImgClone = div.children[0].children[0].cloneNode(true);
+    let name = user["profile"]["name"];
+    let age = user["profile"]["age"];
+    let gender = user["profile"]["gender"];
+    let tobacco = parseInt(user["profile"]["tobacco"], 10);
+    let questions = user["profile"]["profileQuestions"];
+    
+    let nameAgeGenderSmokerParagraph = document.createElement('p');
+    nameAgeGenderSmokerParagraph.setAttribute("class", "popupMainParagraph");
+    if (tobacco == 1) {
+	nameAgeGenderSmokerParagraph.appendChild(document.createTextNode(name + " " + age + "år " + gender + " Röker"));
+    }
+    else {
+	nameAgeGenderSmokerParagraph.appendChild(document.createTextNode(name + " " + age + "år " + gender + " Röker ej"));
+    }
     popupBody.appendChild(profileImgClone);
-    popupBody.appendChild(profileNameAgeClone);
-    paragraph1.appendChild(tempInfo1);
-    popupBody.appendChild(paragraph1);
-    paragraph2.appendChild(tempInfo2)
-    popupBody.appendChild(paragraph2);
+    popupBody.appendChild(nameAgeGenderSmokerParagraph);
+
+    let profileQuestionsP = document.createElement('p');
+    profileQuestionsP.setAttribute("class", "questionHeader");
+    profileQuestionsP.appendChild(document.createTextNode("Profilfrågor: 1 = Stämmer inte, 7 = Stämmer"));
+    popupBody.appendChild(profileQuestionsP);
+    let questionsArray = ["Bjuder ofta in till samtal: ", "Att vara organiserad är viktigare än att vara anpassningsbar: ", "Har svårt att presentera sig för andra människor: ", "Har svårt att presentera sig för andra människor: ", "Anser sig själv vara mer praktisk än kreativ: ", "Resplaner är vanligtvis väl genomtänkta: ", "Humör kan ändras mycket snabbt: "]
+    for (let question in questions) {
+	let questionParagraph = document.createElement('p');
+	questionParagraph.setAttribute("class", "popupParagraph");
+	questionParagraph.appendChild(document.createTextNode(questionsArray[question] + questions[question]));
+	popupBody.appendChild(questionParagraph);
+    }
+    socket.emit('getDateNamesFromDateCodes', code);
+    socket.on('dateNamesResponse', function (response) {
+	cleanQuestionsAndParagraphs();
+	let dateNames = response;
+	for (let i = 1; i < roundNumber; i++) {
+	    let roundNumberP = document.createElement('p');
+	    roundNumberP.setAttribute("class", "questionHeader");
+	    roundNumberP.appendChild(document.createTextNode("Svar efter dejt " + i + " med " + dateNames[i-1]));
+	    popupBody.appendChild(roundNumberP);
+	    writeRoundQuestionsPopup(i, user, popupBody);
+	};
+    });
+    
+}
+
+//rensar questionHeader och popupParagraphAnswers
+function cleanQuestionsAndParagraphs() {
+    let questions = document.getElementsByClassName("questionHeader").remove();
+    let answers = document.getElementsByClassName("popupParagraphAnswers").remove();
+    
+}
+
+//skriver ut en rundas frågor i profil popupen
+function writeRoundQuestionsPopup(round, user, popupBody) {
+    let roundQuestionsArray = ["Nöjdhet med dejten: ", "Var dejten en bra matchning: "];
+    let roundQuestions = user["questions" + round];
+    for (let question in roundQuestions) {
+	let questionParagraph = document.createElement('p');
+	questionParagraph.setAttribute("class", "popupParagraphAnswers");
+	questionParagraph.appendChild(document.createTextNode(roundQuestionsArray[question] + roundQuestions[question]));
+	popupBody.appendChild(questionParagraph);
+    }
 }
 
 function cleanPopupProfile() {
@@ -275,6 +376,7 @@ function sendTableInfoPopup() {
     if (getFirstNonFullTable(tables) != null) {
 	return popupDenied();
     }
+    socket.emit("setRoundNumber", roundNumber);
     let popup = document.getElementById('sendingInfoPopup');
     let popupInfo = document.getElementById('sendingInfoInfo');
     let overlay = document.getElementsByClassName('overlay')[0];
@@ -291,36 +393,19 @@ function sendTableInfoPopup() {
 
 //funktion som skickar infon om vilket bord och date som deltagarna har till databasen innan rundan startar
 function sendTableAndName() {
-    socket.emit('getUsers');
-    socket.on('profileDataResponse', function(data) {
+    let profilePopup = document.getElementById('profilePopup');
+    if (profilePopup.style.display != 'block') {   
 	let tables = document.getElementsByClassName('table');
-	let users = data;
 	let index = 1;
 	for (let table of tables) {
 	    let right = table.children[1];
 	    let left = table.children[2];
-	    let codeRight = parseInt(right.children[0].children[1].textContent);
-	    let codeLeft = left.children[0].children[1].textContent;
-	    let nameRight = right.children[0].children[2].textContent.split(",")[0];
-	    let nameLeft = left.children[0].children[2].textContent.split(",")[0];
-
-	    let userRight = users[codeRight];
-	    let userLeft = users[codeLeft];
-	    sendInfoToDatabase(codeRight, userRight, nameLeft, index);
-	    sendInfoToDatabase(codeLeft, userLeft, nameRight, index);
+	    let codeRight = parseInt(right.children[0].children[1].textContent, 10);
+	    let codeLeft = parseInt(left.children[0].children[1].textContent, 10);
+	    socket.emit('addDateAndTable', codeRight, codeLeft, index);
 	    ++index;
 	}
 	socket.emit('pingUserRoundInfo');
-    });   
-}
-
-function sendInfoToDatabase(code, user, dateName, table) {
-    if (user.profile) {
-	let profile = user.profile;
-	profile.dateName = dateName;
-	profile.table = table;
-	let profileComplete = new ProfileComplete(code, profile);
-	socket.emit('addProfile', profileComplete);
     }
 }
 
@@ -345,7 +430,7 @@ function startRound() {
     startRoundInfo.prepend(header);
 
     let timer = document.getElementById('timer');
-    displayTimer(10, timer, function() {skipRound()}); // first argument is the duration of the timer (60 * 5 = 60 seconds * 5 = 5 minutes)
+    displayTimer(300, timer, function() {skipRound()}); // first argument is the duration of the timer (60 * 5 = 60 seconds * 5 = 5 minutes)
 }
 
 // displays a timer which will execute yourFunction when the timer reaches 0.
@@ -399,6 +484,7 @@ function hideExitEventPopup() {
 
 //Go to the next round
 function skipRound() {
+    socket.emit('pingUserRoundEnd');
     let startRoundPopup = document.getElementById('ongoingRoundPopup');
     let startRoundInfo = document.getElementById('ongoingRoundInfo');
     let overlay = document.getElementsByClassName('overlay')[0];
@@ -410,7 +496,7 @@ function skipRound() {
 
     let timer = document.getElementById('timer');
     timer.innerHTML = '00:00';
-    
+
     location.reload();
 }
 
@@ -422,6 +508,10 @@ function exitEvent() {
     window.location.href = "http://localhost:3000/admin/start#admin";
 }
 
+function finishEvent() {
+    resetRoundNumber();
+    window.location.href = "http://localhost:3000/admin/finished" + '#' + window.location.hash.substring(1);
+}
 function removeUserData(eventname) {
     socket.emit('removeUserData', eventname);
 }
@@ -468,14 +558,35 @@ function getFirstNonFullTable(tables) {
 function matchOnTable(table, tableDiv) {
     let sidebarDivs = document.getElementById('sidebar').children;
     let tableAge = getAgeFromProfile(tableDiv);
-    for (let sidebarDiv of sidebarDivs) {
-	if (sidebarDiv.getAttribute('hasProfile') == 'true') {
-	    let sidebarAge = getAgeFromProfile(sidebarDiv);
-	    if (bestMatch == null) {
-		bestMatch = sidebarDiv;
+    let gender = getGenderFromProfile(tableDiv);
+    if (gender) {
+	for (let sidebarDiv of sidebarDivs) {
+	    if (sidebarDiv.getAttribute('hasProfile') == 'true') {
+		let sidebarGender = getGenderFromProfile(sidebarDiv);
+		if (sidebarGender && sidebarGender != gender) {
+		    let sidebarAge = getAgeFromProfile(sidebarDiv);
+		    if (bestMatch == null) {
+			bestMatch = sidebarDiv;
+		    }
+		    else if (Math.abs(getAgeFromProfile(bestMatch) - tableAge) > Math.abs(sidebarAge - tableAge)) {
+			bestMatch = sidebarDiv;
+		    }
+		}
 	    }
-	    else if (Math.abs(getAgeFromProfile(bestMatch) - tableAge) > Math.abs(sidebarAge - tableAge)) {
-		bestMatch = sidebarDiv;
+	}
+    } else {
+	for (let sidebarDiv of sidebarDivs) {
+	    if (sidebarDiv.getAttribute('hasProfile') == 'true') {
+		let sidebarGender = getGenderFromProfile(sidebarDiv);
+		if (!sidebarGender) {
+		    let sidebarAge = getAgeFromProfile(sidebarDiv);
+		    if (bestMatch == null) {
+			bestMatch = sidebarDiv;
+		    }
+		    else if (Math.abs(getAgeFromProfile(bestMatch) - tableAge) > Math.abs(sidebarAge - tableAge)) {
+			bestMatch = sidebarDiv;
+		    }
+		}
 	    }
 	}
     }
@@ -496,14 +607,35 @@ function matchInSidebar(table) {
     let sidebarDivs = document.getElementById('sidebar').children;
     let index = getFirstSidebarProfile();
     let indexAge = getAgeFromProfile(sidebarDivs[index]);
-    for (let i = parseInt(index, 10)+1; i < sidebarDivs.length; ++i) {
-	if (sidebarDivs[i].getAttribute('hasProfile') == 'true') {
-	    let sidebarAge = getAgeFromProfile(sidebarDivs[i]);
-	    if (bestMatch == null) {
-		bestMatch = sidebarDivs[i];
+    let indexGender = getGenderFromProfile(sidebarDivs[index]);
+    if (indexGender) {
+	for (let i = parseInt(index, 10)+1; i < sidebarDivs.length; ++i) {
+	    if (sidebarDivs[i].getAttribute('hasProfile') == 'true') {
+		let sidebarGender = getGenderFromProfile(sidebarDivs[i]);
+		if (sidebarGender && sidebarGender != indexGender) {
+		    let sidebarAge = getAgeFromProfile(sidebarDivs[i]);
+		    if (bestMatch == null) {
+			bestMatch = sidebarDivs[i];
+		    }
+		    else if (Math.abs(getAgeFromProfile(bestMatch) - indexAge) > Math.abs(sidebarAge - indexAge)) {
+			bestMatch = sidebarDivs[i];
+		    }
+		}
 	    }
-	    else if (Math.abs(getAgeFromProfile(bestMatch) - indexAge) > Math.abs(sidebarAge - indexAge)) {
-		bestMatch = sidebarDivs[i];
+	}
+    } else {
+	for (let i = parseInt(index, 10)+1; i < sidebarDivs.length; ++i) {
+	    if (sidebarDivs[i].getAttribute('hasProfile') == 'true') {
+		let sidebarGender = getGenderFromProfile(sidebarDivs[i]);
+		if (!sidebarGender) {
+		    let sidebarAge = getAgeFromProfile(sidebarDivs[i]);
+		    if (bestMatch == null) {
+			bestMatch = sidebarDivs[i];
+		    }
+		    else if (Math.abs(getAgeFromProfile(bestMatch) - indexAge) > Math.abs(sidebarAge - indexAge)) {
+			bestMatch = sidebarDivs[i];
+		    }
+		}
 	    }
 	}
     }
@@ -522,6 +654,16 @@ function getFirstSidebarProfile() {
 	if (sidebarDivs[index].getAttribute('hasProfile') == 'true') {
 	    return index;
 	}
+    }
+}
+
+function getGenderFromProfile(div) {
+    let info = div.children[0].children[2].textContent
+    if (info) {
+	let gender = info.split(", ")[1];
+	return gender;
+    } else {
+	return null;
     }
 }
 

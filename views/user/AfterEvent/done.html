@@ -1,25 +1,35 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
-<head>
+  <head>
     <meta charset="utf-8">
     <title>QuestionsPage</title>
     <link rel="stylesheet" href="/css/profile.css">
     <link rel="stylesheet" href="/css/globalstyle.css">
-</head>
-<body>
+    <link rel="stylesheet" href="/css/done.css">
+    <script src="/socket.io/socket.io.js" defer></script>
+    <script src="/js/done.js" defer></script>
+    
+  </head>
+  <body>
     <header>
-        <div class="topbar">
-            <img src="/img/aubergine_logo.png" width="260">
-        </div>
+      <div class="topbar">
+        <img src="/img/aubergine_logo.png" width="260">
+      </div>
     </header>
     <main>
-        <div id="profileQuestion">
+      <div id="profileQuestion">
 
-            <p>Nu är eventet över!<br>
-            Tack för din medverkan</p>
+        <p>Nu är eventet över!<p>
+        <p>Tack för din medverkan</p></br>
 
-
-        </div>
+	<div id="subHeader">
+	  <h3>Delade kontakter:</h3>
+	</div>
+	<div id="sharedContacts">
+	  
+	</div>
+	
+      </div>
     </main>
-</body>
+  </body>
 </html>

@@ -1,38 +1,57 @@
-
-
-#profileQuestion{
-  text-align: center;
-  font-size: 76px;
+#profileQuestion {
+    text-align: center;
+    font-size: 76px;
 }
 
-.textklass{
-  display: inline-block;
-  margin-top: 40px;
+.textklass {
+    display: inline-block;
+    margin-top: 40px;
 }
 
-
-input[type="radio"]{
+input[type="radio"] {
     width: 40px;
-    height:   40px;
+    height: 40px;
 }
 
-#profilePic{
-  margin-top: 20px;
+#profilePic {
+    font-size: 35px;
+    text-align: center;
 }
 
-#Namn{
-  text-align: center;
-  font-size: 76px;
-  width: 80%;
+#output {
+    width: 600px;
+    height: auto;
+    margin-top: 100px;
 }
 
-#Ålder{
-  text-align: center;
-  font-size: 76px;
-  width: 80%;
+#labelPicture {
+    font-size: 40px;
+    text-decoration: none;
+    background-color: purple;
+    color: white;
+    padding: 20px 40px 20px 40px;
+    border-top: 1px solid #CCCCCC;
+    border-right: 1px solid #333333;
+    border-bottom: 1px solid #333333;
+    border-left: 1px solid #CCCCCC;
+    border-radius: 20px;
+    cursor: pointer;
 }
 
-#doneButton{
+#Namn {
+    text-align: center;
+    font-size: 76px;
+    width: 80%;
+}
+
+#Ålder,
+#PhoneNr {
+    text-align: center;
+    font-size: 76px;
+    width: 80%;
+}
+
+#doneButton {
     position: relative;
     background-color: purple;
     border: none;

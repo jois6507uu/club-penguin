@@ -20,7 +20,6 @@ function getEvents() {
     });
 }
 
-
 function logout() {
     window.location.href = "http://localhost:3000/";
 }
@@ -83,6 +82,9 @@ function goToEvent(eventName, eventPopulation) {
     let userArray = [];
     for (let i = 0; i < 20; i++) {
 	let rand = Math.floor((Math.random() * 90000) + 9999);
+	while (userArray.includes(rand)) {
+	    rand = Math.floor((Math.random() * 90000) + 9999);
+	};
 	let user = new User(rand);
 	userArray[i] = rand;
 	socket.emit('addUser', user); //skriver koden i users.json

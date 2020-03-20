@@ -1,39 +1,50 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <title>ProfilePage</title>
-  <link rel="stylesheet" href="/css/profile.css">
-  <link rel="stylesheet" href="/css/globalstyle.css">
-  <script src="https://vuejs.org/js/vue.js" defer></script>
-  <script src="/js/profile.js" defer></script>
+    <meta charset="utf-8">
+    <title>ProfilePage</title>
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/globalstyle.css">
+    <script src="https://vuejs.org/js/vue.js" defer></script>
+    <script src="/js/profile.js" defer></script>
 </head>
 
 <body>
-  <header>
-    <div class="topbar">
-      <img src="/img/aubergine_logo.png" width="260">
-    </div>
-  </header>
-  <main id="profileID">
-    <div id="profileQuestion">
-      <!-- <label class="textklass" for="image"></label> -->
-      <label id="uploadPic">
-        <img id="profilePic" src="/img/awaiting.jpg"><br>
-        <input type="file" id="img" name="img" accept="image/*" style="display: none;">
-      </label>
-      <label class="textklass" for="Namn">Ditt namn:</label><br>
-      <input type="text" v-model="name" id="Namn" name="Namn" required="required" placeholder="Namn"><br>
-      <label class="textklass" for="Ålder">Din ålder:</label><br>
-      <input type="number" v-model="age" id="Ålder" name="Ålder" required="required" placeholder="Ålder"><br>
-      <label class="textklass" for="gender" id="genderButtons">Ditt kön:</label><br>
-      <input type="radio" v-model="gender" id="radio" name="gender" value="Man" checked="checked">Man<br>
-      <input type="radio" v-model="gender" id="radio" name="gender" value="Kvinna"> Kvinna<br>
-      <input type="button" v-on:click="profileDone()" id="doneButton" value="Nästa">
-    </div>
-    
-  </main>
+    <header>
+        <div class="topbar">
+            <img src="/img/aubergine_logo.png" width="260">
+        </div>
+    </header>
+    <main id="profileID">
+        <div id="profileQuestion">
+            <!-- <label class="textklass" for="image"></label> -->
+            <label id="uploadPic">
+             <!--<img id="profilePic" src="/img/awaiting.jpg"><br>-->
+             <img id="output" />	<br>
+             <input type="file"  accept="image/*" name="image" id="file" @change="loadFile" style="display:none;">
+             <label for="file" id="labelPicture">
+              Ladda upp bild
+          </label><br>
+
+            </label>
+            <label class="textklass" for="Namn">Ditt namn:</label><br>
+            <input type="text" v-model="name" id="Namn" name="Namn" required="required" placeholder="Namn"><br>
+
+            <label class="textklass" for="Ålder">Din ålder:</label><br>
+            <input type="number" v-model="age" id="Ålder" name="Ålder" required="required" placeholder="Ålder"><br>
+
+            <label class="textklass" for="PhoneNr">Ditt telefonnummer:</label><br>
+            <input type="text" v-model="PhoneNr" id="PhoneNr" name="PhoneNr" required="required" placeholder="Telefonnummer"><br>
+
+            <label class="textklass" for="gender" id="genderButtons">Ditt kön:</label><br>
+            <input type="radio" v-model="gender" id="radio" name="gender" value="Man" checked="checked">Man<br>
+            <input type="radio" v-model="gender" id="radio" name="gender" value="Kvinna"> Kvinna<br>
+
+            <input type="button" v-on:click="profileDone()" id="doneButton" value="Nästa">
+        </div>
+
+    </main>
 </body>
 
 </html>
