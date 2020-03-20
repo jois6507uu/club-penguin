@@ -126,8 +126,14 @@ function createUserContainer(view, userKey, userObj) {
     nameAgeContainer.setAttribute("hidden", "");
     codeContainer.appendChild(userCode);
     if (userObj != "") {
-        var nameAge = document.createTextNode(userObj.profile.name + ", " + userObj.profile.age);
-	nameAgeContainer.appendChild(nameAge);
+	if (userObj.profile.gender == "Man") {
+	    var nameAge = document.createTextNode(userObj.profile.name + ", M, " + userObj.profile.age);
+	} else if (userObj.profile.gender == "Kvinna"){
+	    var nameAge = document.createTextNode(userObj.profile.name + ", K, " + userObj.profile.age);
+	} else {
+	    console.log("neither male or female");
+	}
+        nameAgeContainer.appendChild(nameAge);
 	codeContainer.setAttribute("hidden", "");
 	nameAgeContainer.removeAttribute("hidden");
     }
@@ -145,19 +151,49 @@ let selectedDiv = null;
 function onSingleClick(div) {
     if (div.getAttribute('hasProfile') == "true") {
 	if (selectedDiv && selectedDiv.getAttribute('hasProfile') == "true") {
-	    swapUsers(div);
+	    let gender1 = getGenderFromProfile(div);
+	    let gender2 = getGenderFromProfile(selectedDiv);
+	    if (gender1 && gender1 == gender2) {
+		swapUsers(div);
+	    } else if (!gender1 || !gender2) {
+		swapUsers(div);
+	    }
 	} else {
 	    selectedDiv = div;
 	    selectedDiv.children[0].style.backgroundColor = '#d6d6d6';
 	    selectedDiv.children[0].style.border = 'solid thin black';
-	    
 	}
     } else if (selectedDiv == null){
 	return;
     } else {
-	selectedDiv.children[0].style.backgroundColor = '';
-	selectedDiv.children[0].style.border = '';
-	moveUser(div);
+	let parent = div.parentElement;
+	if (parent.getAttribute("class") == "table") {
+	    if (parent.children[1].getAttribute('hasprofile') == "true") {
+		let gender = getGenderFromProfile(selectedDiv);
+		let otherGender = getGenderFromProfile(parent.children[1]);
+		if (gender && otherGender && gender != otherGender) {
+		    selectedDiv.children[0].style.backgroundColor = '';
+		    selectedDiv.children[0].style.border = '';
+		    moveUser(div);
+		}
+	    } else if (parent.children[2].getAttribute('hasprofile') == "true") {
+		let gender = getGenderFromProfile(selectedDiv);
+		let otherGender = getGenderFromProfile(parent.children[1]);
+		if (gender && otherGender && gender != otherGender) {
+		    selectedDiv.children[0].style.backgroundColor = '';
+		    selectedDiv.children[0].style.border = '';
+		    moveUser(div);
+		}
+	    } else {
+		selectedDiv.children[0].style.backgroundColor = '';
+		selectedDiv.children[0].style.border = '';
+		moveUser(div);
+	    }
+	} else {
+	    selectedDiv.children[0].style.backgroundColor = '';
+	    selectedDiv.children[0].style.border = '';
+	    moveUser(div);
+	}
     }
 }
 
@@ -507,14 +543,35 @@ function getFirstNonFullTable(tables) {
 function matchOnTable(table, tableDiv) {
     let sidebarDivs = document.getElementById('sidebar').children;
     let tableAge = getAgeFromProfile(tableDiv);
-    for (let sidebarDiv of sidebarDivs) {
-	if (sidebarDiv.getAttribute('hasProfile') == 'true') {
-	    let sidebarAge = getAgeFromProfile(sidebarDiv);
-	    if (bestMatch == null) {
-		bestMatch = sidebarDiv;
+    let gender = getGenderFromProfile(tableDiv);
+    if (gender) {
+	for (let sidebarDiv of sidebarDivs) {
+	    if (sidebarDiv.getAttribute('hasProfile') == 'true') {
+		let sidebarGender = getGenderFromProfile(sidebarDiv);
+		if (sidebarGender && sidebarGender != gender) {
+		    let sidebarAge = getAgeFromProfile(sidebarDiv);
+		    if (bestMatch == null) {
+			bestMatch = sidebarDiv;
+		    }
+		    else if (Math.abs(getAgeFromProfile(bestMatch) - tableAge) > Math.abs(sidebarAge - tableAge)) {
+			bestMatch = sidebarDiv;
+		    }
+		}
 	    }
-	    else if (Math.abs(getAgeFromProfile(bestMatch) - tableAge) > Math.abs(sidebarAge - tableAge)) {
-		bestMatch = sidebarDiv;
+	}
+    } else {
+	for (let sidebarDiv of sidebarDivs) {
+	    if (sidebarDiv.getAttribute('hasProfile') == 'true') {
+		let sidebarGender = getGenderFromProfile(sidebarDiv);
+		if (!sidebarGender) {
+		    let sidebarAge = getAgeFromProfile(sidebarDiv);
+		    if (bestMatch == null) {
+			bestMatch = sidebarDiv;
+		    }
+		    else if (Math.abs(getAgeFromProfile(bestMatch) - tableAge) > Math.abs(sidebarAge - tableAge)) {
+			bestMatch = sidebarDiv;
+		    }
+		}
 	    }
 	}
     }
@@ -535,14 +592,35 @@ function matchInSidebar(table) {
     let sidebarDivs = document.getElementById('sidebar').children;
     let index = getFirstSidebarProfile();
     let indexAge = getAgeFromProfile(sidebarDivs[index]);
-    for (let i = parseInt(index, 10)+1; i < sidebarDivs.length; ++i) {
-	if (sidebarDivs[i].getAttribute('hasProfile') == 'true') {
-	    let sidebarAge = getAgeFromProfile(sidebarDivs[i]);
-	    if (bestMatch == null) {
-		bestMatch = sidebarDivs[i];
+    let indexGender = getGenderFromProfile(sidebarDivs[index]);
+    if (indexGender) {
+	for (let i = parseInt(index, 10)+1; i < sidebarDivs.length; ++i) {
+	    if (sidebarDivs[i].getAttribute('hasProfile') == 'true') {
+		let sidebarGender = getGenderFromProfile(sidebarDivs[i]);
+		if (sidebarGender && sidebarGender != indexGender) {
+		    let sidebarAge = getAgeFromProfile(sidebarDivs[i]);
+		    if (bestMatch == null) {
+			bestMatch = sidebarDivs[i];
+		    }
+		    else if (Math.abs(getAgeFromProfile(bestMatch) - indexAge) > Math.abs(sidebarAge - indexAge)) {
+			bestMatch = sidebarDivs[i];
+		    }
+		}
 	    }
-	    else if (Math.abs(getAgeFromProfile(bestMatch) - indexAge) > Math.abs(sidebarAge - indexAge)) {
-		bestMatch = sidebarDivs[i];
+	}
+    } else {
+	for (let i = parseInt(index, 10)+1; i < sidebarDivs.length; ++i) {
+	    if (sidebarDivs[i].getAttribute('hasProfile') == 'true') {
+		let sidebarGender = getGenderFromProfile(sidebarDivs[i]);
+		if (!sidebarGender) {
+		    let sidebarAge = getAgeFromProfile(sidebarDivs[i]);
+		    if (bestMatch == null) {
+			bestMatch = sidebarDivs[i];
+		    }
+		    else if (Math.abs(getAgeFromProfile(bestMatch) - indexAge) > Math.abs(sidebarAge - indexAge)) {
+			bestMatch = sidebarDivs[i];
+		    }
+		}
 	    }
 	}
     }
@@ -561,6 +639,16 @@ function getFirstSidebarProfile() {
 	if (sidebarDivs[index].getAttribute('hasProfile') == 'true') {
 	    return index;
 	}
+    }
+}
+
+function getGenderFromProfile(div) {
+    let info = div.children[0].children[2].textContent
+    if (info) {
+	let gender = info.split(", ")[1];
+	return gender;
+    } else {
+	return null;
     }
 }
 
