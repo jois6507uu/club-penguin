@@ -1,39 +1,25 @@
 {
-  "19570": {
-    "profile": {
-      "code": "19570",
-      "name": "Gerhard",
-      "age": "18",
-      "phoneNr": "0830328",
-      "gender": "Man",
-      "tobacco": "0",
-      "profileQuestions": [
-        "2",
-        "3",
-        "4",
-        "1",
-        "4",
-        "7"
-      ],
-      "table": 1,
-      "dateCode1": 14770,
-      "dateCode2": 14770,
-      "dateCode3": 14770
-    },
-    "questions1": [
-      "1",
-      "2"
-    ],
-    "questions2": [
-      "6",
-      "5"
-    ],
-    "questions3": [
-      "7",
-      "5"
-    ],
+  "14770": {
     "sharedUsers": [
-      "14770"
+      "19746",
+      "25897",
+      "30937",
+      "28126",
+      "28214",
+      "33628",
+      "36670",
+      "39763",
+      "42053",
+      "43061",
+      "43364",
+      "44010",
+      "74667",
+      "87089",
+      "87851",
+      "88279",
+      "92676",
+      "93430",
+      "94230"
     ]
   },
   "19746": {
@@ -41,7 +27,7 @@
       "code": "19746",
       "name": "Esther",
       "age": "79",
-      "phoneNr": "048330",
+      "phoneNr": "07955502",
       "gender": "Kvinna",
       "tobacco": "0",
       "profileQuestions": [
@@ -70,7 +56,7 @@
       "4"
     ],
     "sharedUsers": [
-      "13595"
+      "14770"
     ]
   },
   "25897": {    
@@ -78,7 +64,7 @@
       "code": "25897",
       "name": "Nathalie",
       "age": "32",
-      "phoneNr": "0830328",
+      "phoneNr": "07655551",
       "gender": "Kvinna",
       "tobacco": "1",
       "profileQuestions": [
@@ -115,7 +101,7 @@
       "code": "19313",
       "name": "Natalie",
       "age": "34",
-      "phoneNr": "0830328",
+      "phoneNr": "07855523",
       "gender": "Kvinna",
       "tobacco": "0",
       "profileQuestions": [
@@ -152,7 +138,7 @@
       "code": "28126",
       "name": "Theodor",
       "age": "46",
-      "phoneNr": "0830328",
+      "phoneNr": "07355593",
       "gender": "Man",
       "tobacco": "0",
       "profileQuestions": [
@@ -189,7 +175,7 @@
       "code": "28214",
       "name": "Ture",
       "age": "55",
-      "phoneNr": "0830328",
+      "phoneNr": "07555581",
       "gender": "Man",
       "tobacco": "0",
       "profileQuestions": [
@@ -226,7 +212,7 @@
       "code": "33628",
       "name": "Ina",
       "age": "69",
-      "phoneNr": "0830328",
+      "phoneNr": "07755533",
       "gender": "Kvinna",
       "tobacco": "1",
       "profileQuestions": [
@@ -263,7 +249,7 @@
       "code": "36670",
       "name": "Greger",
       "age": "36",
-      "phoneNr": "0830328",
+      "phoneNr": "07255572",
       "gender": "Man",
       "tobacco": "0",
       "profileQuestions": [
@@ -300,7 +286,7 @@
       "code": "39763",
       "name": "Henrik",
       "age": "23",
-      "phoneNr": "0830328",
+      "phoneNr": "07955517",
       "gender": "Man",
       "tobacco": "0",
       "profileQuestions": [
@@ -337,7 +323,7 @@
       "code": "42053",
       "name": "Charlotte",
       "age": "25",
-      "phoneNr": "0830328",
+      "phoneNr": "07955520",
       "gender": "Kvinna",
       "tobacco": "1",
       "profileQuestions": [
@@ -374,7 +360,7 @@
       "code": "43061",
       "name": "Albert",
       "age": "64",
-      "phoneNr": "0830328",
+      "phoneNr": "07455569",
       "gender": "Man",
       "tobacco": "1",
       "profileQuestions": [
@@ -411,7 +397,7 @@
       "code": "43364",
       "name": "Lina",
       "age": "70",
-      "phoneNr": "0830328",
+      "phoneNr": "07155554",
       "gender": "Kvinna",
       "tobacco": "0",
       "profileQuestions": [
@@ -448,7 +434,7 @@
       "code": "44010",
       "name": "Ingmar",
       "age": "56",
-      "phoneNr": "0830328",
+      "phoneNr": "07155514",
       "gender": "Man",
       "tobacco": "0",
       "profileQuestions": [
@@ -485,7 +471,7 @@
       "code": "74667",
       "name": "Oliver",
       "age": "43",
-      "phoneNr": "0830328",
+      "phoneNr": "07855563",
       "gender": "Man",
       "tobacco": "0",
       "profileQuestions": [
@@ -522,7 +508,7 @@
       "code": "87089",
       "name": "Emanuel",
       "age": "30",
-      "phoneNr": "0830328",
+      "phoneNr": "07555503",
       "gender": "Man",
       "tobacco": "0",
       "profileQuestions": [
@@ -559,7 +545,7 @@
       "code": "87851",
       "name": "Margareta",
       "age": "22",
-      "phoneNr": "0830328",
+      "phoneNr": "07855592",
       "gender": "Kvinna",
       "tobacco": "0",
       "profileQuestions": [
@@ -596,7 +582,7 @@
       "code": "88279",
       "name": "Gunda",
       "age": "28",
-      "phoneNr": "0830328",
+      "phoneNr": "07455555",
       "gender": "Kvinna",
       "tobacco": "0",
       "profileQuestions": [
@@ -633,7 +619,7 @@
       "code": "92676",
       "name": "Ragnhild",
       "age": "38",
-      "phoneNr": "0830328",
+      "phoneNr": "07755564",
       "gender": "Kvinna",
       "tobacco": "0",
       "profileQuestions": [
@@ -670,7 +656,7 @@
       "code": "93430",
       "name": "Hanna",
       "age": "41",
-      "phoneNr": "0830328",
+      "phoneNr": "07655598",
       "gender": "Kvinna",
       "tobacco": "0",
       "profileQuestions": [
@@ -707,7 +693,7 @@
       "code": "94230",
       "name": "Philip",
       "age": "21",
-      "phoneNr": "0830328",
+      "phoneNr": "07355541",
       "gender": "Man",
       "tobacco": "1",
       "profileQuestions": [
