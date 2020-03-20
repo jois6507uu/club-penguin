@@ -286,6 +286,15 @@ function getUserCodes() {
 }
 
 
+function createUserArray(){
+    let users = user.getUsers();
+    var userArray = [];
+    for(var profiles in users){
+        userArray.push(users[profiles].profile);
+    }
+    return(userArray);
+}
+
 
 ////////////////////////////////////////// SOCKET.ON HÄR ////////////////////////////////
 io.on('connection', function (socket) {
@@ -333,7 +342,7 @@ io.on('connection', function (socket) {
     socket.on('getUsers', function () {
         let users = user.getUsers();
         socket.emit('profileDataResponse', users);
-        console.log(users);
+        // console.log(users);
     });
 
     socket.on('removeUserData', function (eventname) {
@@ -363,6 +372,14 @@ io.on('connection', function (socket) {
         socket.emit('returnSecondProfileData', data);
     });
 
+    socket.on('getUserArray', function () {
+        var data = createUserArray();
+        socket.emit('returnUserArray', data);
+    });
+
+
+
+
 });
 
     /* eslint-disable-next-line no-unused-vars */
@@ -370,4 +387,5 @@ io.on('connection', function (socket) {
         console.log('Server listening on port ' + app.get('port'));
 
     });
+
 

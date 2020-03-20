@@ -432,14 +432,13 @@ function algorithm() {
     // console.log(testIndex);
     // ++testIndex;
     let table = getFirstNonFullTable(tables);
-    console.log(table);
     let left = table.children[1];
     let right = table.children[2];
 
     if (left.getAttribute('hasProfile') == 'true') {
         let profileLeftID = left.children[0].children[1].getAttribute('value');
         socket.emit('getProfileData', profileLeftID);
-        socket.once('returnProfileData', function (profileData) {
+        socket.on('returnProfileData', function (profileData) {
             matchProfileOnTable(table, profileData);
         });
 
@@ -447,7 +446,7 @@ function algorithm() {
     } else if (right.getAttribute('hasProfile') == 'true') {
         let profileRightID = right.children[0].children[1].getAttribute('value');
         socket.emit('getProfileData', profileRightID);
-        socket.once('returnProfileData', function (profileData) {
+        socket.on('returnProfileData', function (profileData) {
             matchProfileOnTable(table, profileData);
         });
 
@@ -474,32 +473,58 @@ function getFirstNonFullTable(tables) {
 
 
 function matchProfileOnTable(table, firstProfile) {
-    var sidebarArray = document.getElementById('sidebar').children;
-    console.log(sidebarArray);
-    let index = 0;
-
-    for (let possibleMatch of sidebarArray) {
-        console.log(index);
-        if (possibleMatch.getAttribute('hasProfile') == 'true') {
-            let possibleMatchID = possibleMatch.children[0].children[1].getAttribute('value');
-            console.log(possibleMatchID);
-
-            socket.emit('getSecondProfileData', possibleMatchID);
-            socket.on('returnSecondProfileData', function (secondProfile) {
-                if (firstProfile.gender != secondProfile.gender && Math.abs(parseInt(firstProfile.age, 10) - parseInt(secondProfile.age, 10)) < 10) {
-                    console.log("We have a match!");
-                    index++;
-                    buildTable(table, index);
-                } else {
-                    // console.log("We don't have a match!");
-                    // console.log(firstProfile.gender, firstProfile.code, secondProfile.gender, secondProfile.code);
-                    // console.log("Age difference = ", Math.abs(parseInt(firstProfile.age, 10) - parseInt(secondProfile.age, 10)));
-                    index++;
-                }
-            });
-        }
-        
+    var sidebarDivs = document.getElementById('sidebar').children;
+    console.log(sidebarDivs);
+    
+    var index = 0;
+    var sidebarArray = [];
+    while(index < sidebarDivs.length && index < 20)
+    {
+        if(sidebarDivs[index].getAttribute('hasProfile') == 'true')
+        {
+            sidebarArray.push(sidebarDivs[index].children[0].children[1].getAttribute('value'))
+            console.log("Found one: ", sidebarDivs[index].children[0].children[1].getAttribute('value'));
+            index++;
+        } else {
+            console.log("Guess not! ", index);
+            index++;
+        }    
     }
+
+    console.log(sidebarArray);
+
+    socket.emit('getUserArray');
+    socket.on('returnUserArray', function(userArray){
+        console.log(userArray);
+        for(let i = 0; i < sidebarArray.length; i++){
+
+        }
+    });
+    
+
+
+    // for (let possibleMatch of sidebarArray) {
+    //     console.log(index);
+    //     if (possibleMatch.getAttribute('hasProfile') == 'true') {
+    //         let possibleMatchID = possibleMatch.children[0].children[1].getAttribute('value');
+    //         console.log(possibleMatchID);
+
+    //         socket.emit('getSecondProfileData', possibleMatchID);
+    //         socket.on('returnSecondProfileData', function (secondProfile) {
+    //             if (firstProfile.gender != secondProfile.gender && Math.abs(parseInt(firstProfile.age, 10) - parseInt(secondProfile.age, 10)) < 10) {
+    //                 console.log("We have a match!");
+    //                 index++;
+    //                 // buildTable(table, index);
+    //             } else {
+    //                 // console.log("We don't have a match!");
+    //                 // console.log(firstProfile.gender, firstProfile.code, secondProfile.gender, secondProfile.code);
+    //                 // console.log("Age difference = ", Math.abs(parseInt(firstProfile.age, 10) - parseInt(secondProfile.age, 10)));
+    //                 index++;
+    //             }
+    //         });
+    //     }
+        
+    // }
 }
 
 
