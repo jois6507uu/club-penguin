@@ -25,6 +25,7 @@ const vm = new Vue({
             let dateQuestionsObj = new DateQuestions(this.fraga1, this.fraga2);
             let Questions = new questionsComplete(localStorage.getItem("code"), localStorage.getItem("RoundNumber"), dateQuestionsObj);
             socket.emit('addQuestions', Questions);
+            socket.emit('readyWithQuestions', parseInt(localStorage.getItem("code"), 10));
             window.location.href = 'http://localhost:3000/user/contacts';
 
         }

@@ -105,6 +105,21 @@ function createTableContainer(view, index) {
     view.appendChild(container);
 }
 
+socket.on('profileIsReady', function(profileCode){
+    console.log("Changing bordercolour");
+    let sidebarDivs = document.getElementById('sidebar').children;
+    for(let sidebarDiv of sidebarDivs){
+    let divValue = sidebarDiv.children[0].children[1].textContent;
+        console.log(divValue, profileCode);
+        if(profileCode == divValue){
+            console.log("Jag är snart grön!");
+            sidebarDiv.children[0].style.border = ("solid thick lightgreen");
+            break;
+        } else {console.log("Ingen match här inte!");}
+        
+    }
+});
+
 function createUserContainer(view, userKey, userObj) {
     let backgroundContainer = document.createElement('div');
     backgroundContainer.onclick = function() {onSingleClick(this)};

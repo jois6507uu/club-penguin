@@ -39,6 +39,7 @@ const vm = new Vue({
                 let profile = new Profile(localStorage.getItem("code"), localStorage.getItem("name"), localStorage.getItem("age"), localStorage.getItem("gender"), this.tobacco, profileQuestions);
                 let profileComplete = new ProfileComplete(localStorage.getItem("code"), profile);
                 socket.emit('addProfile', profileComplete);
+                socket.emit('readyWithQuestions', parseInt(localStorage.getItem("code"), 10));
                 window.location.href = 'http://localhost:3000/user/waiting';
             }
         }
